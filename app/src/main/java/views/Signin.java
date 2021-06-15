@@ -23,6 +23,7 @@ public class Signin extends AppWindow {
 
         //
         JLabel descriptionLabel = new JLabel("Description");
+        descriptionLabel.setForeground(Color.WHITE);
         descriptionLabel.setFont(new Font("Arial", Font.ITALIC, 40));
 
         Dimension descripD = Utility.stringDimensions(descriptionLabel.getText(), descriptionLabel.getFont());
@@ -41,6 +42,7 @@ public class Signin extends AppWindow {
 
         //
         JLabel nickLabel = new JLabel("Nick name:");
+        nickLabel.setForeground(Color.WHITE);
         nickLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
         Dimension nicknameD = Utility.stringDimensions(nickLabel.getText(), nickLabel.getFont());
@@ -49,25 +51,26 @@ public class Signin extends AppWindow {
         nickLabel.setBounds(20, totalY, nicknameD.width, nicknameD.height);
 
         nickName = new JLabel();
+        nickName.setForeground(Color.WHITE);
         nickName.setFont(new Font("Arial", Font.PLAIN, 15));
         nickName.setBounds(nickLabel.getX() + nickLabel.getWidth() + 10, totalY, 300, nicknameD.height);
         totalY += nicknameD.height;
-        nickName.setBackground(Color.RED);
-        nickName.setOpaque(true);
 
         addComponent(nickName, 0);
         addComponent(nickLabel, 0);
 
         //
+        totalY += 20;
         next = new JButton("Continue");
-        next.setBounds(30, totalY, 100, 25);
+        next.setBounds(150, totalY, 100, 25);
 
         cancel = new JButton("Cancel");
-        cancel.setBounds(300, totalY, 100, 25);
+        cancel.setBounds(260, totalY, 100, 25);
 
-        addComponent(nickName, 0);
+        addComponent(next, 0);
+        addComponent(cancel, 0);
 
 
-        //setBackgroundColor(Color.RED);
+        setBackgroundColor(new Color(52,58,64));
     }
 }
