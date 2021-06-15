@@ -1,5 +1,5 @@
 package views;
 
 public enum WindowID {
-    LOGIN, SINGIN
+    LOGIN, SINGIN, HOME
 }

@@ -48,11 +48,16 @@ public class WindowBuilder {
         return new Signin(node);
     }
 
+    private static Home buildHomeWindow(ContextNode node) {
+        return new Home(node);
+    }
+
     public static void buildWindowAndShow(ContextNode node, WindowID id) {
 
         switch (id) {
             case LOGIN: buildWindowAndShow(node, WindowBuilder::buildLoginWindow); break;
             case SINGIN: buildWindowAndShow(node, WindowBuilder::buildSignInWindow); break;
+            case HOME: buildWindowAndShow(node, WindowBuilder::buildHomeWindow); break;
         }
 
     }

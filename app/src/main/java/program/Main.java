@@ -9,7 +9,8 @@ public class Main {
 
 
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
-        WindowBuilder.buildWindowAndShow(null, WindowID.SINGIN);
+        WindowBuilder.buildWindowAndShow(null, WindowID.HOME);
+        //WindowBuilder.buildWindowAndShow(null, WindowID.SINGIN);
 
     }
 
