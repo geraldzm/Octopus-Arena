@@ -52,12 +52,17 @@ public class WindowBuilder {
         return new Home(node);
     }
 
+    private static CheckIn buildCheckInWindow(ContextNode node) {
+        return new CheckIn(node);
+    }
+
     public static void buildWindowAndShow(ContextNode node, WindowID id) {
 
         switch (id) {
             case LOGIN: buildWindowAndShow(node, WindowBuilder::buildLoginWindow); break;
             case SINGIN: buildWindowAndShow(node, WindowBuilder::buildSignInWindow); break;
             case HOME: buildWindowAndShow(node, WindowBuilder::buildHomeWindow); break;
+            case CHECK_IN: buildWindowAndShow(node, WindowBuilder::buildCheckInWindow); break;
         }
 
     }

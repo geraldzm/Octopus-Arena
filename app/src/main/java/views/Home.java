@@ -33,7 +33,6 @@ public class Home extends AppWindow {
 
         // Stacks
         JPanel stacksPane = new JPanel();
-        stacksPane.setBackground(Color.RED);
         BoxLayout boxLayout = new BoxLayout(stacksPane, BoxLayout.PAGE_AXIS);
         stacksPane.setLayout(boxLayout);
         stacksPane.setBounds(0, totalY, 200,  80);
@@ -58,14 +57,12 @@ public class Home extends AppWindow {
 
         //
         arenaPreviewPane = new ArenaViewPanel();
-        //arenaPreviewPane.setBackground(Color.GREEN);
         arenaPreviewPane.setBounds(0, totalY, getWidth(), 540);
         addComponent(arenaPreviewPane, 0);
         totalY += 540;
 
         // Statistics
         JPanel statisticsPane = new JPanel();
-        statisticsPane.setBackground(Color.RED);
         BoxLayout boxLayout1 = new BoxLayout(statisticsPane, BoxLayout.PAGE_AXIS);
         statisticsPane.setLayout(boxLayout1);
 
@@ -80,8 +77,6 @@ public class Home extends AppWindow {
 
         // Tickets
         JPanel ticketsPane = new JPanel();
-        ticketsPane.setBackground(Color.RED);
-        ticketsPane.setBackground(Color.RED);
         BoxLayout boxLayout2 = new BoxLayout(ticketsPane, BoxLayout.PAGE_AXIS);
         ticketsPane.setLayout(boxLayout2);
 
@@ -94,6 +89,7 @@ public class Home extends AppWindow {
             wines = initAndAdd("Ticket" + i, ticketsPane);
         }
 
+        setBackgroundColor(new Color(246, 239, 211));
     }
 
 }

@@ -1,12 +1,14 @@
 package views;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 
 public class ArenaViewPanel extends JPanel {
 
     JLabel left, right, up, down;
     JButton enter;
+    ArenaPreviewInformation arenaPreviewInformation;
 
     public ArenaViewPanel() {
 
@@ -19,18 +21,31 @@ public class ArenaViewPanel extends JPanel {
         enter = new JButton("Enter");
         enter.setSize(100, 25);
 
+        arenaPreviewInformation = new ArenaPreviewInformation();
+        arenaPreviewInformation.setBackground(Color.RED);
+        arenaPreviewInformation.setBounds(250, 100, 300, 250);
+
+        add(arenaPreviewInformation);
+
+        right = initArrow("/images/battlearenapulpos.png", 0, 0, 800, 540);
+
         setLayout(null);
     }
 
-    private JLabel initArrow(String path, int x, int y) {
+    private JLabel initArrow(String path, int x, int y, int width, int height) {
         URL resource = ArenaViewPanel.class.getResource(path);
         assert resource != null;
+        ImageIcon imageIcon = new ImageIcon(resource.getPath());
 
-        JLabel label = new JLabel(new ImageIcon(resource.getPath()));
-        label.setBounds(x, y, 64, 64);
+        JLabel label = new JLabel(imageIcon);
+        label.setBounds(x, y, width, height);
         add(label);
 
         return label;
+    }
+
+    private JLabel initArrow(String path, int x, int y) {
+        return initArrow(path, x, y, 64, 64);
     }
 
 }
