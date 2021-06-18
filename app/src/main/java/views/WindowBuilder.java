@@ -44,8 +44,8 @@ public class WindowBuilder {
         return new Login(node);
     }
 
-    private static Signin buildSignInWindow(ContextNode node) {
-        return new Signin(node);
+    private static Signup buildSignUpWindow(ContextNode node) {
+        return new Signup(node);
     }
 
     private static Home buildHomeWindow(ContextNode node) {
@@ -64,7 +64,7 @@ public class WindowBuilder {
 
         switch (id) {
             case LOGIN: buildWindowAndShow(node, WindowBuilder::buildLoginWindow); break;
-            case SINGIN: buildWindowAndShow(node, WindowBuilder::buildSignInWindow); break;
+            case SIGNUP: buildWindowAndShow(node, WindowBuilder::buildSignUpWindow); break;
             case HOME: buildWindowAndShow(node, WindowBuilder::buildHomeWindow); break;
             case CHECK_IN: buildWindowAndShow(node, WindowBuilder::buildCheckInWindow); break;
             case SCORE_BOARD: buildWindowAndShow(node, WindowBuilder::buildScoreBoardWindow); break;

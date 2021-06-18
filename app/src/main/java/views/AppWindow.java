@@ -12,9 +12,7 @@ public abstract class AppWindow extends JFrame {
 
     public AppWindow(ContextNode contextNode, String title, Dimension dimension) {
         super(title);
-
         this.contextNode = contextNode;
-
         setSize(dimension);
         setLocationRelativeTo(null); // center window
         setLayout(null);
@@ -22,10 +20,8 @@ public abstract class AppWindow extends JFrame {
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, dimension.width, dimension.height);
         getContentPane().add(layeredPane);
-
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-
         initComponents();
     }
 
