@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.LoginController;
 import model.ContextNode;
 
 import java.util.function.Function;
@@ -41,7 +42,9 @@ public class WindowBuilder {
     }
 
     private static Login buildLoginWindow(ContextNode node) {
-        return new Login(node);
+        Login login = new Login(node);
+        new LoginController(login);
+        return login;
     }
 
     private static Signin buildSignInWindow(ContextNode node) {
