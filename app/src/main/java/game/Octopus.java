@@ -11,7 +11,7 @@ public class Octopus extends GameObject {
 
     private ActionGenerator actionGenerator;
     private OctopusAction octopusAction;
-    private double health;
+    private HealthBar health;
 
     public Octopus(ActionGenerator actionGenerator, double health) {
         super(99, 90);
@@ -20,7 +20,7 @@ public class Octopus extends GameObject {
         position.x = 100;
         position.y = 500;
         acceleration.x = 0.1f;
-        this.health = health;
+        this.health = new HealthBar(health, position);
 
         this.actionGenerator = actionGenerator;
     }
@@ -29,9 +29,10 @@ public class Octopus extends GameObject {
     public void render(Graphics g) {
         super.render(g);
 
+        health.render(g);
+
         if(octopusAction != null)
             octopusAction.render(g);
-
     }
 
     @Override
@@ -49,9 +50,7 @@ public class Octopus extends GameObject {
             octopusAction.tick();
             if(!octopusAction.isRunning()) // if it's finished
                 octopusAction = null;
-
         }
-
     }
 
     public void setOctopusAction(OctopusAction octopusAction) {

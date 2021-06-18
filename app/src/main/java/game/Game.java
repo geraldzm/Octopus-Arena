@@ -34,7 +34,7 @@ public class Game extends Canvas implements Runnable {
             return new MoveAction();
         };
 
-        octopus = new Octopus(generator, 100);
+        octopus = new Octopus(generator, 40);
 
     }
 
