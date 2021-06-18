@@ -19,7 +19,7 @@ public class Octopus extends GameObject {
 
         position.x = 100;
         position.y = 500;
-        acceleration.x = 1.0f;
+        acceleration.x = 0.1f;
         this.health = health;
 
         this.actionGenerator = actionGenerator;
@@ -56,6 +56,8 @@ public class Octopus extends GameObject {
 
     public void setOctopusAction(OctopusAction octopusAction) {
         this.octopusAction = octopusAction;
+        this.octopusAction.setOctopus(this);
+        this.octopusAction.startAction();
     }
 
 }

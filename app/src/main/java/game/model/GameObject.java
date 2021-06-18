@@ -16,7 +16,7 @@ public abstract class GameObject implements IRenderable, ITickable {
     protected PVector position;
 
     protected Rectangle2D hitBox;
-    private ImageIcon img;
+    private Image img;
 
     public GameObject(int width, int height) {
 
@@ -33,7 +33,7 @@ public abstract class GameObject implements IRenderable, ITickable {
     public void render(Graphics g) {
 
         if(img != null)
-            g.drawImage(img.getImage(), (int)position.x, (int)position.y, null);
+            g.drawImage(img, (int)position.x, (int)position.y, null);
 
     }
 
@@ -43,7 +43,7 @@ public abstract class GameObject implements IRenderable, ITickable {
     public void setImage(String imgPath) {
 
         ImageIcon scaledImage = Utility.getScaledImage(imgPath, (int) hitBox.getWidth(), (int) hitBox.getHeight());
-        setImg(scaledImage);
+        setImg(scaledImage.getImage());
 
     }
 

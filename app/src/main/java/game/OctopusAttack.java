@@ -20,4 +20,9 @@ public class OctopusAttack extends OctopusAction {
 
     }
 
+    @Override
+    public void startAction() {
+        setRunning(true);
+    }
+
 }

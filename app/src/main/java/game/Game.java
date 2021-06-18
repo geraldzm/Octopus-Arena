@@ -1,23 +1,40 @@
 package game;
 
+import Util.Utility;
+import game.model.ActionGenerator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private boolean running = false;
-    private final ImageIcon background;
+    private final Image background;
 
     // temp
     Octopus octopus;
 
     public Game() {
 
-        background = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Arena_Mat.jpg")));
-        octopus = new Octopus(o -> new MoveAction(), 100);
+        background = Utility.getScaledImage("/images/Arena_Mat.jpg").getImage();
+
+        // temp
+        AtomicInteger tImEr = new AtomicInteger();
+        ActionGenerator generator = o -> {
+
+            if(tImEr.getAndIncrement() > 300) { // every 300 movements will "guard"
+                tImEr.set(0);
+                return new GuardAction();
+            }
+
+            return new MoveAction();
+        };
+
+        octopus = new Octopus(generator, 100);
 
     }
 
@@ -79,7 +96,7 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics g = bs.getDrawGraphics();
 
-        g.drawImage(background.getImage(), 0, 0, null);
+        g.drawImage(background, 0, 0, null);
 
         // render everything else
         render(g);

@@ -26,9 +26,13 @@ public class Utility {
         return resizedImg;
     }
 
+    public static ImageIcon getScaledImage(String path) {
+        return new ImageIcon(Objects.requireNonNull(Utility.class.getResource(path)));
+    }
+
     public static ImageIcon getScaledImage(String path, int w, int h) {
 
-        ImageIcon image = new ImageIcon(Objects.requireNonNull(Utility.class.getResource(path)));
+        ImageIcon image = getScaledImage(path);
 
         if(image.getIconHeight() != h && image.getIconWidth() != w)
             image.setImage(getScaledImage(image.getImage(), w, h));
