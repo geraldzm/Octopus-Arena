@@ -4,7 +4,6 @@ import Util.Utility;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.Objects;
 
 public class ArenaViewPanel extends JPanel {
