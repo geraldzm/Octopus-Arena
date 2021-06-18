@@ -16,12 +16,10 @@ public class Octopus extends GameObject {
     public Octopus(ActionGenerator actionGenerator, double health) {
         super(99, 90);
         setImage("/images/octopusImageSmoll.png");
-
         position.x = 100;
         position.y = 500;
         acceleration.x = 0.1f;
         this.health = new HealthBar(health, position);
-
         this.actionGenerator = actionGenerator;
     }
 

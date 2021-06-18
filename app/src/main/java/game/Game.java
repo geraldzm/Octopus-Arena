@@ -2,6 +2,8 @@ package game;
 
 import Util.Utility;
 import game.model.ActionGenerator;
+import game.model.Helmet;
+import game.model.HelmetEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,11 +26,12 @@ public class Game extends Canvas implements Runnable {
 
         // temp
         AtomicInteger tImEr = new AtomicInteger();
+        Helmet helmet = new Helmet(HelmetEnum.HELMET_GLADIATOR);
         ActionGenerator generator = o -> {
 
             if(tImEr.getAndIncrement() > 300) { // every 300 movements will "guard"
                 tImEr.set(0);
-                return new GuardAction();
+                return new GuardAction(helmet);
             }
 
             return new MoveAction();

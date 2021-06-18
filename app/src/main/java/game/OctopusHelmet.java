@@ -1,26 +1,28 @@
 package game;
 
+import Util.Utility;
+import game.model.Helmet;
 import game.model.OctopusAction;
 import game.model.PVector;
 
 import java.awt.*;
+import java.beans.PropertyVetoException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class OctopusHelmet extends OctopusAction {
 
+    private Helmet helmet;
 
-    public OctopusHelmet() {
+    public OctopusHelmet(Helmet helmet) {
         super(50, 50);
+        this.helmet = helmet;
     }
 
     @Override
     public void render(Graphics g) {
-        super.render(g);
-
-        PVector position = getOctopus().getPosition();
-        g.fillRect((int)position.x + 20, (int) position.y, 60,20);
-
+        helmet.render(g);
     }
 
     @Override
@@ -44,4 +46,9 @@ public class OctopusHelmet extends OctopusAction {
 
     }
 
+    @Override
+    public void setOctopus(Octopus octopus) {
+        super.setOctopus(octopus);
+        helmet.setOctopusPosition(getOctopus().getPosition());
+    }
 }
