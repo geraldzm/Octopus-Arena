@@ -1,13 +1,13 @@
 package views;
 
-import Util.Utility;
+import game.Game;
 import model.ContextNode;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 public class GameWindow extends AppWindow {
+
+    public Game game;
 
     public GameWindow(ContextNode contextNode) {
         super(contextNode, "Game", new Dimension(1000, 1000));
@@ -16,13 +16,12 @@ public class GameWindow extends AppWindow {
     @Override
     public void initComponents() {
 
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Arena_Mat.jpg")));
-        JLabel label = new JLabel(new ImageIcon(Utility.getScaledImage(imageIcon.getImage(), getWidth(), getHeight())));
+        game = new Game();
+        game.setBounds(0,0,getWidth(), getHeight());
 
-        label.setBounds(0, 0, getWidth(), getHeight());
+        addComponent(game, 0);
 
-        add(label);
-
+        game.start();
     }
 
 }
