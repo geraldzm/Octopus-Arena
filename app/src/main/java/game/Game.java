@@ -11,9 +11,13 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private final ImageIcon background;
 
+    // temp
+    Octopus octopus;
+
     public Game() {
 
         background = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/Arena_Mat.jpg")));
+        octopus = new Octopus(o -> new MoveAction(), 100);
 
     }
 
@@ -24,12 +28,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public synchronized void stop(){
-        try{
-            thread.join();
-            running = false;
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        running = false;
     }
 
     public synchronized void stopFromOutSide(){
@@ -83,13 +82,18 @@ public class Game extends Canvas implements Runnable {
         g.drawImage(background.getImage(), 0, 0, null);
 
         // render everything else
+        render(g);
 
         g.dispose();
         bs.show();
     }
 
-    private void tick() {
+    private void render(Graphics g) {
+        octopus.render(g);
+    }
 
+    private void tick() {
+        octopus.tick();
     }
 
 }

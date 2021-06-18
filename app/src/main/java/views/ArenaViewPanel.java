@@ -4,7 +4,6 @@ import Util.Utility;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 public class ArenaViewPanel extends JPanel {
 
@@ -39,8 +38,7 @@ public class ArenaViewPanel extends JPanel {
 
     private JLabel initArrow(String path, int x, int y, int width, int height) {
 
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(path)));
-        JLabel label = new JLabel(new ImageIcon(Utility.getScaledImage(imageIcon.getImage(), width, height)));
+        JLabel label = new JLabel(Utility.getScaledImage(path, width, height));
 
         label.setBounds(x, y, width, height);
         add(label);
