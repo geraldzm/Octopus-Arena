@@ -32,12 +32,7 @@ public class Home extends AppWindow {
         int totalY = 0;
 
         // Stacks
-        JPanel stacksPane = new JPanel();
-        BoxLayout boxLayout = new BoxLayout(stacksPane, BoxLayout.PAGE_AXIS);
-        stacksPane.setLayout(boxLayout);
-        stacksPane.setBounds(0, totalY, 200,  80);
-
-        addComponent(stacksPane, 1);
+        JPanel stacksPane = createPanelStack(0, totalY, 200, 80);
 
         name = initAndAdd("Nick", stacksPane);
         pot = initAndAdd("Pot", stacksPane);
@@ -57,18 +52,14 @@ public class Home extends AppWindow {
 
         //
         arenaPreviewPane = new ArenaViewPanel();
+        arenaPreviewPane.setBackground(new Color(246, 239, 211));
+
         arenaPreviewPane.setBounds(0, totalY, getWidth(), 540);
         addComponent(arenaPreviewPane, 0);
         totalY += 540;
 
         // Statistics
-        JPanel statisticsPane = new JPanel();
-        BoxLayout boxLayout1 = new BoxLayout(statisticsPane, BoxLayout.PAGE_AXIS);
-        statisticsPane.setLayout(boxLayout1);
-
-        statisticsPane.setBounds(0, totalY, 200,  80);
-
-        addComponent(statisticsPane, 1);
+        JPanel statisticsPane = createPanelStack(0, totalY, 200, 80);
 
         wines = initAndAdd("Wines", statisticsPane);
         moneyWon = initAndAdd("Money won", statisticsPane);
@@ -76,20 +67,29 @@ public class Home extends AppWindow {
         moneyLost = initAndAdd("Money lost", statisticsPane);
 
         // Tickets
-        JPanel ticketsPane = new JPanel();
-        BoxLayout boxLayout2 = new BoxLayout(ticketsPane, BoxLayout.PAGE_AXIS);
-        ticketsPane.setLayout(boxLayout2);
-
-        ticketsPane.setBounds(600, totalY, 200,  90);
-
-        addComponent(ticketsPane, 1);
+        JPanel ticketsPane = createPanelStack(600, totalY, 200, 90);
 
         tickets = new JLabel[6];
+
         for (int i = 0; i < 6; i++) {
             wines = initAndAdd("Ticket" + i, ticketsPane);
         }
 
         setBackgroundColor(new Color(246, 239, 211));
+    }
+
+    private JPanel createPanelStack(int x, int totalY, int width, int height) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setBackground(new Color(0,0,0,0));
+        BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.PAGE_AXIS);
+        panel.setLayout(boxLayout);
+
+        panel.setBounds(x, totalY, width ,  height);
+
+        addComponent(panel, 1);
+
+        return panel;
     }
 
 }
