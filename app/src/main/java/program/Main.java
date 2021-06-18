@@ -9,6 +9,7 @@ public class Main {
 
 
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
+        WindowBuilder.buildWindowAndShow(null, WindowID.GAME);
         //WindowBuilder.buildWindowAndShow(null, WindowID.SCORE_BOARD);
         //WindowBuilder.buildWindowAndShow(null, WindowID.HOME);
         //WindowBuilder.buildWindowAndShow(null, WindowID.CHECK_IN);

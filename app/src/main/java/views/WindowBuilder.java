@@ -63,6 +63,10 @@ public class WindowBuilder {
         return new ScoreBoard(node);
     }
 
+    private static GameWindow buildGameWindow(ContextNode node) {
+        return new GameWindow(node);
+    }
+
     public static void buildWindowAndShow(ContextNode node, WindowID id) {
 
         switch (id) {
@@ -71,6 +75,7 @@ public class WindowBuilder {
             case HOME: buildWindowAndShow(node, WindowBuilder::buildHomeWindow); break;
             case CHECK_IN: buildWindowAndShow(node, WindowBuilder::buildCheckInWindow); break;
             case SCORE_BOARD: buildWindowAndShow(node, WindowBuilder::buildScoreBoardWindow); break;
+            case GAME: buildWindowAndShow(node, WindowBuilder::buildGameWindow); break;
         }
 
     }
