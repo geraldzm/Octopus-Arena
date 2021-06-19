@@ -5,19 +5,34 @@ import java.awt.geom.AffineTransform;
 
 public class Arm extends GameObject {
 
-    PVector center;
+    PVector center, startPosition;
+    float maxLength; // max distance from the center
+    boolean contracting;
+    float angel;
 
     public Arm(PVector center, PVector acceleration) {
-        super(52, 29);
+        super(51, 28);
+
         setImage("/images/fist.png");
 
         this.center = center;
 
-        this.position.x = (float) (center.x + getHitBox().getWidth()/2);
-        this.position.y = (float) (center.y + getHitBox().getHeight());
+        this.position.x = center.x + 50;
+        this.position.y = center.y + 45;
 
-        this.acceleration.x = acceleration.x;
-        this.acceleration.y = acceleration.y;
+        this.maxVelocity.x = 4;
+        this.maxVelocity.y = 4;
+        this.acceleration = acceleration.copy();
+        angel = this.acceleration.heading();
+
+        // Hide arms behind octopus
+        PVector direction = acceleration.copy().normalize();
+        position.sub(direction.x * 20, direction.y * 20);
+        startPosition = this.position.copy();
+
+        // Contract
+        maxLength = (float) (getHitBox().getWidth()*0.35);
+        contracting = false;
 
     }
 
@@ -27,21 +42,25 @@ public class Arm extends GameObject {
         Graphics2D g2d = (Graphics2D) g;
 
         AffineTransform backup = g2d.getTransform();
-        //rx is the x coordinate for rotation, ry is the y coordinate for rotation, and angle
-        //is the angle to rotate the image. If you want to rotate around the center of an image,
-        //use the image's center x and y coordinates for rx and ry.
-        AffineTransform a = AffineTransform.getRotateInstance(acceleration.heading(), position.x, position.y);
-        //Set our Graphics2D object to the transform
+        AffineTransform a = AffineTransform.getRotateInstance(angel, position.x, position.y);
+
         g2d.setTransform(a);
-        //Draw our image like normal
+
         g2d.drawImage(getImg(), (int)position.x, (int)position.y, null);
-        //Reset our graphics object so we can draw with it again.
+
         g2d.setTransform(backup);
+
     }
 
     @Override
     public void tick() {
         move();
+
+        if(!contracting && PApplet.dist(position.x, position.y, startPosition.x, startPosition.y) >= maxLength) {
+            acceleration.mult(-1);
+            contracting = true;
+        }
+
     }
 
 }

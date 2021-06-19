@@ -17,17 +17,13 @@ public class OctopusAttack extends OctopusAction {
 
         setInFrontOfOctopus(false);
 
-        arms = new Arm[]{
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(0))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(45))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(90))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(135))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(180))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(225))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(270))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(315))),
-                new Arm(octopus.getPosition(), PVector.fromAngle(PApplet.radians(360)))
-        };
+        arms = new Arm[8];
+
+        for (int i = 0; i < arms.length; i++) {
+            PVector acceleration = PVector.fromAngle(PApplet.radians(45 * i));
+            acceleration.mult(0.3f);
+            arms[i] = new Arm(octopus.getPosition(), acceleration);
+        }
 
     }
 
@@ -48,7 +44,7 @@ public class OctopusAttack extends OctopusAction {
         }
 
         counter++;
-        if(counter == 50) setRunning(false);
+        if(counter == 40) setRunning(false);
     }
 
     @Override
