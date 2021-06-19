@@ -5,10 +5,8 @@ import game.model.ActionGenerator;
 import game.model.Helmet;
 import game.model.HelmetEnum;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Game extends Canvas implements Runnable {
@@ -82,7 +80,7 @@ public class Game extends Canvas implements Runnable {
 
             if(System.currentTimeMillis() - timer >= 1000) {
                 timer += 1000;
-                System.out.println(frames);
+               // System.out.println(frames);
                 frames = 0;
             }
         }

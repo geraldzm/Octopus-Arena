@@ -20,7 +20,8 @@ package game.model;
   Boston, MA  02111-1307  USA
 */
 
-import static game.model.PConstants.*;
+import static game.model.PConstants.DEG_TO_RAD;
+import static game.model.PConstants.RAD_TO_DEG;
 
 public class PApplet {
 
