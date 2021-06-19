@@ -8,12 +8,13 @@ import lombok.Setter;
 @Setter
 public abstract class OctopusAction extends GameObject{
 
-    private boolean isRunning;
+    private boolean isRunning, isInFrontOfOctopus;
     private Octopus octopus;
 
-    public OctopusAction(int width, int height) {
+    public OctopusAction(int width, int height, Octopus octopus) {
         super(width, height);
         isRunning = true;
+        this.octopus = octopus;
     }
 
     public abstract void startAction();

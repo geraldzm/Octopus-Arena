@@ -47,4 +47,10 @@ public abstract class GameObject implements IRenderable, ITickable {
 
     }
 
+    public void move() {
+        velocity.add(acceleration);
+        velocity.limit(maxVelocity.mag());
+        position.add(velocity);
+    }
+
 }

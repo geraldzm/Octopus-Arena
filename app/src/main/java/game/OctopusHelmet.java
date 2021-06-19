@@ -9,11 +9,15 @@ import java.util.TimerTask;
 
 public class OctopusHelmet extends OctopusAction {
 
-    private Helmet helmet;
+    private final Helmet helmet;
 
-    public OctopusHelmet(Helmet helmet) {
-        super(50, 50);
+    public OctopusHelmet(Helmet helmet, Octopus octopus) {
+        super(50, 50, octopus);
+
         this.helmet = helmet;
+        this.helmet.setOctopusPosition(getOctopus().getPosition());
+
+        setInFrontOfOctopus(false);
     }
 
     @Override
@@ -40,9 +44,4 @@ public class OctopusHelmet extends OctopusAction {
 
     }
 
-    @Override
-    public void setOctopus(Octopus octopus) {
-        super.setOctopus(octopus);
-        helmet.setOctopusPosition(getOctopus().getPosition());
-    }
 }

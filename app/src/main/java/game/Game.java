@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable {
 
             if(tImEr.getAndIncrement() > 100) { // every 300 movements will "guard"
                 tImEr.set(0);
-                return new GuardAction(helmet);
+                return new AttackAction();
             }
 
             return new MoveAction();

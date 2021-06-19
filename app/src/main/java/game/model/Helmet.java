@@ -40,13 +40,22 @@ public class Helmet extends GameObject {
 
     @Override
     public void tick() {
-
+        setPositionRelativeToOctopus();
     }
 
     @Override
     public void render(Graphics g) {
-        this.position.x = (float) (octopusPosition.x - helmetEnum.getXOffset());
-        this.position.y = (float) (octopusPosition.y - helmetEnum.getYOffset());
         super.render(g);
     }
+
+    public void setOctopusPosition(PVector octopusPosition) {
+        this.octopusPosition = octopusPosition;
+        setPositionRelativeToOctopus();
+    }
+
+    private void setPositionRelativeToOctopus() {
+        this.position.x = (float) (octopusPosition.x - helmetEnum.getXOffset());
+        this.position.y = (float) (octopusPosition.y - helmetEnum.getYOffset());
+    }
+
 }

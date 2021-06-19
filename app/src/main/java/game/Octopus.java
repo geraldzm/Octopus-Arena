@@ -25,12 +25,20 @@ public class Octopus extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        super.render(g);
 
         health.render(g);
 
         if(octopusAction != null)
-            octopusAction.render(g);
+            if(octopusAction.isInFrontOfOctopus()) {
+                super.render(g);
+                octopusAction.render(g);
+            } else {
+                octopusAction.render(g);
+                super.render(g);
+            }
+        else
+            super.render(g);
+
     }
 
     @Override
@@ -53,7 +61,6 @@ public class Octopus extends GameObject {
 
     public void setOctopusAction(OctopusAction octopusAction) {
         this.octopusAction = octopusAction;
-        this.octopusAction.setOctopus(this);
         this.octopusAction.startAction();
     }
 
