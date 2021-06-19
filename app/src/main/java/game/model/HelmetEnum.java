@@ -13,4 +13,5 @@ public enum HelmetEnum {
     private int helmetIndex;
     private double xOffset;
     private double yOffset;
+
 }

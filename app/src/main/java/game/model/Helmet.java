@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Getter
 @Setter
@@ -17,15 +18,24 @@ public class Helmet extends GameObject {
 
     public Helmet(HelmetEnum helmetEnum) {
         super(100, 100);
+
         this.helmetEnum = helmetEnum;
+
         if(helmetArray == null)
             loadHelmets();
+
         setImg(helmetArray.get(helmetEnum.getHelmetIndex()));
+
     }
 
-    public static void loadHelmets(){
-        helmetArray = new ArrayList<>(5);
-        helmetArray.add(Utility.getScaledImage("/images/helment0.png").getImage());
+    public static void loadHelmets() {
+        HelmetEnum[] allHelmets = HelmetEnum.values();
+
+        helmetArray = new ArrayList<>(allHelmets.length);
+
+        Arrays.stream(allHelmets)
+                .forEach(helmetEnum -> helmetArray.add(Utility.getScaledImage(helmetEnum.getImagePath()).getImage()));
+
     }
 
     @Override

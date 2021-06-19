@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable {
         Helmet helmet = new Helmet(HelmetEnum.HELMET_GLADIATOR);
         ActionGenerator generator = o -> {
 
-            if(tImEr.getAndIncrement() > 300) { // every 300 movements will "guard"
+            if(tImEr.getAndIncrement() > 100) { // every 300 movements will "guard"
                 tImEr.set(0);
                 return new GuardAction(helmet);
             }
