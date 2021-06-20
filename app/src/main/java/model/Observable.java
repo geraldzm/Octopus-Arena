@@ -1,14 +1,17 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class Observable <T> {
 
-    public final ArrayList<T> observers;
+    public final List<T> observers;
+    public final List<T> observersToRemove;
 
     public Observable() {
         observers = new ArrayList<>(5);
+        observersToRemove = new ArrayList<>(5);
     }
 
     public void register(T observable) {
@@ -17,16 +20,17 @@ public class Observable <T> {
 
     public void unRegister(T observable) {
 
-        observers.remove(observable);
+        observersToRemove.add(observable);
 
     }
 
     public void notifyAll(Consumer<T> consumer) {
 
-        for (int i = 0; i < observers.size(); i++) {
-            consumer.accept(observers.get(i));
-        }
+        observers.stream()
+                .parallel()
+                .forEach(consumer);
 
+        observers.removeAll(observersToRemove);
     }
 
 }
