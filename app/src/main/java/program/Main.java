@@ -12,12 +12,13 @@ public class Main {
 
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
 
-        //------------- This will be made by the Home controller ---------
+     //   WindowBuilder.buildWindowAndShow(null, WindowID.GAME);
+     //   ------------- This will be made by the Home controller ---------
 
         ContextNode contextNode0 = new ContextNode();
-        contextNode0.gameSession = new GameSession(10);
+        contextNode0.gameSession = new GameSession(18);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 18; i++) {
             WindowBuilder.buildWindowAndShow(contextNode0, WindowID.GAME);
         }
 

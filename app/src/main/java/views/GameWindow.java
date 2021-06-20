@@ -29,4 +29,8 @@ public class GameWindow extends AppWindow implements Updatable {
         return canvas.getGraphics();
     }
 
+    @Override
+    public void update() {
+        repaint();
+    }
 }

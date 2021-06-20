@@ -108,8 +108,11 @@ public class Game extends Observable<Updatable> implements Runnable {
     private void update(Updatable updatable) {
 
         Graphics updatableGraphics = updatable.getUpdatableGraphics();
-        if(updatableGraphics != null)
+        if(updatableGraphics != null){
             updatableGraphics.drawImage(bufferedImage, 0, 0, null);
+            updatable.update();
+        }
+
         else {
             unRegister(updatable);
             if(observers.size() == 0) stop();

@@ -39,6 +39,12 @@ public class WindowBuilder {
             }
         });
 
+        //delay
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Login buildLoginWindow(ContextNode node) {
