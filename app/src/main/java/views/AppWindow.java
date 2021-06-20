@@ -1,10 +1,12 @@
 package views;
 
+import lombok.Getter;
 import model.ContextNode;
 
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
 public abstract class AppWindow extends JFrame {
 
     protected ContextNode contextNode;

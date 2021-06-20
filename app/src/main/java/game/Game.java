@@ -4,22 +4,28 @@ import Util.Utility;
 import game.model.ActionGenerator;
 import game.model.Helmet;
 import game.model.HelmetEnum;
+import lombok.Getter;
+import model.Observable;
+import model.Updatable;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Game extends Canvas implements Runnable {
+@Getter
+public class Game extends Observable<Updatable> implements Runnable {
 
-    private Thread thread;
     private boolean running = false;
     private final Image background;
+
+    private final BufferedImage bufferedImage;
 
     // temp
     Octopus octopus;
 
     public Game() {
 
+        bufferedImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
         background = Utility.getScaledImage("/images/Arena_Mat.jpg").getImage();
 
         // temp
@@ -40,7 +46,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public synchronized void start(){
-        thread = new Thread(this);
+        Thread thread = new Thread(this);
         thread.start();
         running = true;
     }
@@ -49,10 +55,6 @@ public class Game extends Canvas implements Runnable {
         running = false;
     }
 
-    public synchronized void stopFromOutSide(){
-        running = false;
-    }
-    
     @Override
     public void run() {
         long lastTime = System.nanoTime();
@@ -80,38 +82,39 @@ public class Game extends Canvas implements Runnable {
 
             if(System.currentTimeMillis() - timer >= 1000) {
                 timer += 1000;
-               // System.out.println(frames);
+                System.out.println(frames);
                 frames = 0;
             }
         }
         stop();
+        System.out.println("Game stopped");
     }
 
     private void render() {
 
-        BufferStrategy bs = getBufferStrategy();
-
-        if(bs == null){
-            createBufferStrategy(3);
-            return;
-        }
-        Graphics g = bs.getDrawGraphics();
-
+        Graphics g = bufferedImage.getGraphics();
         g.drawImage(background, 0, 0, null);
-
-        // render everything else
-        render(g);
-
-        g.dispose();
-        bs.show();
-    }
-
-    private void render(Graphics g) {
         octopus.render(g);
+
+        // update
+        notifyAll(this::update);
     }
+
 
     private void tick() {
         octopus.tick();
+    }
+
+    private void update(Updatable updatable) {
+
+        Graphics updatableGraphics = updatable.getUpdatableGraphics();
+        if(updatableGraphics != null)
+            updatableGraphics.drawImage(bufferedImage, 0, 0, null);
+        else {
+            unRegister(updatable);
+            if(observers.size() == 0) stop();
+        }
+
     }
 
 }

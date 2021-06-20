@@ -1,25 +1,32 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Observable <T> {
 
-    private ArrayList<Observer<T>> observers;
+    public final ArrayList<T> observers;
 
     public Observable() {
         observers = new ArrayList<>(5);
     }
 
-    public void register(Observer<T> observable) {
+    public void register(T observable) {
         observers.add(observable);
     }
 
-    public void unRegister(Observer<T> observable) {
+    public void unRegister(T observable) {
+
         observers.remove(observable);
+
     }
 
-    public void notifyAll(T t) {
-        observers.forEach(observer -> observer.update(t));
+    public void notifyAll(Consumer<T> consumer) {
+
+        for (int i = 0; i < observers.size(); i++) {
+            consumer.accept(observers.get(i));
+        }
+
     }
 
 }

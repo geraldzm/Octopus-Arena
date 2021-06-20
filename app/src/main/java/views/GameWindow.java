@@ -1,15 +1,14 @@
 package views;
 
-import game.Game;
+import Controllers.GameWindowController;
 import model.ContextNode;
+import model.Updatable;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-public class GameWindow extends AppWindow {
+public class GameWindow extends AppWindow implements Updatable {
 
-    public Game game;
+    public Canvas canvas;
 
     public GameWindow(ContextNode contextNode) {
         super(contextNode, "Game", new Dimension(1000, 1000));
@@ -18,24 +17,16 @@ public class GameWindow extends AppWindow {
     @Override
     public void initComponents() {
 
-        game = new Game();
-        game.setBounds(0,0,getWidth(), getHeight());
+        canvas = new Canvas();
+        canvas.setBounds(0,0, getWidth(), getHeight());
+        addComponent(canvas, 0);
 
-        addComponent(game, 0);
+        new GameWindowController(this);
+    }
 
-
-        //  SDFGSDFGSDFGSDFGSDFGSDF
-        game.start();
-
-        addWindowListener(new WindowAdapter() { // THIS MUST BE MOVED TO A CONTROLLER
-            @Override
-            public void windowClosed(WindowEvent e) {
-                System.out.println("closed");
-                game.stop();
-            }
-        });
-        //  SDFGSDFGSDFGSDFGSDFGSDF
-
+    @Override
+    public Graphics getUpdatableGraphics() {
+        return canvas.getGraphics();
     }
 
 }

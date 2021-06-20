@@ -1,5 +1,7 @@
 package program;
 
+import model.ContextNode;
+import model.GameSession;
 import views.WindowBuilder;
 import views.WindowID;
 
@@ -9,11 +11,17 @@ public class Main {
 
 
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
-        WindowBuilder.buildWindowAndShow(null, WindowID.GAME);
-        //WindowBuilder.buildWindowAndShow(null, WindowID.SCORE_BOARD);
-        //WindowBuilder.buildWindowAndShow(null, WindowID.HOME);
-        //WindowBuilder.buildWindowAndShow(null, WindowID.CHECK_IN);
-        //WindowBuilder.buildWindowAndShow(null, WindowID.SINGIN);
+
+        //------------- This will be made by the Home controller ---------
+
+        ContextNode contextNode0 = new ContextNode();
+        contextNode0.gameSession = new GameSession(10);
+
+        for (int i = 0; i < 10; i++) {
+            WindowBuilder.buildWindowAndShow(contextNode0, WindowID.GAME);
+        }
+
+        //------------- This will be made by the Home controller ---------
 
     }
 

@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class OctopusAttack extends OctopusAction {
 
-    int counter = 0;
-    Arm arms[];
+    private int counter;
+    private Arm arms[];
 
     public OctopusAttack(Octopus octopus) {
         super(-1, -1, octopus);
@@ -50,6 +50,7 @@ public class OctopusAttack extends OctopusAction {
     @Override
     public void startAction() {
         setRunning(true);
+        counter = 0;
     }
 
 }
