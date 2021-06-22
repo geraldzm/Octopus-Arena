@@ -81,10 +81,11 @@ public class Home extends AppWindow {
 
     private void initAndAddArenaPreviewComponent(int totalY){
         arenaPreviewPane = new ArenaViewPanel();
+        arenaPreviewPane.setBackground(new Color(246, 239, 211));
+
         arenaPreviewPane.setBounds(0, totalY, getWidth(), 540);
         addComponent(arenaPreviewPane, 0);
     }
-
     private void initAndAddStats(JPanel statisticsPane){
         wins = initAndAdd("Wins", statisticsPane);
         moneyWon = initAndAdd("Money won", statisticsPane);
@@ -103,8 +104,24 @@ public class Home extends AppWindow {
 
     private void addTickets(JPanel ticketsPane){
         tickets = new JLabel[6];
+
         for (int i = 0; i < 6; i++) {
             wins = initAndAdd("Ticket" + i, ticketsPane);
         }
     }
+
+    private JPanel createPanelStack(int x, int totalY, int width, int height) {
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setBackground(new Color(0,0,0,0));
+        BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.PAGE_AXIS);
+        panel.setLayout(boxLayout);
+
+        panel.setBounds(x, totalY, width ,  height);
+
+        addComponent(panel, 1);
+
+        return panel;
+    }
+
 }

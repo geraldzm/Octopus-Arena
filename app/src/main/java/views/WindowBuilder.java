@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.LoginController;
 import model.ContextNode;
 
 import java.util.function.Function;
@@ -38,10 +39,18 @@ public class WindowBuilder {
             }
         });
 
+        //delay
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Login buildLoginWindow(ContextNode node) {
-        return new Login(node);
+        Login login = new Login(node);
+        new LoginController(login);
+        return login;
     }
 
     private static Signup buildSignUpWindow(ContextNode node) {
@@ -60,6 +69,10 @@ public class WindowBuilder {
         return new ScoreBoard(node);
     }
 
+    private static GameWindow buildGameWindow(ContextNode node) {
+        return new GameWindow(node);
+    }
+
     public static void buildWindowAndShow(ContextNode node, WindowID id) {
 
         switch (id) {
@@ -68,6 +81,7 @@ public class WindowBuilder {
             case HOME: buildWindowAndShow(node, WindowBuilder::buildHomeWindow); break;
             case CHECK_IN: buildWindowAndShow(node, WindowBuilder::buildCheckInWindow); break;
             case SCORE_BOARD: buildWindowAndShow(node, WindowBuilder::buildScoreBoardWindow); break;
+            case GAME: buildWindowAndShow(node, WindowBuilder::buildGameWindow); break;
         }
 
     }

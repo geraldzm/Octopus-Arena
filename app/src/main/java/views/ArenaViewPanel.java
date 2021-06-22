@@ -1,12 +1,13 @@
 package views;
 
+import Util.Utility;
+
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public class ArenaViewPanel extends JPanel {
 
-    JLabel left, right, up, down;
+    JLabel left, right, up, down, arena;
     JButton enter;
     ArenaPreviewInformation arenaPreviewInformation;
 
@@ -14,20 +15,21 @@ public class ArenaViewPanel extends JPanel {
         initAllArrows();
         initArenaPreview();
         initEnter();
-        right = initArrow("/images/battlearenapulpos.png", 0, 0, 800, 540);
+        arena = initArrow("/images/battlearenapulposPreview.png", 200, 50, 400, 400);
         setLayout(null);
     }
 
     private JLabel initArrow(String path, int x, int y, int width, int height) {
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource(path));
-        JLabel label = new JLabel(imageIcon);
+
+        JLabel label = new JLabel(Utility.getScaledImage(path, width, height));
+
         label.setBounds(x, y, width, height);
         add(label);
         return label;
     }
 
     private JLabel initArrow(String path, int x, int y) {
-        return initArrow(path, x, y, 64, 64);
+        return initArrow(path, x, y, 32, 32);
     }
 
     private void initAllArrows(){
@@ -44,7 +46,8 @@ public class ArenaViewPanel extends JPanel {
 
     private void initArenaPreview(){
         arenaPreviewInformation = new ArenaPreviewInformation();
-        arenaPreviewInformation.setBackground(Color.RED);
+        arenaPreviewInformation.setOpaque(true);
+        arenaPreviewInformation.setBackground(new Color(0,0,0,0));
         arenaPreviewInformation.setBounds(250, 100, 300, 250);
         add(arenaPreviewInformation);
     }

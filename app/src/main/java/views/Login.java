@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class Login extends AppWindow {
 
-    JTextField inputName;
-    JButton login, signup;
+    public JTextField inputName;
+    public JButton login, signup;
 
     public Login(ContextNode contextNode) {
         super(contextNode, "Login", new Dimension(500, 600));
