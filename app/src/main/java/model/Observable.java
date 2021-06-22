@@ -30,6 +30,10 @@ public class Observable <T> {
                 .parallel()
                 .forEach(consumer);
 
+        remove();
+    }
+
+    public void remove() {
         observers.removeAll(observersToRemove);
     }
 

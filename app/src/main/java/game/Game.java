@@ -87,7 +87,6 @@ public class Game extends Observable<Updatable> implements Runnable {
             }
         }
         stop();
-        System.out.println("Game stopped");
     }
 
     private void render() {
