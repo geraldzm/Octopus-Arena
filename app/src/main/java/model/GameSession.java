@@ -34,7 +34,6 @@ public class GameSession {
                 public void windowClosed(WindowEvent e) {
 
                     game.unRegister(player); // player disconnected
-                    game.remove();
 
                     if(game.observers.size() == 0) {
                         game.stop(); // stop game if there is no more players

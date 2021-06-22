@@ -7,34 +7,23 @@ import java.util.function.Consumer;
 public class Observable <T> {
 
     public final List<T> observers;
-    public final List<T> observersToRemove;
 
     public Observable() {
         observers = new ArrayList<>(5);
-        observersToRemove = new ArrayList<>(5);
     }
 
     public void register(T observable) {
         observers.add(observable);
     }
 
-    public void unRegister(T observable) {
-
-        observersToRemove.add(observable);
-
+    public synchronized void unRegister(T observable) {
+        observers.remove(observable);
     }
 
-    public void notifyAll(Consumer<T> consumer) {
-
+    public synchronized void notifyAll(Consumer<T> consumer) {
         observers.stream()
                 .parallel()
                 .forEach(consumer);
-
-        remove();
-    }
-
-    public void remove() {
-        observers.removeAll(observersToRemove);
     }
 
 }
