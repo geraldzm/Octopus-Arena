@@ -112,11 +112,6 @@ public class Game extends Observable<Updatable> implements Runnable {
             updatable.update();
         }
 
-        else {
-            unRegister(updatable);
-            if(observers.size() == 0) stop();
-        }
-
     }
 
 }
