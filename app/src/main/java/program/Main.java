@@ -2,6 +2,7 @@ package program;
 
 import model.ContextNode;
 import model.GameSession;
+import model.User;
 import views.WindowBuilder;
 import views.WindowID;
 
@@ -14,12 +15,24 @@ public class Main {
      //   WindowBuilder.buildWindowAndShow(null, WindowID.GAME);
      //   ------------- This will be made by the Home controller ---------
 
-        ContextNode contextNode0 = new ContextNode();
-        contextNode0.gameSession = new GameSession(15);
+        GameSession gameSession = new GameSession(2);
 
-        for (int i = 0; i < 15; i++) {
-            WindowBuilder.buildWindowAndShow(contextNode0, WindowID.GAME);
-        }
+        ContextNode contextUser0 = new ContextNode();
+        contextUser0.gameSession = gameSession;
+        contextUser0.user = new User("Gerald", 100, 1000.0);
+        contextUser0.health = 70;
+        contextUser0.toBet = 150.0;
+
+        WindowBuilder.buildWindowAndShow(contextUser0, WindowID.GAME);
+
+        ContextNode contextUser1 = new ContextNode();
+        contextUser1.gameSession = gameSession;
+        contextUser1.user = new User("Ana", 50, 500.0);
+        contextUser1.health = 100;
+        contextUser1.toBet = 40.0;
+
+        WindowBuilder.buildWindowAndShow(contextUser1, WindowID.GAME);
+
 //
 //        ContextNode contextNode1 = new ContextNode();
 //        contextNode1.gameSession = new GameSession(8);

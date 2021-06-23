@@ -17,7 +17,7 @@ public class OctopusHelmet extends OctopusAction {
         this.helmet = helmet;
         this.helmet.setOctopusPosition(getOctopus().getPosition());
 
-        setInFrontOfOctopus(false);
+        setInFrontOfOctopus(true);
     }
 
     @Override
