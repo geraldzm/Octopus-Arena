@@ -1,8 +1,11 @@
 package Util;
 
+import game.model.HelmetEnum;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Utility {
@@ -40,4 +43,26 @@ public class Utility {
         return image;
     }
 
+    public static int random(int from, int to) {
+        return (int) (Math.random() * (to  - from) + from);
+    }
+
+    public static <T> T choiceRandom(ArrayList<T> list) {
+
+        if(list.isEmpty()) return null;
+
+        int random = random(0, list.size());
+
+        return list.get(random);
+    }
+
+    public static <T> T choiceRandom(T[] list) {
+
+        if(list == null || list.length == 0) return null;
+
+        int random = random(0, list.length);
+
+        return list[random];
+
+    }
 }

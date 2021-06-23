@@ -1,53 +1,74 @@
 package model;
 
-import game.Game;
-import views.GameWindow;
+import game.*;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class GameSession {
 
     private final Game game;
     private final int maxPlayers;
     private int currentPlayers;
+    private final ArrayList<Session> allSessions;
 
     public GameSession(int maxPlayers) {
 
         this.maxPlayers = maxPlayers;
         currentPlayers = 0;
+        allSessions = new ArrayList<>(maxPlayers);
 
-        game = new Game();
-
+        game = new Game(this);
     }
 
-    public void registerPlayer(GameWindow player) {
+    public void registerPlayer(Session session) {
 
         if(maxPlayers > currentPlayers) {
 
-            game.register(player);
+            allSessions.add(session);
+            game.register(session);
             currentPlayers++;
 
             // on disconnected
-            player.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
+            session.register(this::onSessionDisconnected);
 
-                    game.unRegister(player); // player disconnected
+            if(maxPlayers == game.observers.size()) { // esto se va a controlar en el Checkin Controller
+                ArrayList<Octopus> octopusList = (ArrayList<Octopus>) allSessions.stream()
+                        .map(Session::getOctopus)
+                        .collect(Collectors.toList());
 
-                    if(game.observers.size() == 0) {
-                        game.stop(); // stop game if there is no more players
-                        System.out.println("Game stopped");
-                    }
-
-                }
-            });
-
-            if(maxPlayers == game.observers.size()) game.start();
+                game.setOctopus(octopusList);
+                game.start();
+            }
 
         }
 
     }
 
+    public void onSessionDisconnected (Session session) {
+
+        game.unRegister(session); // player disconnected
+        allSessions.remove(session);
+
+        if(game.observers.size() == 0) {
+            game.stop(); // stop game if there is no more players
+            System.out.println("Game stopped");
+        }
+
+    }
+
+    public void onGameFinished() {
+
+        System.out.println(allSessions.size());
+
+        // EL game me da el orden en el que murieron los pulpos
+        // ordeno sesiones por el orden en que murieron los pulpos
+        // para cada secion en allsesions creo una ventana con los rankings
+        // creo un objeto que reparta la plata y le paso las sesiones ne ese orden
+        // el va a repartir la plata
+        // la lista que le paso al ranking es una copia de allSession
+        // cierro todas las vetnanas de todas las sessiones
+
+    }
 
 }

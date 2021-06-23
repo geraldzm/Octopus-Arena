@@ -1,16 +1,15 @@
 package game;
 
 import Util.Utility;
-import game.model.ActionGenerator;
-import game.model.Helmet;
-import game.model.HelmetEnum;
+import game.model.*;
 import lombok.Getter;
+import model.GameSession;
 import model.Observable;
 import model.Updatable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
 
 @Getter
 public class Game extends Observable<Updatable> implements Runnable {
@@ -19,39 +18,27 @@ public class Game extends Observable<Updatable> implements Runnable {
     private final Image background;
 
     private final BufferedImage bufferedImage;
+    private final GameObjectHandler handler;
+    private final GameSession gameSession;
 
-    // temp
-    Octopus octopus;
-
-    public Game() {
-
+    public Game(GameSession gameSession) {
         bufferedImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
         background = Utility.getScaledImage("/images/Arena_Mat.jpg").getImage();
-
-        // temp
-        AtomicInteger tImEr = new AtomicInteger();
-        Helmet helmet = new Helmet(HelmetEnum.HELMET_GLADIATOR);
-        ActionGenerator generator = o -> {
-
-            if(tImEr.getAndIncrement() > 100) { // every 300 movements will "guard"
-                tImEr.set(0);
-                return new AttackAction();
-            }
-
-            return new MoveAction();
-        };
-
-        octopus = new Octopus(generator, 40);
-
+        handler = new GameObjectHandler();
+        this.gameSession = gameSession;
     }
 
-    public synchronized void start(){
+    public void setOctopus(ArrayList<Octopus> octopusArrayList) {
+        handler.addObjectsList(octopusArrayList);
+    }
+
+    public synchronized void start() {
         Thread thread = new Thread(this);
         thread.start();
         running = true;
     }
 
-    public synchronized void stop(){
+    public synchronized void stop() {
         running = false;
     }
 
@@ -87,13 +74,14 @@ public class Game extends Observable<Updatable> implements Runnable {
             }
         }
         stop();
+        gameSession.onGameFinished();
     }
 
     private void render() {
 
         Graphics g = bufferedImage.getGraphics();
         g.drawImage(background, 0, 0, null);
-        octopus.render(g);
+        handler.render(g);
 
         // update
         notifyAll(this::update);
@@ -101,7 +89,7 @@ public class Game extends Observable<Updatable> implements Runnable {
 
 
     private void tick() {
-        octopus.tick();
+        handler.tick();
     }
 
     private void update(Updatable updatable) {

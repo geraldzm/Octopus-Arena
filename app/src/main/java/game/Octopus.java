@@ -13,11 +13,11 @@ public class Octopus extends GameObject {
     private OctopusAction octopusAction;
     private HealthBar health;
 
-    public Octopus(ActionGenerator actionGenerator, double health) {
+    public Octopus(ActionGenerator actionGenerator, double health, int x, int y) {
         super(99, 90);
         setImage("/images/octopusImageSmoll.png");
-        position.x = 100;
-        position.y = 500;
+        position.x = x;
+        position.y = y;
         acceleration.x = 0.1f;
         this.health = new HealthBar(health, position);
         this.actionGenerator = actionGenerator;

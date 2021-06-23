@@ -1,12 +1,13 @@
 package views;
 
 import Controllers.GameWindowController;
+import lombok.Getter;
 import model.ContextNode;
-import model.Updatable;
 
 import java.awt.*;
 
-public class GameWindow extends AppWindow implements Updatable {
+@Getter
+public class GameWindow extends AppWindow {
 
     public Canvas canvas;
 
@@ -24,13 +25,5 @@ public class GameWindow extends AppWindow implements Updatable {
         new GameWindowController(this);
     }
 
-    @Override
-    public Graphics getUpdatableGraphics() {
-        return canvas.getGraphics();
-    }
 
-    @Override
-    public void update() {
-        repaint();
-    }
 }
