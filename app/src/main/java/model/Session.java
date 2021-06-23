@@ -48,8 +48,6 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         octopus = new Octopus(actionGenerator, health, random(200, 800), random(100, 800));
     }
 
-
-
     @Override
     public Graphics getUpdatableGraphics() {
         return gameWindow.getCanvas().getGraphics();

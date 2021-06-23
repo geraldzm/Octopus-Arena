@@ -18,7 +18,7 @@ public class GameSession {
         currentPlayers = 0;
         allSessions = new ArrayList<>(maxPlayers);
 
-        game = new Game();
+        game = new Game(this);
     }
 
     public void registerPlayer(Session session) {
@@ -32,7 +32,7 @@ public class GameSession {
             // on disconnected
             session.register(this::onSessionDisconnected);
 
-            if(maxPlayers == game.observers.size()) {
+            if(maxPlayers == game.observers.size()) { // esto se va a controlar en el Checkin Controller
                 ArrayList<Octopus> octopusList = (ArrayList<Octopus>) allSessions.stream()
                         .map(Session::getOctopus)
                         .collect(Collectors.toList());
@@ -54,6 +54,20 @@ public class GameSession {
             game.stop(); // stop game if there is no more players
             System.out.println("Game stopped");
         }
+
+    }
+
+    public void onGameFinished() {
+
+        System.out.println(allSessions.size());
+
+        // EL game me da el orden en el que murieron los pulpos
+        // ordeno sesiones por el orden en que murieron los pulpos
+        // para cada secion en allsesions creo una ventana con los rankings
+        // creo un objeto que reparta la plata y le paso las sesiones ne ese orden
+        // el va a repartir la plata
+        // la lista que le paso al ranking es una copia de allSession
+        // cierro todas las vetnanas de todas las sessiones
 
     }
 

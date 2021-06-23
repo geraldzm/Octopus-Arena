@@ -3,6 +3,7 @@ package game;
 import Util.Utility;
 import game.model.*;
 import lombok.Getter;
+import model.GameSession;
 import model.Observable;
 import model.Updatable;
 
@@ -18,11 +19,13 @@ public class Game extends Observable<Updatable> implements Runnable {
 
     private final BufferedImage bufferedImage;
     private final GameObjectHandler handler;
+    private final GameSession gameSession;
 
-    public Game() {
+    public Game(GameSession gameSession) {
         bufferedImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
         background = Utility.getScaledImage("/images/Arena_Mat.jpg").getImage();
         handler = new GameObjectHandler();
+        this.gameSession = gameSession;
     }
 
     public void setOctopus(ArrayList<Octopus> octopusArrayList) {
@@ -71,6 +74,7 @@ public class Game extends Observable<Updatable> implements Runnable {
             }
         }
         stop();
+        gameSession.onGameFinished();
     }
 
     private void render() {
