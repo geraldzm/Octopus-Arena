@@ -1,10 +1,13 @@
 package game;
 
+import Util.Utility;
 import game.model.IRenderable;
 import game.model.PVector;
+import lombok.Getter;
 
 import java.awt.*;
 
+@Getter
 public class HealthBar implements IRenderable {
 
     private double health;
@@ -27,4 +30,8 @@ public class HealthBar implements IRenderable {
         g.fillRect(x, y, (int)((health/100)*width), height);
     }
 
+    public boolean reduceHealth(double toReduce) {
+        health = Utility.clamp(health - toReduce, 0, health);
+        return health == 0;
+    }
 }

@@ -39,7 +39,7 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         Helmet helmet = new Helmet(choiceRandom(HelmetEnum.values()));
 
         ActionGenerator actionGenerator = oct -> {
-            int random = random(0, 200);
+            int random = random(0, 300);
             if (random < 10) {
                 return new AttackAction(octopusEnemies);
             } else if (random < 20) {
@@ -48,8 +48,19 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
             return new MoveAction();
         };
 
-        octopus = new Octopus(actionGenerator, health, random(200, 500), 500);
+
+
+        if(a) {
+            octopus = new Octopus(actionGenerator, health,100, 500);
+            a = false;
+        } else {
+            octopus = new Octopus(actionGenerator, health,500, 500);
+            octopus.getAcceleration().x = -0.01f;
+        }
+
     }
+
+    public static boolean a = true;
 
     @Override
     public Graphics getUpdatableGraphics() {

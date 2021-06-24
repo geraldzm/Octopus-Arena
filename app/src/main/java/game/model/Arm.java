@@ -10,8 +10,9 @@ public class Arm extends GameObject {
 
     PVector center, startPosition;
     float maxLength; // max distance from the center
-    boolean contracting;
-    float angel;
+    boolean contracting, hit;
+    float angle;
+    PVector fistHeading;
     private ArrayList<Octopus> enemies;
 
     public Arm(PVector center, PVector acceleration, ArrayList<Octopus> enemies) {
@@ -28,7 +29,10 @@ public class Arm extends GameObject {
         this.maxVelocity.x = 4;
         this.maxVelocity.y = 4;
         this.acceleration = acceleration.copy();
-        angel = this.acceleration.heading();
+        angle = this.acceleration.heading();
+
+        fistHeading = PVector.fromAngle(angle);
+        fistHeading.mult((float) hitBox.getWidth());
 
         // Hide arms behind octopus
         PVector direction = acceleration.copy().normalize();
@@ -38,6 +42,7 @@ public class Arm extends GameObject {
         // Contract
         maxLength = (float) (getHitBox().getWidth()*0.35);
         contracting = false;
+        hit = false;
 
     }
 
@@ -47,12 +52,17 @@ public class Arm extends GameObject {
         Graphics2D g2d = (Graphics2D) g;
 
         AffineTransform backup = g2d.getTransform();
-        AffineTransform a = AffineTransform.getRotateInstance(angel, position.x, position.y);
+        AffineTransform a = AffineTransform.getRotateInstance(angle, position.x, position.y);
 
         g2d.setTransform(a);
 
         g2d.drawImage(getImg(), (int)position.x, (int)position.y, null);
-        g2d.drawRect( (int)position.x, (int)position.y, (int)hitBox.getWidth(), (int)hitBox.getHeight());
+
+        if(hit) {
+            g2d.setColor(Color.RED);
+            g2d.drawRect((int)position.x, (int)position.y, (int)hitBox.getWidth(), (int)hitBox.getHeight());
+        }
+        //g2d.setColor(Color.GREEN);
 
         g2d.setTransform(backup);
 
@@ -62,11 +72,19 @@ public class Arm extends GameObject {
     public void tick() {
         move();
 
-        for (int i = 0; i < enemies.size(); i++) {
-            Octopus enemy = enemies.get(i);
+        if(!hit) {
 
-            if(isTouching(enemy)) {
-                System.out.println("Hitting");
+            PVector copy = fistHeading.copy();
+            copy.add(position);
+
+            for (int i = 0; i < enemies.size(); i++) {
+                Octopus enemy = enemies.get(i);
+
+                if(!enemy.isDead() && enemy.isTouching(copy)) {
+                    enemy.takeDamage(10); //
+                    hit = true;
+                }
+
             }
 
         }

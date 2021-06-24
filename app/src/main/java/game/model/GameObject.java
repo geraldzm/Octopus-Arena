@@ -61,4 +61,10 @@ public abstract class GameObject implements IRenderable, ITickable {
         return hitBox.intersects(g.getHitBox());
     }
 
+
+    protected boolean isTouching(PVector vector) {
+        hitBox = new Rectangle2D.Double((int)position.x, (int)position.y, hitBox.getWidth(), hitBox.getHeight());
+        return hitBox.contains(vector.x, vector.y);
+    }
+
 }
