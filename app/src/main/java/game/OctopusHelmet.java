@@ -40,7 +40,7 @@ public class OctopusHelmet extends OctopusAction {
             public void run() {
                 setRunning(false);
             }
-        }, 5000);  // 5s
+        }, 1000);  // 5s
 
     }
 
