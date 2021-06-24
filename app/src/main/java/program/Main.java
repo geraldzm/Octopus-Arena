@@ -1,5 +1,6 @@
 package program;
 
+import Util.Utility;
 import model.ContextNode;
 import model.GameSession;
 import model.User;
@@ -32,14 +33,6 @@ public class Main {
         contextUser1.toBet = 40.0;
 
         WindowBuilder.buildWindowAndShow(contextUser1, WindowID.GAME);
-
-//
-//        ContextNode contextNode1 = new ContextNode();
-//        contextNode1.gameSession = new GameSession(8);
-//
-//        for (int i = 0; i < 8; i++) {
-//            WindowBuilder.buildWindowAndShow(contextNode1, WindowID.GAME);
-//        }
 
         //------------- This will be made by the Home controller ---------
     }

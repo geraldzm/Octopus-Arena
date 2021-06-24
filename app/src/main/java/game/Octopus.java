@@ -83,11 +83,14 @@ public class Octopus extends GameObject {
         if(health.getHealth() == 0) {
             setImage("/images/skeleton.png");
         }
-
     }
 
     public boolean isDead() {
         return health.getHealth() == 0;
+    }
+
+    public double getEnergy() {
+        return health.getHealth();
     }
 
 }

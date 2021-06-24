@@ -1,0 +1,5 @@
+package GA.model;
+
+public enum MutationType {
+    SINGLE_RANDOM_MUTATE, ALL_RANDOM_MUTATE, HALF_RANDOM_MUTATE, INTERCHANGE_MUTATE
+}
