@@ -1,6 +1,7 @@
 package model;
 
-import game.*;
+import game.Game;
+import game.Octopus;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

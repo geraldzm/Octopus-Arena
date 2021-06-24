@@ -15,7 +15,8 @@ import views.GameWindow;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static Util.Utility.*;
+import static Util.Utility.choiceRandom;
+import static Util.Utility.random;
 
 @Setter
 @Getter

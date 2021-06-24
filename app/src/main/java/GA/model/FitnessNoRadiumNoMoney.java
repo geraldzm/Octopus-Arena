@@ -2,7 +2,7 @@ package GA.model;
 
 import game.model.PVector;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 public class FitnessNoRadiumNoMoney implements Fitness {
 

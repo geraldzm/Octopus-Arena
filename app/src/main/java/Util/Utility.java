@@ -1,7 +1,5 @@
 package Util;
 
-import game.model.HelmetEnum;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;

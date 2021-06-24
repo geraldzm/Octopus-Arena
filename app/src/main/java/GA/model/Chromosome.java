@@ -1,6 +1,5 @@
 package GA.model;
 
-import Util.Utility;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 

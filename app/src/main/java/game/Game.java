@@ -1,7 +1,7 @@
 package game;
 
 import Util.Utility;
-import game.model.*;
+import game.model.GameObjectHandler;
 import lombok.Getter;
 import model.GameSession;
 import model.Observable;
