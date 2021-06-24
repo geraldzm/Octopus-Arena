@@ -1,16 +1,23 @@
 package GA;
 
-import GA.model.Chromosome;
 import GA.model.FitnessNoRadiumNoMoney;
 import GA.model.GAContext;
 import GA.model.Population;
+import game.AttackAction;
+import game.GuardAction;
+import game.MoveAction;
 import game.Octopus;
 import game.model.Action;
 import game.model.ActionGenerator;
+import game.model.Helmet;
+import game.model.HelmetEnum;
 import lombok.AllArgsConstructor;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
+
+import static Util.Utility.choiceRandom;
+import static Util.Utility.random;
 
 /**
  * Interface with the rest of the world
@@ -18,24 +25,38 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class GAAlgorithm implements ActionGenerator {
 
-    private ArrayList<Octopus> arrayOctopi;
-    private Population population;
+    private final ArrayList<Octopus> octopusEnemies;
+    private final Population population;
+    private final Helmet helmet;
 
-    public GAAlgorithm(ArrayList<Octopus> arrayOctopi) {
-        this.arrayOctopi = new ArrayList<>(arrayOctopi);
+
+    public GAAlgorithm(ArrayList<Octopus> octopusEnemies) {
+        this.octopusEnemies = octopusEnemies;
         this.population = new Population(20, 5, new FitnessNoRadiumNoMoney());
+        helmet = new Helmet(choiceRandom(HelmetEnum.values()));
     }
 
     @Override
     public Action getAction(Octopus octopus) {
-        Octopus nearestOctopus = getNearest(octopus);
+
+  /*      Octopus nearestOctopus = getNearest(octopus);
         GAContext c = new GAContext();
         setContext(c, octopus, nearestOctopus);
         Chromosome mostFit = population.run(c);
-        return null;
+*/
+
+        int random = random(0, 300);
+
+        if (random < 10) {
+            return new AttackAction(octopusEnemies);
+        } else if (random < 20) {
+            return new GuardAction(helmet);
+        }
+
+        return new MoveAction();
     }
 
-    private void setContext(GAContext c, Octopus octopus, Octopus nearestOctopus){
+    private void setContext(GAContext c, Octopus octopus, Octopus nearestOctopus) {
         c.energy = octopus.getEnergy();
         c.energyNE = nearestOctopus.getEnergy();
         c.position = octopus.getPosition();
@@ -43,17 +64,15 @@ public class GAAlgorithm implements ActionGenerator {
     }
 
 
+    /**
+     * @return null if there is no enemies
+     * */
     private Octopus getNearest(Octopus octopus) {
-        Octopus shortestOctopus = arrayOctopi.get(0);
-        double shortestDistance = 800;
-        for (int i = 0; i < arrayOctopi.size(); i++) {
-            double tmpDistance = arrayOctopi.get(i).getPosition().dist(octopus.getPosition());
-            if(tmpDistance < shortestDistance && arrayOctopi.get(i) != octopus) {
-                shortestOctopus = arrayOctopi.get(i);
-                shortestDistance = tmpDistance;
-            }
-        }
-        return shortestOctopus;
+
+        return octopusEnemies.stream()
+                .min(Comparator.comparingDouble(o0 -> o0.getPosition().dist(octopus.getPosition())))
+                .orElse(null);
+
     }
 
 }

@@ -1,12 +1,8 @@
 package model;
 
-import game.AttackAction;
-import game.GuardAction;
-import game.MoveAction;
+import GA.GAAlgorithm;
 import game.Octopus;
 import game.model.ActionGenerator;
-import game.model.Helmet;
-import game.model.HelmetEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +10,6 @@ import views.GameWindow;
 
 import java.awt.*;
 import java.util.ArrayList;
-
-import static Util.Utility.*;
 
 @Setter
 @Getter
@@ -36,19 +30,8 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         this.health = health;
 
         octopusEnemies = new ArrayList<>();
-        Helmet helmet = new Helmet(choiceRandom(HelmetEnum.values()));
 
-        ActionGenerator actionGenerator = oct -> {
-            int random = random(0, 300);
-            if (random < 10) {
-                return new AttackAction(octopusEnemies);
-            } else if (random < 20) {
-                return new GuardAction(helmet);
-            }
-            return new MoveAction();
-        };
-
-
+        ActionGenerator actionGenerator = new GAAlgorithm(octopusEnemies);
 
         if(a) {
             octopus = new Octopus(actionGenerator, health,100, 500);

@@ -1,6 +1,5 @@
 package GA.model;
 
-import game.Octopus;
 import game.model.PVector;
 
 public class GAContext {

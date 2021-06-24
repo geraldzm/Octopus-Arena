@@ -1,6 +1,7 @@
 package GA.model;
 
 import Util.Utility;
+
 import java.util.TreeMap;
 
 public class Population {
