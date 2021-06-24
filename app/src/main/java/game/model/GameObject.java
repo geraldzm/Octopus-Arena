@@ -53,4 +53,12 @@ public abstract class GameObject implements IRenderable, ITickable {
         position.add(velocity);
     }
 
+    public boolean isTouching(GameObject g) {
+
+        hitBox = new Rectangle2D.Double((int)position.x, (int)position.y, hitBox.getWidth(), hitBox.getHeight());
+        g.hitBox = new Rectangle2D.Double((int)g.position.x, (int)g.position.y, g.hitBox.getWidth(), g.hitBox.getHeight());
+
+        return hitBox.intersects(g.getHitBox());
+    }
+
 }

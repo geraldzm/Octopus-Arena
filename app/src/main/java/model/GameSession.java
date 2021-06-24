@@ -37,6 +37,8 @@ public class GameSession {
                         .map(Session::getOctopus)
                         .collect(Collectors.toList());
 
+                allSessions.forEach(s -> s.initGame(octopusList));
+
                 game.setOctopus(octopusList);
                 game.start();
             }
@@ -58,8 +60,6 @@ public class GameSession {
     }
 
     public void onGameFinished() {
-
-        System.out.println(allSessions.size());
 
         // EL game me da el orden en el que murieron los pulpos
         // ordeno sesiones por el orden en que murieron los pulpos

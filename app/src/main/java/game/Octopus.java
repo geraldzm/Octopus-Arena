@@ -4,14 +4,20 @@ import game.model.Action;
 import game.model.ActionGenerator;
 import game.model.GameObject;
 import game.model.OctopusAction;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
+import java.util.ArrayList;
 
+@Getter
+@Setter
 public class Octopus extends GameObject {
 
     private ActionGenerator actionGenerator;
     private OctopusAction octopusAction;
     private HealthBar health;
+    private ArrayList<Octopus> enemies;
 
     public Octopus(ActionGenerator actionGenerator, double health, int x, int y) {
         super(99, 90);

@@ -6,13 +6,14 @@ import game.model.PApplet;
 import game.model.PVector;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class OctopusAttack extends OctopusAction {
 
     private int counter;
-    private Arm arms[];
+    private final Arm[] arms;
 
-    public OctopusAttack(Octopus octopus) {
+    public OctopusAttack(Octopus octopus, ArrayList<Octopus> enemies) {
         super(-1, -1, octopus);
 
         setInFrontOfOctopus(false);
@@ -22,7 +23,7 @@ public class OctopusAttack extends OctopusAction {
         for (int i = 0; i < arms.length; i++) {
             PVector acceleration = PVector.fromAngle(PApplet.radians(45 * i));
             acceleration.mult(0.3f);
-            arms[i] = new Arm(octopus.getPosition(), acceleration);
+            arms[i] = new Arm(octopus.getPosition(), acceleration, enemies);
         }
 
     }

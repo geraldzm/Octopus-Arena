@@ -1,7 +1,10 @@
 package game.model;
 
+import game.Octopus;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 public class Arm extends GameObject {
 
@@ -9,12 +12,14 @@ public class Arm extends GameObject {
     float maxLength; // max distance from the center
     boolean contracting;
     float angel;
+    private ArrayList<Octopus> enemies;
 
-    public Arm(PVector center, PVector acceleration) {
+    public Arm(PVector center, PVector acceleration, ArrayList<Octopus> enemies) {
         super(51, 28);
 
         setImage("/images/fist.png");
 
+        this.enemies = enemies;
         this.center = center;
 
         this.position.x = center.x + 50;
@@ -47,6 +52,7 @@ public class Arm extends GameObject {
         g2d.setTransform(a);
 
         g2d.drawImage(getImg(), (int)position.x, (int)position.y, null);
+        g2d.drawRect( (int)position.x, (int)position.y, (int)hitBox.getWidth(), (int)hitBox.getHeight());
 
         g2d.setTransform(backup);
 
@@ -55,6 +61,15 @@ public class Arm extends GameObject {
     @Override
     public void tick() {
         move();
+
+        for (int i = 0; i < enemies.size(); i++) {
+            Octopus enemy = enemies.get(i);
+
+            if(isTouching(enemy)) {
+                System.out.println("Hitting");
+            }
+
+        }
 
         if(!contracting && PApplet.dist(position.x, position.y, startPosition.x, startPosition.y) >= maxLength) {
             acceleration.mult(-1);
