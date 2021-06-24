@@ -64,4 +64,8 @@ public class Octopus extends GameObject {
         this.octopusAction.startAction();
     }
 
+    public double getEnergy(){
+        return health.getHealth();
+    }
+
 }

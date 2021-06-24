@@ -2,9 +2,11 @@ package game;
 
 import game.model.IRenderable;
 import game.model.PVector;
+import lombok.Getter;
 
 import java.awt.*;
 
+@Getter
 public class HealthBar implements IRenderable {
 
     private double health;

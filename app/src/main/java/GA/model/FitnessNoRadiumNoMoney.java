@@ -7,35 +7,30 @@ import static java.lang.Math.*;
 public class FitnessNoRadiumNoMoney implements Fitness {
 
     @Override
-    public double fitOf(double energy,
-                        double energyNE,
-                        PVector position,
-                        PVector positionNE,
-                        PVector center,
-                        double radium,
-                        int genotype) {
+    public double fitOf(GAContext c) {
 
         // ---------------------- Variables ----------------------
-        double e0 = energyNE - energy + abs(energyNE - energy);
-        double e1 = energy - energyNE + abs(energy - energyNE);
 
-        double dist = position.dist(positionNE);
+        double e0 = c.energyNE - c.energy + abs(c.energyNE - c.energy);
+        double e1 = c.energy - c.energyNE + abs(c.energy - c.energyNE);
+
+        double dist = c.position.dist(c.positionNE);
 
         double d0 = 160 - dist + abs(160 - dist);
         double d1 = dist - 160 + abs(dist - 160);
 
-        int a0 =  genotype % 100;
-        float a1 = PVector.angleBetween(position, positionNE);
+        int a0 =  c.chromosome % 100;
+        float a1 = PVector.angleBetween(c.position, c.positionNE);
 
         // ------------------------------------------------------
 
-        double x2 = -0.000001 * genotype * genotype;
+        double x2 = -0.000001 * c.chromosome * c.chromosome;
 
         // (Attack):
-        double attack = x2 + 0.086767 * genotype - 1827.6121;
+        double attack = x2 + 0.086767 * c.chromosome - 1827.6121;
 
         // (Guard):
-        double guard = x2 + 0.116303 * genotype - 3327.08088;
+        double guard = x2 + 0.116303 * c.chromosome - 3327.08088;
 
         // (move):
             // (Chase):
