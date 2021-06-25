@@ -3,6 +3,7 @@ package GA.model;
 import game.model.PConstants;
 import org.junit.jupiter.api.Test;
 
+import static Util.Utility.random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -71,4 +72,33 @@ class ChromosomeTest {
         }
 
     }
+
+
+    @Test
+    void crossoverNoMutationsFixedPoint() {
+
+//        System.out.printf("0x%02X%n", pivot);
+
+        Nature nature = new Nature((c, probability) -> c, CrossoverFactory.getInstance().getCrossover(CrossoverType.FIXED_POINT));
+
+        Chromosome c0 = new Chromosome((byte) 0x05); // 0000 0101
+        Chromosome c1 = new Chromosome((byte) 0x4C);// 0100 1100
+        Chromosome expected = new Chromosome((byte) 0x0C);// 0000 1100
+
+        assertEquals(expected.getGenes(), nature.crossover(c0, c1).getGenes());
+
+        c0.setGenes((byte) 0xA3);
+        c1.setGenes((byte) 0x49);
+        expected.setGenes((byte) 0xA9);
+
+        assertEquals(expected.getGenes(), nature.crossover(c0, c1).getGenes());
+
+        c0.setGenes((byte) 0x49);
+        c1.setGenes((byte) 0xA3);
+        expected.setGenes((byte) 0x43);
+
+        assertEquals(expected.getGenes(), nature.crossover(c0, c1).getGenes());
+
+    }
+
 }

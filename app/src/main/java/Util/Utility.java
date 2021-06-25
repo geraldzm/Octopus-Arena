@@ -1,9 +1,12 @@
 package Util;
 
+import GA.model.Chromosome;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 public class Utility {
@@ -52,6 +55,10 @@ public class Utility {
         int random = random(0, list.size());
 
         return list.get(random);
+    }
+
+    public static <T> T choiceRandom(Collection<T> list) {
+        return choiceRandom(new ArrayList<>(list));
     }
 
     public static <T> T choiceRandom(T[] list) {

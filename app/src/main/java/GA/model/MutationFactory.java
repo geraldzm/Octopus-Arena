@@ -25,12 +25,20 @@ public class MutationFactory {
                 // return all_random_mutate();
         }
 
-        return c -> c;
+        return (c, probability) -> c;
     }
 
-    private Chromosome singleRandomMutate(Chromosome c) {
+    private Chromosome singleRandomMutate(Chromosome c, double mutationProbability) {
+
+        if( Math.random() >= mutationProbability) return c;
+
+        System.out.println("Mutate: ");
+        System.out.printf("0x%02X%n", c.getGenes());
         byte mutationRandom = (byte) Math.pow(2, Utility.random(0,8));
+        System.out.printf("with: 0x%02X%n", mutationRandom);
         c.setGenes((byte) (c.getGenes() ^ mutationRandom));
+        System.out.printf("result 0x%02X%n", c.getGenes());
+
         return c;
     }
 
