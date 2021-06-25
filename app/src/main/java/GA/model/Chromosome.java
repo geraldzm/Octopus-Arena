@@ -1,19 +1,32 @@
 package GA.model;
 
+import Util.Utility;
+import game.model.PApplet;
+import game.model.PConstants;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class Chromosome {
 
-    private short genes;
+    private byte genes;
 
-    public short getGenes() {
-        return genes;
+    public void randomGen() {
+        genes = (byte) Utility.random(0, 256);
     }
-    public void setGenes(short genes) {
-        this.genes = genes;
+
+    public double getPhenotype() {
+
+        float radians = PConstants.QUARTER_PI;
+
+        int genType = genes / 64;
+
+        return PApplet.degrees((genType + 1) * radians + radians * genType);
     }
 
 }

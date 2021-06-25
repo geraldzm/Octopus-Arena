@@ -1,12 +1,9 @@
 package GA;
 
-import GA.model.FitnessNoRadiumNoMoney;
+import GA.model.FitnessWithVectors;
 import GA.model.GAContext;
 import GA.model.Population;
-import game.AttackAction;
-import game.GuardAction;
-import game.MoveAction;
-import game.Octopus;
+import game.*;
 import game.model.Action;
 import game.model.ActionGenerator;
 import game.model.Helmet;
@@ -31,9 +28,11 @@ public class GAAlgorithm implements ActionGenerator {
 
 
     public GAAlgorithm(ArrayList<Octopus> octopusEnemies) {
+
         this.octopusEnemies = octopusEnemies;
-        this.population = new Population(20, 5, new FitnessNoRadiumNoMoney());
+        this.population = new Population(20, 5, new FitnessWithVectors());
         helmet = new Helmet(choiceRandom(HelmetEnum.values()));
+
     }
 
     @Override
@@ -46,6 +45,7 @@ public class GAAlgorithm implements ActionGenerator {
 */
 
         int random = random(0, 300);
+        Octopus nearestEnemy = getNearest(octopus);
 
         if (random < 10) {
             return new AttackAction(octopusEnemies);
@@ -53,7 +53,9 @@ public class GAAlgorithm implements ActionGenerator {
             return new GuardAction(helmet);
         }
 
-        return new MoveAction();
+        return new ChaseAction(nearestEnemy);
+      //  return new EscapeAction(nearestEnemy);
+
     }
 
     private void setContext(GAContext c, Octopus octopus, Octopus nearestOctopus) {
