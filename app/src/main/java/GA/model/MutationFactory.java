@@ -28,9 +28,9 @@ public class MutationFactory {
         return c -> c;
     }
 
-    private Chromosome singleRandomMutate(Chromosome c){
-        short mutationRandom = (short) Math.pow(2, Utility.random(0,16));
-        c.setGenes((short) (c.getGenes() ^ mutationRandom));
+    private Chromosome singleRandomMutate(Chromosome c) {
+        byte mutationRandom = (byte) Math.pow(2, Utility.random(0,8));
+        c.setGenes((byte) (c.getGenes() ^ mutationRandom));
         return c;
     }
 

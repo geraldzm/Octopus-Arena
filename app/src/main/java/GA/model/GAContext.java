@@ -8,6 +8,6 @@ public class GAContext {
     public double energyNE;
     public PVector position;
     public PVector positionNE;
-    short chromosome;
+    double phenotype; // angle of chromosome
 
 }
