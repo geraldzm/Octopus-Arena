@@ -1,13 +1,11 @@
 package game;
 
-import game.model.Action;
-import game.model.ActionGenerator;
-import game.model.GameObject;
-import game.model.OctopusAction;
+import game.model.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 @Getter
@@ -19,8 +17,9 @@ public class Octopus extends GameObject {
     private HealthBar health;
     private ArrayList<Octopus> enemies;
     private double resistance;
+    private BorderHandler borderHandler;
 
-    public Octopus(ActionGenerator actionGenerator, double health, int x, int y) {
+    public Octopus(ActionGenerator actionGenerator, BorderHandler borderHandler, double health, int x, int y) {
         super(99, 90);
         setImage("/images/octopusImageSmoll.png");
         position.x = x;
@@ -29,6 +28,7 @@ public class Octopus extends GameObject {
         this.health = new HealthBar(health, position);
         this.actionGenerator = actionGenerator;
         this.resistance = 1;
+        this.borderHandler = borderHandler;
     }
 
     @Override
@@ -91,6 +91,13 @@ public class Octopus extends GameObject {
 
     public double getEnergy() {
         return health.getHealth();
+    }
+
+    @Override
+    public void move() {
+        super.move();
+        hitBox = new Rectangle2D.Double((int)position.x, (int)position.y, hitBox.getWidth(), hitBox.getHeight());
+        borderHandler.clampMovement(position, hitBox);
     }
 
 }

@@ -3,7 +3,10 @@ package GA;
 import GA.model.FitnessWithVectors;
 import GA.model.GAContext;
 import GA.model.Population;
-import game.*;
+import game.AttackAction;
+import game.ChaseAction;
+import game.GuardAction;
+import game.Octopus;
 import game.model.Action;
 import game.model.ActionGenerator;
 import game.model.Helmet;
@@ -44,14 +47,14 @@ public class GAAlgorithm implements ActionGenerator {
         Chromosome mostFit = population.run(c);
 */
 
-        int random = random(0, 300);
+//        int random = random(0, 300);
         Octopus nearestEnemy = getNearest(octopus);
-
-        if (random < 10) {
-            return new AttackAction(octopusEnemies);
-        } else if (random < 20) {
-            return new GuardAction(helmet);
-        }
+//
+//        if (random < 10) {
+//            return new AttackAction(octopusEnemies);
+//        } else if (random < 20) {
+//            return new GuardAction(helmet);
+//        }
 
         return new ChaseAction(nearestEnemy);
       //  return new EscapeAction(nearestEnemy);
