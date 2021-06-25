@@ -3,6 +3,8 @@ package model;
 import GA.GAAlgorithm;
 import game.Octopus;
 import game.model.ActionGenerator;
+import game.model.BorderHandler;
+import game.model.PVector;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,13 +34,17 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         octopusEnemies = new ArrayList<>();
 
         ActionGenerator actionGenerator = new GAAlgorithm(octopusEnemies);
+        BorderHandler borderHandler = new BorderHandler(new PVector(500, 500), 420);
 
         if(a) {
-            octopus = new Octopus(actionGenerator, health,100, 500);
+            octopus = new Octopus(actionGenerator, borderHandler, health,600, 500);
             a = false;
+            octopus.getAcceleration().y = 1f;
+            octopus.getAcceleration().x = 0;
         } else {
-            octopus = new Octopus(actionGenerator, health,500, 500);
-            octopus.getAcceleration().x = -0.01f;
+            octopus = new Octopus(actionGenerator, borderHandler, health,200, 500);
+            octopus.getAcceleration().y = -1f;
+            octopus.getAcceleration().x = 0;
         }
 
     }
