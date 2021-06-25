@@ -27,7 +27,7 @@ class ChromosomeTest {
         for (int i = 0; i < 64; i++) {
             chromosome.setGenes((byte) i);
 
-            assertEquals(45, chromosome.getPhenotype());
+            assertEquals(radians45, chromosome.getPhenotype());
         }
 
     }
@@ -40,7 +40,7 @@ class ChromosomeTest {
         for (int i = 64; i < 128; i++) {
             chromosome.setGenes((byte) i);
 
-            assertEquals(135, chromosome.getPhenotype());
+            assertEquals(radians135, chromosome.getPhenotype());
         }
 
     }
@@ -52,8 +52,7 @@ class ChromosomeTest {
 
         for (int i = 128; i < 192; i++) {
             chromosome.setGenes((byte) i);
-            System.out.println(i + " " +chromosome.getPhenotype());
-            assertEquals(225, chromosome.getPhenotype());
+            assertEquals(radians225, chromosome.getPhenotype());
         }
 
     }
@@ -68,7 +67,7 @@ class ChromosomeTest {
 
             double phenotype = chromosome.getPhenotype();
 
-            assertEquals(315, phenotype);
+            assertEquals(radians315, phenotype);
         }
 
     }
