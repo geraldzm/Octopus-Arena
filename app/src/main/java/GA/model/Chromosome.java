@@ -21,12 +21,7 @@ public class Chromosome {
     }
 
     public double getPhenotype() {
-
-        float radians = PConstants.QUARTER_PI;
-
-        int genType = genes / 64;
-
-        return PApplet.degrees((genType + 1) * radians + radians * genType);
+        return genes;
     }
 
 }

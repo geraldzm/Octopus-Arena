@@ -1,6 +1,6 @@
 package GA.model;
 
-
+import java.util.Collection;
 import java.util.TreeMap;
 
 import static Util.Utility.*;
@@ -14,7 +14,11 @@ public class Population {
 
     public Population(int pSizePopulation, int pAmountGenerations, Fitness pFitness) {
 
-        this.nature = new Nature(MutationFactory.getInstance().getMutationType(MutationType.SINGLE_RANDOM_MUTATE));
+        this.nature = new Nature(
+                MutationFactory.getInstance().getMutationType(MutationType.SINGLE_RANDOM_MUTATE),
+                CrossoverFactory.getInstance().getCrossover(CrossoverType.RANDOM_POINT)
+        );
+
         this.sizePopulation = pSizePopulation;
         this.acceptedPopulationSize = (int) (pSizePopulation * 0.4);
         this.amountGenerations = pAmountGenerations;
@@ -25,8 +29,13 @@ public class Population {
 
     private void generateInitialPopulation() {
 
-        for (int i = 0; i < sizePopulation; i++)
-            population[i] = new Chromosome((byte) random(0,256));
+        for (int i = 0; i < sizePopulation; i++) {
+
+            Chromosome chromosome = new Chromosome();
+            chromosome.randomGen();
+            population[i] = chromosome;
+
+        }
 
     }
 
@@ -37,14 +46,14 @@ public class Population {
         TreeMap<Double, Chromosome> map = new TreeMap<>();
         for (int i = 0; i < amountGenerations; i++) {
             map.clear();
-            testFitnessPopulation(c, map);
+            getMoreFit(c, map);
             breeding(map);
         }
 
         return map.lastEntry().getValue();
     }
 
-    private void testFitnessPopulation(GAContext c, TreeMap<Double, Chromosome> map) {
+    private void getMoreFit(GAContext c, TreeMap<Double, Chromosome> map) {
 
         for (int j = 0; j < sizePopulation; j++) {
 
@@ -54,7 +63,7 @@ public class Population {
             map.put(fitnessCalculator.fitOf(c), chromosome);
 
             if(map.size() > acceptedPopulationSize)
-                map.remove(map.firstEntry());
+                map.remove(map.firstEntry().getKey());
 
         }
 
@@ -62,11 +71,11 @@ public class Population {
 
     private void breeding(TreeMap<Double, Chromosome> map) {
 
-        Chromosome[] fitArray = (Chromosome[]) map.values().toArray();
+        Collection<Chromosome> values = map.values();
 
         for (int j = 0; j < sizePopulation; j++) {
-            Chromosome male = choiceRandom(fitArray);
-            Chromosome female = choiceRandom(fitArray);
+            Chromosome male = choiceRandom(values);
+            Chromosome female = choiceRandom(values);
             population[j] = nature.crossover(male, female);
         }
 
