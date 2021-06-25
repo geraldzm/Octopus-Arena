@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class User {
 
-    private String name;
+    private String nickname;
     private Integer experience;
     private Double money;
 
