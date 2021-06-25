@@ -76,4 +76,6 @@ public class Signup extends AppWindow {
         addComponent(next, 0);
         addComponent(cancel, 0);
     }
+
+
 }

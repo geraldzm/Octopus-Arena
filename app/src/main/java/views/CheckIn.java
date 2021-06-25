@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.CheckinController;
 import model.ContextNode;
 
 import javax.swing.*;
@@ -8,10 +9,10 @@ import java.awt.*;
 
 public class CheckIn extends AppWindow {
 
-    JSlider sliderEnergy;
-    JSpinner spinnerMoney;
+    public JSlider sliderEnergy;
+    public JSpinner spinnerMoney;
     ArenaPreviewInformation arenaPreviewInformation;
-    JButton checkIn, exit;
+    public JButton checkIn, exit;
     JList<String> readyPlayers;
 
     public CheckIn(ContextNode contextNode) {
@@ -28,6 +29,7 @@ public class CheckIn extends AppWindow {
         initAndAddReadyPlayers();
         initAndAddCheckinEnterButtons();
         setBackgroundColor(new Color(52,58,64));
+        new CheckinController(this);
     }
 
     private void initSliderEnergy(){
