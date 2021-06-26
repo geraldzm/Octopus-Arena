@@ -779,9 +779,12 @@ public class PVector implements Serializable {
     }
 
 
-    @Deprecated
+   // @Deprecated
     public float heading2D() {
-        return heading();
+        float angle = heading();
+        if(angle < 0)
+            angle += PConstants.TWO_PI;
+        return angle;
     }
 
 

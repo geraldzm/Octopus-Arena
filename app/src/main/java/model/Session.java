@@ -39,12 +39,8 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         if(a) {
             octopus = new Octopus(actionGenerator, borderHandler, health,600, 500);
             a = false;
-            octopus.getAcceleration().y = 1f;
-            octopus.getAcceleration().x = 0;
         } else {
             octopus = new Octopus(actionGenerator, borderHandler, health,200, 500);
-            octopus.getAcceleration().y = -1f;
-            octopus.getAcceleration().x = 0;
         }
 
     }

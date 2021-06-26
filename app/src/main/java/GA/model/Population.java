@@ -1,7 +1,11 @@
 package GA.model;
 
-import java.util.Collection;
-import java.util.TreeMap;
+import Util.Utility;
+import game.model.PApplet;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import static Util.Utility.*;
 
@@ -20,7 +24,7 @@ public class Population {
         );
 
         this.sizePopulation = pSizePopulation;
-        this.acceptedPopulationSize = (int) (pSizePopulation * 0.4);
+        this.acceptedPopulationSize = (int) (pSizePopulation * 0.6);
         this.amountGenerations = pAmountGenerations;
         this.population = new Chromosome[sizePopulation];
         this.fitnessCalculator = pFitness;
@@ -43,35 +47,44 @@ public class Population {
 
         generateInitialPopulation();
 
-        TreeMap<Double, Chromosome> map = new TreeMap<>();
+        PriorityQueue<Chromosome> mostFit = new PriorityQueue<>();
         for (int i = 0; i < amountGenerations; i++) {
-            map.clear();
-            getMoreFit(c, map);
-            breeding(map);
+            mostFit.clear();
+            getMoreFit(c, mostFit);
+            breeding(mostFit);
         }
 
-        return map.lastEntry().getValue();
+        Map<Byte, Long> collect = mostFit.stream()
+                .collect(Collectors.groupingBy(Chromosome::getGenes, Collectors.counting()));
+
+        Map.Entry<Byte, Long> doubleLongEntry = Utility.maxFromMap(collect);
+
+
+        return new Chromosome(doubleLongEntry.getKey());
     }
 
-    private void getMoreFit(GAContext c, TreeMap<Double, Chromosome> map) {
+    private void getMoreFit(GAContext c, PriorityQueue<Chromosome> mostFit) {
 
         for (int j = 0; j < sizePopulation; j++) {
 
             Chromosome chromosome = population[j];
             c.phenotype = chromosome.getPhenotype();
+            chromosome.setFit(fitnessCalculator.fitOf(c));
 
-            map.put(fitnessCalculator.fitOf(c), chromosome);
+            mostFit.add(chromosome);
 
-            if(map.size() > acceptedPopulationSize)
-                map.remove(map.firstEntry().getKey());
+            if(mostFit.size() > acceptedPopulationSize)
+                mostFit.poll();
 
         }
 
     }
 
-    private void breeding(TreeMap<Double, Chromosome> map) {
+    private void breeding(PriorityQueue<Chromosome> mostFit) {
 
-        Collection<Chromosome> values = map.values();
+        Chromosome[] values = new Chromosome[mostFit.size()];
+
+        mostFit.toArray(values);
 
         for (int j = 0; j < sizePopulation; j++) {
             Chromosome male = choiceRandom(values);

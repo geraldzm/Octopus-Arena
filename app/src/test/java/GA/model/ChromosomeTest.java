@@ -73,6 +73,23 @@ class ChromosomeTest {
 
     }
 
+    @Test
+    void getType() {
+        Chromosome chromosome = new Chromosome();
+
+        ChromosomeType[] values = ChromosomeType.values();
+        int index = 0, counter = 0;
+
+        for (int i = 0; i < 256; i++) {
+
+            chromosome.setGenes((byte) i);
+
+            assertEquals(values[index], chromosome.getType());
+
+            if(++counter % 64 == 0)
+                index++;
+        }
+    }
 
     @Test
     void crossoverNoMutationsFixedPoint() {

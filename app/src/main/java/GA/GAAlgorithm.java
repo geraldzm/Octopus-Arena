@@ -1,12 +1,10 @@
 package GA;
 
+import GA.model.Chromosome;
 import GA.model.FitnessWithVectors;
 import GA.model.GAContext;
 import GA.model.Population;
-import game.AttackAction;
-import game.ChaseAction;
-import game.GuardAction;
-import game.Octopus;
+import game.*;
 import game.model.Action;
 import game.model.ActionGenerator;
 import game.model.Helmet;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import static Util.Utility.choiceRandom;
-import static Util.Utility.random;
 
 /**
  * Interface with the rest of the world
@@ -41,31 +38,29 @@ public class GAAlgorithm implements ActionGenerator {
     @Override
     public Action getAction(Octopus octopus) {
 
-  /*      Octopus nearestOctopus = getNearest(octopus);
-        GAContext c = new GAContext();
-        setContext(c, octopus, nearestOctopus);
-        Chromosome mostFit = population.run(c);
-*/
-
-//        int random = random(0, 300);
         Octopus nearestEnemy = getNearest(octopus);
-//
-//        if (random < 10) {
-//            return new AttackAction(octopusEnemies);
-//        } else if (random < 20) {
-//            return new GuardAction(helmet);
-//        }
+        GAContext c = new GAContext();
 
-        return new ChaseAction(nearestEnemy);
-      //  return new EscapeAction(nearestEnemy);
+        c.energy = octopus.getEnergy();
+        c.energyNE = nearestEnemy.getEnergy();
+        c.position = octopus.getPosition();
+        c.positionNE = nearestEnemy.getPosition();
 
+        Chromosome mostFit = population.run(c);
+
+        return chromosomeToAction(mostFit, nearestEnemy);
     }
 
-    private void setContext(GAContext c, Octopus octopus, Octopus nearestOctopus) {
-        c.energy = octopus.getEnergy();
-        c.energyNE = nearestOctopus.getEnergy();
-        c.position = octopus.getPosition();
-        c.positionNE = nearestOctopus.getPosition();
+    private Action chromosomeToAction(Chromosome mostFit, Octopus nearestEnemy) {
+
+        switch (mostFit.getType()) {
+            case ATTACK: return new AttackAction(octopusEnemies);
+            case CHASE: return new ChaseAction(nearestEnemy);
+            case EVADE: return new EscapeAction(nearestEnemy);
+            case GUARD: return new GuardAction(helmet);
+        }
+
+        return null;
     }
 
 
@@ -77,7 +72,6 @@ public class GAAlgorithm implements ActionGenerator {
         return octopusEnemies.stream()
                 .min(Comparator.comparingDouble(o0 -> o0.getPosition().dist(octopus.getPosition())))
                 .orElse(null);
-
     }
 
 }

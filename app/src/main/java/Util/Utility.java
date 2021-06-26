@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 public class Utility {
@@ -69,6 +70,20 @@ public class Utility {
 
         return list[random];
 
+    }
+
+    public static <K, V extends Comparable<V>>  Map.Entry<K, V> maxFromMap(Map<K, V> map) {
+
+        Map.Entry<K, V> maxEntry = null;
+
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (maxEntry == null || entry.getValue()
+                    .compareTo(maxEntry.getValue()) > 0) {
+                maxEntry = entry;
+            }
+        }
+
+        return maxEntry;
     }
 
     public static double clamp(double value, double min, double max) {
