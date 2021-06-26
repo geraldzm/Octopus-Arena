@@ -14,6 +14,8 @@ import views.GameWindow;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static Util.Utility.random;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -63,6 +65,10 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         this.octopusEnemies.addAll(octopusArrayList);
         this.octopusEnemies.remove(this.octopus);
 
+    }
+
+    public void setUserColor(Color color) {
+        octopus.setColor(color);
     }
 
 }

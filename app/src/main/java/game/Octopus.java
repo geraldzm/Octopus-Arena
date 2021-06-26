@@ -98,4 +98,8 @@ public class Octopus extends GameObject {
         borderHandler.clampMovement(position, hitBox);
     }
 
+    public void setColor(Color color) {
+        healthBar.setColor(color);
+    }
+
 }

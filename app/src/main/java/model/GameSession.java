@@ -3,8 +3,12 @@ package model;
 import game.Game;
 import game.Octopus;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
+
+import static Util.Utility.random;
 
 public class GameSession {
 
@@ -34,18 +38,31 @@ public class GameSession {
             session.register(this::onSessionDisconnected);
 
             if(maxPlayers == game.observers.size()) { // esto se va a controlar en el Checkin Controller
-                ArrayList<Octopus> octopusList = (ArrayList<Octopus>) allSessions.stream()
-                        .map(Session::getOctopus)
-                        .collect(Collectors.toList());
-
-                allSessions.forEach(s -> s.initGame(octopusList));
-
-                game.setOctopus(octopusList);
-                game.start();
+                initGame();
             }
 
         }
 
+    }
+
+    private void initGame() {
+        ArrayList<Octopus> octopusList = (ArrayList<Octopus>) allSessions.stream()
+                .map(Session::getOctopus)
+                .collect(Collectors.toList());
+
+        LinkedHashMap<String, Color> nameTable = new LinkedHashMap<>(allSessions.size());
+
+        allSessions.forEach(s -> {
+            s.initGame(octopusList);
+
+            Color color = new Color(random(0, 256), random(0, 256), random(0, 256));
+            s.setUserColor(color);
+            nameTable.put(s.getUser().getNickname(), color);
+        });
+
+        game.setNameTable(nameTable);
+        game.setOctopus(octopusList);
+        game.start();
     }
 
     public void onSessionDisconnected (Session session) {
