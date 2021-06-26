@@ -22,7 +22,7 @@ class NicknameGeneratorTest {
     @Test
     void testGenerateNickname() {
 
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
             String s = NicknameGenerator.getInstance().generateNickname();
             System.out.println(s);
         }
