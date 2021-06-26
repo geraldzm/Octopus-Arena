@@ -22,7 +22,7 @@ public class LoginController {
 
     public void onLoginButtonDo(ActionEvent event) {
 
-        // insert if to validated user information
+
         WindowBuilder.buildWindowAndShow(null, WindowID.HOME);
 
     }

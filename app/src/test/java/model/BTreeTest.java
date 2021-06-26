@@ -1,8 +1,7 @@
 package model;
 
+import Logic.NicknameGenerator;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BTreeTest {
 

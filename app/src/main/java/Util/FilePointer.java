@@ -1,10 +1,8 @@
 package Util;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class FilePointer {
     private long startOffset;
     private long endOffset;
@@ -12,4 +10,5 @@ public class FilePointer {
     public int getBufferSize(){
         return (int) ((endOffset - startOffset));
     }
+
 }

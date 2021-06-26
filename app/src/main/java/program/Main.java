@@ -1,7 +1,7 @@
 package program;
 
 import model.ContextNode;
-import model.GameSession;
+import Logic.GameSession;
 import model.User;
 import views.WindowBuilder;
 import views.WindowID;
@@ -9,6 +9,8 @@ import views.WindowID;
 public class Main {
 
     public static void main(String[] args) {
+
+        // Nota se va a controlar la cantidad de usuarios que ingrean por dia en el controlador de Login
 
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
 

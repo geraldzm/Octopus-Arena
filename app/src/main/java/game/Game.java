@@ -4,7 +4,7 @@ import Util.Utility;
 import game.model.GameObjectHandler;
 import lombok.Getter;
 import lombok.Setter;
-import model.GameSession;
+import Logic.GameSession;
 import model.Observable;
 import model.Updatable;
 

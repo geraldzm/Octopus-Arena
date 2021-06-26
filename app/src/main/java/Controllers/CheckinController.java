@@ -1,33 +1,40 @@
 package Controllers;
 
+import model.Arena;
+import Logic.GameSession;
 import views.CheckIn;
-import views.WindowBuilder;
-import views.WindowID;
-
-import javax.crypto.Cipher;
 import java.awt.event.ActionEvent;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 
 public class CheckinController {
 
     private CheckIn checkin;
+    private GameSession gameSession;
+    private Arena arena;
 
     public CheckinController(CheckIn checkin) {
         this.checkin = checkin;
+        this.checkin.checkIn.addActionListener(this::onCheckInButtonDo);
+
+        gameSession = checkin.getContextNode().gameSession;
+        arena = checkin.getContextNode().arena;
     }
 
     public void onCheckInButtonDo(ActionEvent event) {
 
-        if(validateParameters())
+        if(!validateParameters() || isArenaAvailable())
             return;
+
 
 
         finishCheckin();
     }
 
+    private boolean isArenaAvailable() {
+        return true;
+    }
+
     private boolean validateParameters(){
-        return  validateEnergy() && validateMoney();
+        return validateEnergy() && validateMoney();
     }
 
     private boolean validateEnergy(){

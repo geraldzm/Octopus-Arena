@@ -1,13 +1,9 @@
 package model;
 
+import Logic.NicknameGenerator;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.charset.StandardCharsets;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class NicknameGeneratorTest {
 

@@ -1,7 +1,8 @@
-package model;
+package Logic;
 
 import game.Game;
 import game.Octopus;
+import model.Session;
 
 import java.awt.*;
 import java.util.ArrayList;

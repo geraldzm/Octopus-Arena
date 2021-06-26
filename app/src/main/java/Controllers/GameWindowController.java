@@ -1,7 +1,7 @@
 package Controllers;
 
 import model.ContextNode;
-import model.GameSession;
+import Logic.GameSession;
 import model.Session;
 import views.GameWindow;
 
