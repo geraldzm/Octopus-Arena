@@ -21,7 +21,7 @@ public abstract class GameObject implements IRenderable, ITickable {
     public GameObject(int width, int height) {
 
         velocity = new PVector(0, 0);
-        maxVelocity = new PVector(1, 1);
+        maxVelocity = new PVector(2, 2);
         acceleration = new PVector(0, 0);
         position = new PVector(0, 0);
 
