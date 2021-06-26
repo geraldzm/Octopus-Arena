@@ -17,7 +17,7 @@ public class Main {
      //   WindowBuilder.buildWindowAndShow(null, WindowID.GAME);
      //   ------------- This will be made by the Home controller ---------
 
-        GameSession gameSession = new GameSession(4);
+     /*   GameSession gameSession = new GameSession(4);
 
         ContextNode contextUser0 = new ContextNode();
         contextUser0.gameSession = gameSession;
@@ -51,7 +51,7 @@ public class Main {
         contextUser4.toBet = 40.0;
 
         WindowBuilder.buildWindowAndShow(contextUser4, WindowID.GAME);
-
+*/
         //------------- This will be made by the Home controller ---------
     }
 

@@ -4,14 +4,14 @@ public class DataParser <T> {
 
     private T value;
 
-    public DataParser(T value) {
-        this.value = value;
+    public DataParser() {
+
     }
 
 
     public T getValueFrom(String json) {
 
-       return Gson.getFromJson(T.getClass(), json);
+     //  return Gson.getFromJson(T.getClass(), json);
 
     /*
     * <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
@@ -22,6 +22,7 @@ public class DataParser <T> {
 </dependency>
 
     * */
+        return null;
     }
 
 }

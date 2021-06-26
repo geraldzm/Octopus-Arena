@@ -24,7 +24,7 @@ public class NicknameGenerator {
 
         String adjective = chooseRandomValue("src/main/resources/data.adjectives");
         String animal = chooseRandomValue("src/main/resources/data.animals");
-        int number = Utility.random(0, 1000);
+        int number = Utility.random(10, 1000);
         String nickname = adjective + "-"+animal + number;
 
         // validar si existe o no

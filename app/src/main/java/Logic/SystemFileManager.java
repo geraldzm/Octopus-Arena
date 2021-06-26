@@ -37,16 +37,10 @@ public class SystemFileManager {
         FilePointer filePointer = tree.get(nickname.hashCode());
 
         if(filePointer != null) {
-            String s = FileManager.getInstance().readFile(filePointer);
-            if(s != null) {
-                // ----
-                /*
-                * {
-                *   'name': 'gerald'
-                *   'exp' : 2
-                *
-                * }
-                * */
+            String json = FileManager.getInstance().readFile(filePointer);
+            if(json != null) {
+               // call DataParser
+                return new DataParser<User>().getValueFrom(json);
             }
         }
 
