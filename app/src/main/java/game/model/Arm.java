@@ -14,14 +14,17 @@ public class Arm extends GameObject {
     float angle;
     PVector fistHeading;
     private ArrayList<Octopus> enemies;
+    Double damage;
 
-    public Arm(PVector center, PVector acceleration, ArrayList<Octopus> enemies) {
+    public Arm(PVector center, PVector acceleration, ArrayList<Octopus> enemies, Double damage) {
         super(51, 28);
 
         setImage("/images/fist.png");
 
         this.enemies = enemies;
         this.center = center;
+
+        this.damage = damage;
 
         this.position.x = center.x + 50;
         this.position.y = center.y + 45;
@@ -81,7 +84,7 @@ public class Arm extends GameObject {
                 Octopus enemy = enemies.get(i);
 
                 if(!enemy.isDead() && enemy.isTouching(copy)) {
-                    enemy.takeDamage(10); //
+                    enemy.takeDamage(damage); //
                     hit = true;
                 }
 

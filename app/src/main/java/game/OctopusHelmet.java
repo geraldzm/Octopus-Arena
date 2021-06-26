@@ -34,6 +34,12 @@ public class OctopusHelmet extends OctopusAction {
     public void startAction() {
         setRunning(true);
 
+        //
+        double resistence = getOctopus().getHealthBar().getHealth();
+        resistence = resistence *  (-10d/33d) + 80.303030303030d; //
+
+        getOctopus().setResistance(resistence / 100);
+
         // set a timer to stop the action
         new Timer().schedule(new TimerTask() {
             @Override

@@ -14,7 +14,7 @@ public class Octopus extends GameObject {
 
     private ActionGenerator actionGenerator;
     private OctopusAction octopusAction;
-    private HealthBar health;
+    private HealthBar healthBar;
     private ArrayList<Octopus> enemies;
     private double resistance;
     private BorderHandler borderHandler;
@@ -25,7 +25,7 @@ public class Octopus extends GameObject {
         position.x = x;
         position.y = y;
         acceleration.x = 0.1f;
-        this.health = new HealthBar(health, position);
+        this.healthBar = new HealthBar(health, position);
         this.actionGenerator = actionGenerator;
         this.resistance = 1;
         this.borderHandler = borderHandler;
@@ -34,8 +34,7 @@ public class Octopus extends GameObject {
     @Override
     public void render(Graphics g) {
 
-
-        health.render(g);
+        healthBar.render(g);
 
         if(octopusAction != null)
             if(octopusAction.isInFrontOfOctopus()) {
@@ -53,7 +52,7 @@ public class Octopus extends GameObject {
     @Override
     public void tick() {
 
-        if(health.getHealth() == 0) return;
+        if(healthBar.getHealth() == 0) return;
 
         if(octopusAction == null) {
 
@@ -78,19 +77,18 @@ public class Octopus extends GameObject {
 
     public void takeDamage(double damage) {
         damage *= resistance;
-        health.reduceHealth(damage);
+        healthBar.reduceHealth(damage);
 
-        if(health.getHealth() == 0) {
+        if(healthBar.getHealth() == 0)
             setImage("/images/skeleton.png");
-        }
     }
 
     public boolean isDead() {
-        return health.getHealth() == 0;
+        return healthBar.getHealth() == 0;
     }
 
     public double getEnergy() {
-        return health.getHealth();
+        return healthBar.getHealth();
     }
 
     @Override
