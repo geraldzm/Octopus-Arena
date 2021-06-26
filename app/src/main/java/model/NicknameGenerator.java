@@ -7,6 +7,7 @@ import lombok.Synchronized;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutionException;
 
 public class NicknameGenerator {
 
@@ -28,17 +29,16 @@ public class NicknameGenerator {
         String animal = chooseRandomValue("src/main/resources/data.animals");
         int number = Utility.random(0, 1000);
         String nickname = adjective + "-"+animal + number;
-        /*
-        validate nickname
-        or get newone
-         */
+
+        // validar si existe o no
+
         return nickname;
     }
 
     public synchronized String chooseRandomValue(String pPath){
         try(RandomAccessFile file = new RandomAccessFile(pPath, "r")) {
             StringBuilder value = new StringBuilder();
-            file.seek(Utility.random(0, (int) file.length()));
+            file.seek(Utility.random(0, (int) (file.length() - 1)));
             if (!readChar(file).equals(","))
                 backtrackUntilComma(file);
             return getStringValue(file, value);
@@ -49,12 +49,13 @@ public class NicknameGenerator {
     }
 
     private void backtrackUntilComma(RandomAccessFile file) throws IOException {
-        while(file.getFilePointer() != 0 && !readChar(file).equals(","))
+        while((int)file.getFilePointer()!= 0 && !readChar(file).equals(","))
             file.seek(file.getFilePointer() - 2);
     }
 
+
     private String getStringValue(RandomAccessFile file, StringBuilder value) throws IOException {
-        while(file.getFilePointer() != (int) file.length() && !readChar(file).equals(",")){
+        while((int)file.getFilePointer() != (int) file.length() && !readChar(file).equals(",")){
             file.seek(file.getFilePointer()-1);
             value.append(readChar(file));
         }

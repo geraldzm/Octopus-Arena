@@ -1,8 +1,10 @@
 package Util;
 
 import lombok.Synchronized;
+import model.BTree;
+import model.User;
 
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class FileManager {
@@ -45,5 +47,35 @@ public class FileManager {
         }
         return null;
     }
+
+
+    public static boolean storeSerializableObject(BTree<Integer, FilePointer> obj, String path){
+
+        try(OutputStream outputStream = new FileOutputStream(new File(path))){
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+            objectOutputStream.writeObject(obj);
+            return true;
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static BTree<Integer, FilePointer> readSerializableObject(String path){
+        BTree<Integer, FilePointer> rs = null;
+        try(InputStream inputStream = new FileInputStream(new File(path))){
+
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+
+            rs = (BTree<Integer, FilePointer>) objectInputStream.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
+
 
 }
