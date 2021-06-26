@@ -1,13 +1,12 @@
 package GA.model;
 
 import Util.Utility;
-import game.model.PApplet;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
-import static Util.Utility.*;
+import static Util.Utility.choiceRandom;
 
 public class Population {
 
@@ -52,13 +51,18 @@ public class Population {
             mostFit.clear();
             getMoreFit(c, mostFit);
             breeding(mostFit);
+
+            Map<ChromosomeType, Long> collect = mostFit.stream()
+                    .collect(Collectors.groupingBy(Chromosome::getType, Collectors.counting()));
+
+            /*System.out.println("\nGen #" +i);
+            collect.forEach((ch, n) -> System.out.println(ch + "\t" + n));*/
         }
 
         Map<Byte, Long> collect = mostFit.stream()
                 .collect(Collectors.groupingBy(Chromosome::getGenes, Collectors.counting()));
 
         Map.Entry<Byte, Long> doubleLongEntry = Utility.maxFromMap(collect);
-
 
         return new Chromosome(doubleLongEntry.getKey());
     }

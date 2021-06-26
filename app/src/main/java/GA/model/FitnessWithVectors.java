@@ -9,7 +9,7 @@ public class FitnessWithVectors implements Fitness {
     public double fitOf(GAContext c) {
 
         float distY = (float) (c.energy - c.energyNE);
-        float energyX = c.position.dist(c.positionNE) - 160;
+        float energyX = c.position.dist(c.positionNE) - 120;
 
         PVector vector = new PVector(energyX, distY);
         float bestAngle = vector.heading2D();

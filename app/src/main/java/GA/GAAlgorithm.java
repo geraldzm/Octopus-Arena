@@ -70,8 +70,10 @@ public class GAAlgorithm implements ActionGenerator {
     private Octopus getNearest(Octopus octopus) {
 
         return octopusEnemies.stream()
+                .filter(c -> !c.isDead())
                 .min(Comparator.comparingDouble(o0 -> o0.getPosition().dist(octopus.getPosition())))
                 .orElse(null);
+
     }
 
 }

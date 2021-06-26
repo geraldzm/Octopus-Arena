@@ -9,7 +9,7 @@ public class Nature {
 
     public Nature(Mutation mutator, Crossover crossover) {
         this.mutator = mutator;
-        this.mutationProbability = 0;
+        this.mutationProbability = 0.12;
         this.crossover = crossover;
     }
 

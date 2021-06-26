@@ -1,6 +1,7 @@
 package model;
 
 import GA.GAAlgorithm;
+import Util.Utility;
 import game.Octopus;
 import game.model.ActionGenerator;
 import game.model.BorderHandler;
@@ -36,13 +37,9 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         ActionGenerator actionGenerator = new GAAlgorithm(octopusEnemies);
         BorderHandler borderHandler = new BorderHandler(new PVector(500, 500), 420);
 
-        if(a) {
-            octopus = new Octopus(actionGenerator, borderHandler, health,600, 500);
-            a = false;
-        } else {
-            octopus = new Octopus(actionGenerator, borderHandler, health,200, 500);
-        }
-
+        int x = Utility.random(100, 700);
+        int y = Utility.random(100, 700);
+        octopus = new Octopus(actionGenerator, borderHandler, health,x, y);
     }
 
     public static boolean a = true;

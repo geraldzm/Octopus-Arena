@@ -17,9 +17,9 @@ class PopulationTest {
     void chaseMethod() {
 
         GAContext context = new GAContext();
-        context.position = new PVector(600, 500);
+        context.position = new PVector(100, 500);
         context.positionNE = new PVector(200, 500);
-        context.energy = 100;
+        context.energy = 80;
         context.energyNE = 80;
 
         Population population = new Population(20, 5, new FitnessWithVectors());
