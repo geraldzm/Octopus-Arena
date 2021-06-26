@@ -34,6 +34,11 @@ public class OctopusEscape extends OctopusAction {
     public void startAction() {
         setRunning(true);
         counter = 0;
+
+        float velocity = (float) (getOctopus().getHealthBar().getHealth() * (0.5 / -99) + 149d/99d);
+
+        getOctopus().getMaxVelocity().x = velocity;
+        getOctopus().getMaxVelocity().y = velocity;
     }
 
 }
