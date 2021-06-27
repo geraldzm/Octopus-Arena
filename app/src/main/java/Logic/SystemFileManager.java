@@ -25,23 +25,21 @@ public class SystemFileManager {
         return systemFileManager;
     }
 
-    public void insertTree(){
-        //
+    public void insertTree(User user){
+        String json = new DataParser<>().getJsonFrom(user);
+        FilePointer fp = FileManager.getInstance().writeFile(json);
+        tree.put(user.getNickname().hashCode(), fp);
+        FileManager.getInstance().storeSerializableObject(tree, "src/main/resources/data.tree");
     }
 
-    /**
-     * @return null it doesn't exist
-     * */
     public User getUser(String nickname) {
 
         FilePointer filePointer = tree.get(nickname.hashCode());
 
         if(filePointer != null) {
             String json = FileManager.getInstance().readFile(filePointer);
-            if(json != null) {
-               // call DataParser
-               // return new DataParser<User>(User.class).getValueFrom(json);
-            }
+            if(json != null)
+                return new DataParser<>().getValueFrom(json, User.class);
         }
 
         return null;

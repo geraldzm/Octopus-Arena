@@ -1,10 +1,14 @@
 package program;
 
+import Logic.SystemFileManager;
+import Util.FileManager;
 import model.ContextNode;
 import Logic.GameSession;
 import model.User;
 import views.WindowBuilder;
 import views.WindowID;
+
+import java.io.File;
 
 public class Main {
 
@@ -12,12 +16,14 @@ public class Main {
 
         // Nota se va a controlar la cantidad de usuarios que ingrean por dia en el controlador de Login
 
+       // SystemFileManager.getInstance();
+
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
 
      //   WindowBuilder.buildWindowAndShow(null, WindowID.GAME);
      //   ------------- This will be made by the Home controller ---------
 
-     /*   GameSession gameSession = new GameSession(4);
+        GameSession gameSession = new GameSession(4);
 
         ContextNode contextUser0 = new ContextNode();
         contextUser0.gameSession = gameSession;
@@ -51,7 +57,7 @@ public class Main {
         contextUser4.toBet = 40.0;
 
         WindowBuilder.buildWindowAndShow(contextUser4, WindowID.GAME);
-*/
+
         //------------- This will be made by the Home controller ---------
     }
 
