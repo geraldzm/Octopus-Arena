@@ -21,10 +21,16 @@ public class CheckinController {
         checkin.getContextNode().arena.register(checkin.arenaPreviewInformation);
     }
 
+    public static int counter = 0;
     private void onCheckInButtonDo(ActionEvent event) {
 
-        if(!validateParameters() || isArenaAvailable())
-            return;
+        if(isArenaAvailable() && validateParameters()) {
+            System.out.println("Available: " + counter++);
+
+        } else {
+            System.out.println("NOT Available: " + counter++);
+        }
+
 
         finishCheckin();
     }
@@ -36,10 +42,10 @@ public class CheckinController {
     }
 
     private boolean isArenaAvailable() {
-        return true;
+        return !arena.isStarted() && !arena.isFull();
     }
 
-    private boolean validateParameters(){
+    private boolean validateParameters() {
         return validateEnergy() && validateMoney();
     }
 

@@ -17,7 +17,7 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
     private Double fee;
     private Integer octopusAmount;
     private Timer timer;
-    private boolean isStarted;
+    private boolean isStarted, isFull;
     private Chronometer chronometer;
     private GameSession gameSession;
 

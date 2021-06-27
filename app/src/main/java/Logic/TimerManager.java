@@ -23,12 +23,12 @@ public class TimerManager {
                 long time = new Date().getTime();
                 long l = startTime - time;
 
-                if(l > 0) {
-                    chronometer.tickChronometer(time);
+                chronometer.tickChronometer(time);
+
+                if(!chronometer.getLastTime().equals("00:00:00"))
                     tick.chronometerTick(l);
-                } else {
+                else
                     tick.chronometerTick(-1L);
-                }
 
             }
 
