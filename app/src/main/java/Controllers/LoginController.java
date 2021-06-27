@@ -10,9 +10,6 @@ import views.WindowBuilder;
 import views.WindowID;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
 @Getter

@@ -11,9 +11,9 @@ public class CheckIn extends AppWindow {
 
     public JSlider sliderEnergy;
     public JSpinner spinnerMoney;
-    ArenaPreviewInformation arenaPreviewInformation;
+    public ArenaPreviewInformation arenaPreviewInformation;
     public JButton checkIn, exit;
-    JList<String> readyPlayers;
+    public JList<String> readyPlayers;
 
     public CheckIn(ContextNode contextNode) {
         super(contextNode, "CheckIn", new Dimension(600, 600));
@@ -67,7 +67,7 @@ public class CheckIn extends AppWindow {
 
     private void initAndAddArenaPreview(){
         arenaPreviewInformation = new ArenaPreviewInformation();
-        arenaPreviewInformation.setBackground(Color.RED);
+        arenaPreviewInformation.setBackground(Color.WHITE);
         arenaPreviewInformation.setBounds(30, 150, 200, 200);
         addComponent(arenaPreviewInformation, 0);
     }

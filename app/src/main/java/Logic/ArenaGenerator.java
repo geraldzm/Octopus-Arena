@@ -20,7 +20,7 @@ public class ArenaGenerator implements ArenaBuilder {
         // si el 10% es 0 entonces se valida que haya almenos un usuario en la lista de online users
         // y se crea la vara con los gustos de ese mae
 
-        Arena arena = new Arena(count++);
+        Arena arena = new Arena(count++, 3);
         arena.setFee(0.1);
         arena.setOctopusAmount(10);
         alreadyVisitedArenas.add(arena);

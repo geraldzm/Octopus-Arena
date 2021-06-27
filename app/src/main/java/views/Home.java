@@ -10,7 +10,6 @@ public class Home extends AppWindow {
 
     public JLabel name, pot, experience, time; // info
     public JLabel wins, losses, moneyWon, moneyLost; // stacks
-    public JLabel tickets[]; // 6 tickets
     public JTextArea description;
     public JButton update;
     public ArenaViewPanel arenaPreviewPane;
@@ -31,9 +30,6 @@ public class Home extends AppWindow {
         totalY += 540;
         JPanel statisticsPane = initAndAddStatisticsPaneComponent(totalY);
         initAndAddStats(statisticsPane);
-        JPanel ticketsPane = initAndAddTicketsPaneComponent(totalY);
-        addTickets(ticketsPane);
-        setBackgroundColor(new Color(246, 239, 211));
 
         new HomeController(this);
 
@@ -104,14 +100,6 @@ public class Home extends AppWindow {
         ticketsPane.setBounds(600, totalY, 200,  90);
         addComponent(ticketsPane, 1);
         return ticketsPane;
-    }
-
-    private void addTickets(JPanel ticketsPane){
-        tickets = new JLabel[6];
-
-        for (int i = 0; i < 6; i++) {
-            wins = initAndAdd("Ticket" + i, ticketsPane);
-        }
     }
 
     private JPanel createPanelStack(int x, int totalY, int width, int height) {
