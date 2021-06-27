@@ -13,8 +13,7 @@ public class User implements Serializable {
     private String nickname;
     private Integer experience;
     private Double money;
-    private Double minimumBet;
-    private Double maximumBet;
+    private Double preferredBetAmount;
     private Integer amountOctopi;
     private TimeZones timeZone;
 

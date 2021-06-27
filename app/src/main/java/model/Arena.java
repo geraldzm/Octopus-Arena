@@ -19,7 +19,10 @@ public class Arena extends Observable<Observer<ArenaInformation>> {
     private String startTime;
     private boolean isStarted;
     private Chronometer chronometer;
-
+    private TimeZones timeZone;
+    private Integer experience;
+    private Double minimumBet;
+    private Double maximumBet;
 
     private static SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss.SSS");
 

@@ -43,7 +43,7 @@ public class HomeController {
         arenaInformationObserver = home.arenaPreviewPane.arenaPreviewInformation;
         arenaInformationConsume = this::buttonUpdate;
 
-        setCurrentArena(arenaBuilder.arenaBuilder(user.getArenas()));
+        setCurrentArena(arenaBuilder.arenaBuilder(user));
     }
 
     public synchronized void mouseClickedLeftButton(MouseEvent e) {
@@ -63,7 +63,7 @@ public class HomeController {
         if(i != -1 && 1+i != user.getArenas().size() && currentArena != null)
             setCurrentArena(user.getArenas().get(i+1));
         else
-            setCurrentArena(arenaBuilder.arenaBuilder(user.getArenas()));
+            setCurrentArena(arenaBuilder.arenaBuilder(user));
     }
 
     public void setCurrentArena(@NonNull Arena arena) {

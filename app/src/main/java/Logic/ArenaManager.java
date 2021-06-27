@@ -1,5 +1,6 @@
 package Logic;
 
+import lombok.Getter;
 import model.Arena;
 import model.ArenaTableComponent;
 import model.Constants;
@@ -7,6 +8,7 @@ import model.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Getter
 public class ArenaManager {
 
     private final HashMap<ArenaTableComponent,ArrayList<Arena>> currentArenas;
@@ -40,6 +42,10 @@ public class ArenaManager {
         // y se crea la vara con los gustos de ese mae
 
      */
+
+    public void insertNewArena(ArenaTableComponent atc, Arena arena){
+        currentArenas.get(atc).add(arena);
+    }
 
 
 

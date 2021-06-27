@@ -53,6 +53,18 @@ public class Utility {
         return (Math.random() * (to  - from) + from);
     }
 
+
+    public static double randomPoissonDistribution(double targetValue) {
+        double L = Math.exp(targetValue*-1);
+        int k = 0;
+        double p = 1;
+        do {
+            k = k + 1;
+            p = p * Utility.random(0.0,1.0);
+        } while (p > L);
+        return k-1;
+    }
+
     public static <T> T choiceRandom(ArrayList<T> list) {
 
         if(list.isEmpty()) return null;
