@@ -77,6 +77,7 @@ public class FileManager {
             rs = (BTree<Integer, FilePointer>) objectInputStream.readObject();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
+            System.err.println("yes dude");
         }
 
         return rs;

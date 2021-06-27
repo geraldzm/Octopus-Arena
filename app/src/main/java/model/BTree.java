@@ -1,7 +1,9 @@
 package model;
 
+import java.io.Serializable;
+
 //Adapted from https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/BTree.java.html
-public class BTree<Key extends Comparable<Key>, Value> {
+public class BTree<Key extends Comparable<Key>, Value> implements Serializable {
 
     private static final int M = 4;
 
@@ -10,7 +12,7 @@ public class BTree<Key extends Comparable<Key>, Value> {
     private int n;           // number of key-value pairs in the B-tree
 
     // helper B-tree node data type
-    private static final class Node {
+    private static final class Node implements Serializable {
         private int m;                             // number of children
         private Entry[] children = new Entry[M];   // the array of children
 
@@ -22,7 +24,7 @@ public class BTree<Key extends Comparable<Key>, Value> {
 
     // internal nodes: only use key and next
     // external nodes: only use key and value
-    private static class Entry {
+    private static class Entry implements Serializable {
         private Comparable key;
         private Object val;
         private Node next;     // helper field to iterate over array entries
