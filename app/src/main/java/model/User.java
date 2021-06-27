@@ -13,6 +13,10 @@ public class User implements Serializable {
     private String nickname;
     private Integer experience;
     private Double money;
+    private Double minimumBet;
+    private Double maximumBet;
+    private Integer amountOctopi;
+    private TimeZones timeZone;
 
     private transient ArrayList<Arena> arenas;
 

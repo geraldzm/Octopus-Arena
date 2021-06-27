@@ -49,6 +49,10 @@ public class Utility {
         return (int) (Math.random() * (to  - from) + from);
     }
 
+    public static double random(double from, double to) {
+        return (Math.random() * (to  - from) + from);
+    }
+
     public static <T> T choiceRandom(ArrayList<T> list) {
 
         if(list.isEmpty()) return null;
