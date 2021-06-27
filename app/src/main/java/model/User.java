@@ -1,14 +1,26 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
-@Getter
+import java.io.Serializable;
+import java.util.ArrayList;
+
 @AllArgsConstructor
-public class User {
+@NoArgsConstructor
+@Data
+public class User implements Serializable {
 
     private String nickname;
     private Integer experience;
     private Double money;
+
+    private transient ArrayList<Arena> arenas;
+
+    public User(String nickname, Integer experience, Double money) {
+        this.nickname = nickname;
+        this.experience = experience;
+        this.money = money;
+    }
+
 
 }

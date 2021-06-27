@@ -1,13 +1,10 @@
-package model;
+package Logic;
 
-import GA.model.CrossoverFactory;
 import Util.Utility;
-import lombok.Synchronized;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.ExecutionException;
 
 public class NicknameGenerator {
 
@@ -23,11 +20,11 @@ public class NicknameGenerator {
         nicknameGenerator = new NicknameGenerator();
     }
 
-    public String generateNickname(){
+    public String generateNickname() {
 
         String adjective = chooseRandomValue("src/main/resources/data.adjectives");
         String animal = chooseRandomValue("src/main/resources/data.animals");
-        int number = Utility.random(0, 1000);
+        int number = Utility.random(10, 1000);
         String nickname = adjective + "-"+animal + number;
 
         // validar si existe o no
@@ -35,7 +32,7 @@ public class NicknameGenerator {
         return nickname;
     }
 
-    public synchronized String chooseRandomValue(String pPath){
+    public synchronized String chooseRandomValue(String pPath) {
         try(RandomAccessFile file = new RandomAccessFile(pPath, "r")) {
             StringBuilder value = new StringBuilder();
             file.seek(Utility.random(0, (int) (file.length() - 1)));
@@ -55,7 +52,7 @@ public class NicknameGenerator {
 
 
     private String getStringValue(RandomAccessFile file, StringBuilder value) throws IOException {
-        while((int)file.getFilePointer() != (int) file.length() && !readChar(file).equals(",")){
+        while((int)file.getFilePointer() != (int) file.length() && !readChar(file).equals(",")) {
             file.seek(file.getFilePointer()-1);
             value.append(readChar(file));
         }

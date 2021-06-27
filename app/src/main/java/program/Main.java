@@ -1,14 +1,22 @@
 package program;
 
+import Logic.SystemFileManager;
+import Util.FileManager;
 import model.ContextNode;
-import model.GameSession;
+import Logic.GameSession;
 import model.User;
 import views.WindowBuilder;
 import views.WindowID;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) {
+
+        // Nota se va a controlar la cantidad de usuarios que ingrean por dia en el controlador de Login
+
+       // SystemFileManager.getInstance();
 
         WindowBuilder.buildWindowAndShow(null, WindowID.LOGIN);
 

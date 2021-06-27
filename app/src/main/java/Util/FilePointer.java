@@ -1,15 +1,20 @@
 package Util;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import java.io.Serializable;
 
-@Getter
-@Setter
-public class FilePointer {
+@Data
+public class FilePointer implements Serializable {
     private long startOffset;
     private long endOffset;
 
     public int getBufferSize(){
         return (int) ((endOffset - startOffset));
     }
+
+    public void copy(FilePointer filePointer) {
+        startOffset = filePointer.startOffset;
+        endOffset = filePointer.endOffset;
+    }
+
 }

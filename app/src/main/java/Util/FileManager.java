@@ -1,8 +1,6 @@
 package Util;
 
-import lombok.Synchronized;
 import model.BTree;
-import model.User;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 public class FileManager {
 
     private String path;
-    private static FileManager instance = new FileManager("./data.game");
+    private static FileManager instance = new FileManager("src/main/resources/data.game");
 
     private FileManager(String pPath){
         this.path = pPath;
@@ -20,19 +18,24 @@ public class FileManager {
         return instance;
     }
 
-    public synchronized String readFile(FilePointer p){
+    public synchronized String readFile(FilePointer p) {
+
         try(RandomAccessFile file = new RandomAccessFile(path, "r")) {
+
             byte[] dest = new byte[p.getBufferSize()];
             file.seek(p.getStartOffset());
             file.read(dest, 0, p.getBufferSize());
+
             return new String(dest, StandardCharsets.UTF_8);
-        }catch (Exception e){
+        }catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Count not read file pointer: " + p);
         }
+
         return null;
     }
 
-    public synchronized FilePointer writeFile(String value){
+    public synchronized FilePointer writeFile(String value) {
         try(RandomAccessFile file = new RandomAccessFile(path, "rw")) {
             FilePointer p = new FilePointer();
             file.seek(file.length());
@@ -49,9 +52,9 @@ public class FileManager {
     }
 
 
-    public static boolean storeSerializableObject(BTree<Integer, FilePointer> obj, String path){
+    public boolean storeSerializableObject(BTree<Integer, FilePointer> obj, String path) {
 
-        try(OutputStream outputStream = new FileOutputStream(new File(path))){
+        try(OutputStream outputStream = new FileOutputStream(path)) {
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
@@ -64,16 +67,19 @@ public class FileManager {
         return false;
     }
 
-    public static BTree<Integer, FilePointer> readSerializableObject(String path){
+    public BTree<Integer, FilePointer> readSerializableTree(String path) {
+
         BTree<Integer, FilePointer> rs = null;
-        try(InputStream inputStream = new FileInputStream(new File(path))){
+        try(InputStream inputStream = new FileInputStream(path)) {
 
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
             rs = (BTree<Integer, FilePointer>) objectInputStream.readObject();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
+            System.err.println("yes dude");
         }
+
         return rs;
     }
 

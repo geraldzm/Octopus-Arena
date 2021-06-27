@@ -1,10 +1,17 @@
 package Controllers;
 
+import Logic.SystemFileManager;
 import lombok.Getter;
+import model.ContextNode;
+import model.User;
 import views.Login;
 import views.WindowBuilder;
 import views.WindowID;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 @Getter
@@ -22,9 +29,22 @@ public class LoginController {
 
     public void onLoginButtonDo(ActionEvent event) {
 
-        // insert if to validated user information
-        WindowBuilder.buildWindowAndShow(null, WindowID.HOME);
+        if(validateLoginButton()) {
+            User user = SystemFileManager.getInstance().getUser(login.inputName.getText());
 
+            if(user != null) {
+                ContextNode contextNode = new ContextNode();
+                contextNode.user = user;
+                WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
+            }
+
+        }
+
+        JOptionPane.showMessageDialog(login, "Error", "Login", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private boolean validateLoginButton() {
+        return login.inputName.getText().matches("([A-Za-z]*-[A-Za-z]+[0-9]+)\\w+");
     }
 
     public void onSignInButtonDo(ActionEvent event) {
