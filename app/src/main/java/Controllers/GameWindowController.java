@@ -21,9 +21,11 @@ public class GameWindowController extends WindowAdapter {
 
         ContextNode ctx = gameWindow.getContextNode();
         gameSession = ctx.gameSession;
+        session = ctx.session;
 
-        session = new Session(gameWindow, ctx.user, ctx.toBet, ctx.health);
-        gameSession.registerPlayer(session);
+        session.setGameWindow(gameWindow);
+
+        gameSession.registerSession(session);
 
     }
 

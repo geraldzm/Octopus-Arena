@@ -1,6 +1,7 @@
 package model;
 
 import GA.GAAlgorithm;
+import Logic.GameSession;
 import Util.Utility;
 import game.Octopus;
 import game.model.ActionGenerator;
@@ -14,8 +15,6 @@ import views.GameWindow;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static Util.Utility.random;
-
 @Setter
 @Getter
 @AllArgsConstructor
@@ -28,8 +27,7 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
     private Octopus octopus;
     private ArrayList<Octopus> octopusEnemies;
 
-    public Session(GameWindow gameWindow, User user, Double toBet, Integer health) {
-        this.gameWindow = gameWindow;
+    public Session(User user, Double toBet, Integer health) {
         this.user = user;
         this.toBet = toBet;
         this.health = health;
@@ -43,8 +41,6 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         int y = Utility.random(100, 700);
         octopus = new Octopus(actionGenerator, borderHandler, health,x, y);
     }
-
-    public static boolean a = true;
 
     @Override
     public Graphics getUpdatableGraphics() {
@@ -64,6 +60,7 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
 
         this.octopusEnemies.addAll(octopusArrayList);
         this.octopusEnemies.remove(this.octopus);
+     //   this.gameWindow = gameWindow;
 
     }
 

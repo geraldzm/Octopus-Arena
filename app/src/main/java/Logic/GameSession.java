@@ -13,40 +13,43 @@ import static Util.Utility.random;
 
 public class GameSession {
 
-    private final Game game;
-    private final int maxPlayers;
-    private int currentPlayers;
-    private final ArrayList<Session> allSessions;
+    private Game game;
+    private ArrayList<Session> allSessions;
 
     public GameSession(int maxPlayers) {
 
-        this.maxPlayers = maxPlayers;
-        currentPlayers = 0;
         allSessions = new ArrayList<>(maxPlayers);
-
         game = new Game(this);
-    }
-
-    public void registerPlayer(Session session) {
-
-        if(maxPlayers > currentPlayers) {
-
-            allSessions.add(session);
-            game.register(session);
-            currentPlayers++;
-
-            // on disconnected
-            session.register(this::onSessionDisconnected);
-
-            if(maxPlayers == game.observers.size()) { // esto se va a controlar en el Checkin Controller
-                initGame();
-            }
-
-        }
 
     }
 
-    private void initGame() {
+    public void registerSession(Session session) {
+
+        allSessions.add(session);
+        game.register(session);
+        session.register(this::onSessionDisconnected);
+
+    }
+
+    public void onSessionDisconnected (Session session) {
+
+        game.unRegister(session); // player disconnected
+        allSessions.remove(session);
+
+    }
+
+    public boolean isReady() {
+        return allSessions.size() >= 2;
+    }
+
+    public void cancel() {
+        allSessions.clear();
+        allSessions = null;
+        game.stop();
+        game = null;
+    }
+
+    public void initGame() {
         ArrayList<Octopus> octopusList = (ArrayList<Octopus>) allSessions.stream()
                 .map(Session::getOctopus)
                 .collect(Collectors.toList());
@@ -64,18 +67,6 @@ public class GameSession {
         game.setNameTable(nameTable);
         game.setOctopus(octopusList);
         game.start();
-    }
-
-    public void onSessionDisconnected (Session session) {
-
-        game.unRegister(session); // player disconnected
-        allSessions.remove(session);
-
-        if(game.observers.size() == 0) {
-            game.stop(); // stop game if there is no more players
-            System.out.println("Game stopped");
-        }
-
     }
 
     public void onGameFinished() {
