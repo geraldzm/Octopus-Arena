@@ -1,28 +1,18 @@
 package Logic;
 
-public class DataParser <T> {
+import com.google.gson.Gson;
+import java.lang.reflect.Type;
 
-    private T value;
+public class DataParser {
 
-    public DataParser() {
+    public <T> T getValueFrom(String json, Class<T> tClass) {
+        try{
+            return new Gson().fromJson(json, (Type) tClass);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
 
-    }
-
-
-    public T getValueFrom(String json) {
-
-     //  return Gson.getFromJson(T.getClass(), json);
-
-    /*
-    * <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-<dependency>
-    <groupId>com.google.code.gson</groupId>
-    <artifactId>gson</artifactId>
-    <version>2.8.7</version>
-</dependency>
-
-    * */
-        return null;
     }
 
 }

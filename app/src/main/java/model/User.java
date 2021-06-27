@@ -1,12 +1,12 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.ArrayList;
 
-@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class User {
 
     private String nickname;

@@ -40,7 +40,7 @@ public class SystemFileManager {
             String json = FileManager.getInstance().readFile(filePointer);
             if(json != null) {
                // call DataParser
-                return new DataParser<User>().getValueFrom(json);
+               // return new DataParser<User>(User.class).getValueFrom(json);
             }
         }
 
