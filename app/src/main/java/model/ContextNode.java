@@ -10,4 +10,6 @@ public class ContextNode {
     public Integer health;
 
     public Arena arena;
+
+    public ArenaBuilder arenaBuilder;
 }

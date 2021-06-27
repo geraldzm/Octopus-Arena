@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class ArenaGenerator implements ArenaBuilder {
 
 
+    public static int count = 0;
+
     @Override
     public Arena arenaBuilder(ArrayList<Arena> alreadyVisitedArenas) {
 
@@ -18,7 +20,14 @@ public class ArenaGenerator implements ArenaBuilder {
         // si el 10% es 0 entonces se valida que haya almenos un usuario en la lista de online users
         // y se crea la vara con los gustos de ese mae
 
-        return null;
+        Arena arena = new Arena(count++);
+        arena.setFee(0.1);
+        arena.setOctopusAmount(10);
+        alreadyVisitedArenas.add(arena);
+
+        System.out.println("New arena");
+        return arena;
     }
+
 
 }

@@ -19,6 +19,7 @@ public class User {
         this.nickname = nickname;
         this.experience = experience;
         this.money = money;
+        arenas = new ArrayList<>();
     }
 
 

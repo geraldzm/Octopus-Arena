@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.HomeController;
 import model.ContextNode;
 
 import javax.swing.*;
@@ -7,12 +8,12 @@ import java.awt.*;
 
 public class Home extends AppWindow {
 
-    JLabel name, pot, experience, time; // info
-    JLabel wins, losses, moneyWon, moneyLost; // stacks
-    JLabel tickets[]; // 6 tickets
-    JTextArea description;
-    JButton update, enter;
-    ArenaViewPanel arenaPreviewPane;
+    public JLabel name, pot, experience, time; // info
+    public JLabel wins, losses, moneyWon, moneyLost; // stacks
+    public JLabel tickets[]; // 6 tickets
+    public JTextArea description;
+    public JButton update;
+    public ArenaViewPanel arenaPreviewPane;
 
     public Home(ContextNode contextNode) {
         super(contextNode, "Home", new Dimension(800, 750));
@@ -33,6 +34,9 @@ public class Home extends AppWindow {
         JPanel ticketsPane = initAndAddTicketsPaneComponent(totalY);
         addTickets(ticketsPane);
         setBackgroundColor(new Color(246, 239, 211));
+
+        new HomeController(this);
+
     }
 
     private JLabel initAndAdd(String text, JPanel panel) {

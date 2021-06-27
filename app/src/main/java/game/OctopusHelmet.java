@@ -41,10 +41,13 @@ public class OctopusHelmet extends OctopusAction {
         getOctopus().setResistance(resistence / 100);
 
         // set a timer to stop the action
-        new Timer().schedule(new TimerTask() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 setRunning(false);
+                timer.cancel();
+                timer.purge();
             }
         }, 1000);  // 5s
 

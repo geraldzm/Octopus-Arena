@@ -44,7 +44,7 @@ public class SystemFileManager {
             }
         }
 
-        return null;
+        return new User("gerald", 1, 1000d); // temp
     }
 
 }
