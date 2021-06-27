@@ -52,7 +52,7 @@ public class SystemFileManager {
                 return new DataParser<>().getValueFrom(json, User.class);
         }
 
-        return null;
+        return new User("gerald", 1, 1000d); // temp
     }
 
 }

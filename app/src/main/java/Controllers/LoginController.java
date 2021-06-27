@@ -1,5 +1,6 @@
 package Controllers;
 
+import Logic.ArenaGenerator;
 import Logic.SystemFileManager;
 import lombok.Getter;
 import model.ContextNode;
@@ -35,7 +36,9 @@ public class LoginController {
             if(user != null) {
                 ContextNode contextNode = new ContextNode();
                 contextNode.user = user;
+                contextNode.arenaBuilder = new ArenaGenerator();
                 WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
+                return;
             }
 
         }
@@ -44,7 +47,8 @@ public class LoginController {
     }
 
     private boolean validateLoginButton() {
-        return login.inputName.getText().matches("([A-Za-z]*-[A-Za-z]+[0-9]+)\\w+");
+       // return login.inputName.getText().matches("([A-Za-z]*-[A-Za-z]+[0-9]+)\\w+");
+        return true;
     }
 
     public void onSignInButtonDo(ActionEvent event) {

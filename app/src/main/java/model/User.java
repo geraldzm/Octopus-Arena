@@ -20,6 +20,7 @@ public class User implements Serializable {
         this.nickname = nickname;
         this.experience = experience;
         this.money = money;
+        arenas = new ArrayList<>();
     }
 
 
