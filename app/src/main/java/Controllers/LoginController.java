@@ -47,8 +47,7 @@ public class LoginController {
     }
 
     private boolean validateLoginButton() {
-       // return login.inputName.getText().matches("([A-Za-z]*-[A-Za-z]+[0-9]+)\\w+");
-        return true;
+        return login.inputName.getText().matches("([A-Za-z]*-[A-Za-z]+[0-9]+)\\w+");
     }
 
     public void onSignInButtonDo(ActionEvent event) {

@@ -48,6 +48,7 @@ public class ArenaGenerator implements ArenaBuilder {
         double fee = Utility.random(1,16);
         fee = fee/100;
 
+        amountOctopi = Utility.clamp(amountOctopi, 2, 18);
         Arena arena = new Arena(count++, (int)amountOctopi);
         arena.setFee(fee);
         arena.setMinimumBet(minimumBet);

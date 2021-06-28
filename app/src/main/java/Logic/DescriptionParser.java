@@ -6,11 +6,13 @@ import java.util.ArrayList;
 public class DescriptionParser {
 
 
+
     public ArrayList<Integer> numberValuesFromString(String input){
+        String s = extractInts(input);
         ArrayList<Integer> numbers = new ArrayList<>();
-        for (String s : input.trim().split("\\s+")) {
-            int userchoice = Integer.parseInt(s);
-            numbers.add(userchoice);
+        String[] inputNumbers = s.split(" ");
+        for (int i = 0; i < inputNumbers.length; i++) {
+            numbers.add(Integer.parseInt(inputNumbers[i]));
         }
         return numbers;
     }

@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 public class FileManager {
 
     private String path;
-    private static FileManager instance = new FileManager("src/main/resources/data.game");
+    private static FileManager instance = new FileManager("app/src/main/resources/data.game");
 
     private FileManager(String pPath){
         this.path = pPath;

@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.SignupController;
 import Util.Utility;
 import model.ContextNode;
 
@@ -8,9 +9,9 @@ import java.awt.*;
 
 public class Signup extends AppWindow {
 
-    JTextArea textArea;
-    JLabel nickName;
-    JButton next, cancel;
+    public JTextArea textArea;
+    public JLabel nickName;
+    public JButton next, cancel;
 
     public Signup(ContextNode contextNode) {
         super(contextNode, "Sign up", new Dimension(500, 500));
@@ -42,6 +43,8 @@ public class Signup extends AppWindow {
         totalY += 20;
         initAndAddNextAndCancelButtons(totalY);
         setBackgroundColor(new Color(52,58,64));
+
+        new SignupController(this);
     }
 
     private Dimension initAndAddDescription(int totalY){

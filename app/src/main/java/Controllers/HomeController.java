@@ -51,11 +51,12 @@ public class HomeController {
         arenaInformationObserver = arenaPreviewPane.arenaPreviewInformation;
         arenaInformationConsume = this::buttonUpdate;
 
-//        List<Arena> collect = user.getArenas()
-//                .stream()
-//                .filter(a -> !a.isStarted())
-//                .collect(Collectors.toList());
-//        user.setArenas(new ArrayList<>(collect));
+        home.name.setText(user.getNickname());
+        home.experience.setText("Experience: " + user.getExperience().toString());
+        home.time.setText("Timezone: " + user.getTimeZone().toString());
+        home.pot.setText("Pot: $" + user.getMoney());
+
+       // home.
 
 
         if(user.getArenas().size() > 0) {

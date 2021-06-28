@@ -1,10 +1,13 @@
 package Logic;
 
 import Util.Utility;
+import model.User;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class NicknameGenerator {
 
@@ -22,12 +25,18 @@ public class NicknameGenerator {
 
     public String generateNickname() {
 
-        String adjective = chooseRandomValue("src/main/resources/data.adjectives");
-        String animal = chooseRandomValue("src/main/resources/data.animals");
+        String adjective = chooseRandomValue("app/src/main/resources/data.adjectives");
+        String animal = chooseRandomValue("app/src/main/resources/data.animals");
+
         int number = Utility.random(10, 1000);
         String nickname = adjective + "-"+animal + number;
 
-        // validar si existe o no
+        boolean exist = true;
+        SystemFileManager sfm = SystemFileManager.getInstance();
+
+        while(exist) {
+            exist = sfm.nickNameExist(nickname);
+        }
 
         return nickname;
     }
