@@ -16,9 +16,12 @@ public class GameSession {
     private Game game;
     private ArrayList<Session> allSessions;
 
+    private ArrayList<Octopus> deadOrder;
+
     public GameSession(int maxPlayers) {
 
         allSessions = new ArrayList<>(maxPlayers);
+        deadOrder = new ArrayList<>(maxPlayers);
         game = new Game(this);
 
     }
@@ -73,6 +76,17 @@ public class GameSession {
     }
 
     public void onGameFinished() {
+
+        System.out.println("game finished");
+
+        game.stop();
+
+        System.out.println("Dead order: ");
+
+        allSessions.forEach(s -> {
+            System.out.println(s.getOctopus().getRankingPosition() + " " + s.getUser().getNickname());
+        });
+
 
         // EL game me da el orden en el que murieron los pulpos
         // ordeno sesiones por el orden en que murieron los pulpos

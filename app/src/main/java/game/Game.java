@@ -1,6 +1,7 @@
 package game;
 
 import Util.Utility;
+import com.google.gson.internal.ObjectConstructor;
 import game.model.GameObjectHandler;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,16 +26,22 @@ public class Game extends Observable<Updatable> implements Runnable {
     private final GameSession gameSession;
     @Setter
     private LinkedHashMap<String, Color> nameTable;
+    private ArrayList<Octopus> aliveOctopus;
+    private int rankinPosition;
+    private Font font;
 
     public Game(GameSession gameSession) {
         bufferedImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
         background = Utility.getScaledImage("/images/Arena_Mat.jpg").getImage();
         handler = new GameObjectHandler();
         this.gameSession = gameSession;
+        font = new Font("Arial", Font.BOLD, 20);
     }
 
     public void setOctopus(ArrayList<Octopus> octopusArrayList) {
         handler.addObjectsList(octopusArrayList);
+        aliveOctopus = new ArrayList<>(octopusArrayList);
+        rankinPosition = octopusArrayList.size();
     }
 
     public synchronized void start() {
@@ -79,7 +86,6 @@ public class Game extends Observable<Updatable> implements Runnable {
             }
         }
         stop();
-        gameSession.onGameFinished();
     }
 
     private void render() {
@@ -95,6 +101,8 @@ public class Game extends Observable<Updatable> implements Runnable {
     }
 
     private void renderNames(Graphics g) {
+        g.setFont(font);
+
         int y = 20;
         for(Map.Entry<String, Color> row: nameTable.entrySet()) {
             g.setColor(row.getValue());
@@ -106,6 +114,23 @@ public class Game extends Observable<Updatable> implements Runnable {
 
     private void tick() {
         handler.tick();
+
+        // validate dead
+        for (int i = 0; i < aliveOctopus.size(); i++) {
+            Octopus octopus = aliveOctopus.get(i);
+
+            if(octopus.isDead()) {
+                System.out.println("Did we find a dead body?");
+
+                octopus.setRankingPosition(rankinPosition--);
+                aliveOctopus.remove(octopus);
+
+                if(aliveOctopus.size() <= 1) gameSession.onGameFinished();
+
+            }
+
+        }
+
     }
 
     private void update(Updatable updatable) {
