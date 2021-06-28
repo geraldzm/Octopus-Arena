@@ -3,6 +3,7 @@ package Logic;
 import Util.Utility;
 import model.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static Util.Utility.*;
@@ -22,6 +23,7 @@ public class ArenaGenerator implements ArenaBuilder {
         ArenaTableComponent selectedComponent = probabilisticNextArenaConfig(atc);
 
         ArrayList<Arena> arenaRow = ArenaManager.getInstance().getCurrentArenas().get(selectedComponent);
+
         Optional<Arena> foundArena = user.getArenas()
                 .stream()
                 .filter(a -> !arenaRow.contains(a))
@@ -61,6 +63,8 @@ public class ArenaGenerator implements ArenaBuilder {
     }
 
     private ArenaTableComponent probabilisticNextArenaConfig(ArenaTableComponent userComponent) {
+
+
         ArrayList<Double> distribution = new ArrayList<>();
         double total = generateDistribution(userComponent, distribution);
 

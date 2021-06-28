@@ -1,6 +1,7 @@
 package Controllers;
 
 import Logic.AlternativeArenaGenerator;
+import Logic.ArenaGenerator;
 import Logic.SystemFileManager;
 import lombok.Getter;
 import model.ContextNode;
@@ -35,7 +36,7 @@ public class LoginController {
                 contextNode.user = user;
                 contextNode.arenaIndex = 0;
 
-                contextNode.arenaBuilder = new AlternativeArenaGenerator();
+                contextNode.arenaBuilder = new ArenaGenerator();
 
                 WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
                 return;
