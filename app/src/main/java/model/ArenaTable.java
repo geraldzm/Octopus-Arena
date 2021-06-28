@@ -27,8 +27,9 @@ public class ArenaTable {
         tableComponents.add(component);
     }
 
-
-
+    public void cleanTable() {
+        tableComponents.clear();
+    }
 
 
 }

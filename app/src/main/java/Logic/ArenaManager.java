@@ -1,17 +1,18 @@
 package Logic;
 
 import lombok.Getter;
-import model.Arena;
-import model.ArenaTableComponent;
-import model.Constants;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Getter
 public class ArenaManager {
 
-    private final HashMap<ArenaTableComponent,ArrayList<Arena>> currentArenas;
+    private final HashMap<ArenaTableComponent, ArrayList<Arena>> currentArenas;
     private static ArenaManager arenaManager;
 
     private ArenaManager() {
@@ -26,27 +27,37 @@ public class ArenaManager {
         return arenaManager;
     }
 
+    //per day
+    public void createDistribution(ArrayList<User> arrayUsers) {
 
-    /*
+       ArenaTable table = ArenaTable.getInstance();
+       table.cleanTable();
+       currentArenas.clear();
 
-    actualizar por dia el table (limpiar completamente)
+       ArrayList<User> sample = UserManager.getInstance().get10PercentOnlineUsers();
 
-    10%
-    crea clusters
-    mete componentes a arenatable  ... insertcomponents
+       List<ClusterPoint> points = sample.stream()
+               .map(s -> new ClusterPoint(new double[]{s.getAmountOctopi(), s.getPreferredBetAmount(), s.getExperience(), s.getTimeZone().getTimezoneNumber()}))
+               .collect(Collectors.toList());
 
+       ClusterBuilder builder = new ClusterBuilder();
+       ArrayList<Cluster> clusters = builder.makeClusters(new ArrayList<>(points));
+       clusters.stream()
+               .map(c -> {
 
+                    ArenaTableComponent a = new ArenaTableComponent();
+                    a.setValues(a.getValues(), c.getPoints().size());
+                    return a;
+               }).forEach(t -> currentArenas.put(t, new ArrayList<>()));
 
-        // Toma el 10% de la población
-        // si el 10% es 0 entonces se valida que haya almenos un usuario en la lista de online users
-        // y se crea la vara con los gustos de ese mae
-
-     */
-
-    public void insertNewArena(ArenaTableComponent atc, Arena arena){
-        currentArenas.get(atc).add(arena);
     }
 
+    public void insertNewArena(ArenaTableComponent row, Arena arena) {
 
+        ArrayList<Arena> arenas = currentArenas.get(row);
+
+        if(arenas != null) arenas.add(arena);
+
+    }
 
 }

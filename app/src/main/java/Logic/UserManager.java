@@ -1,5 +1,6 @@
 package Logic;
 
+import Util.Utility;
 import model.Constants;
 import model.User;
 
@@ -56,6 +57,17 @@ public class UserManager {
         if(onlineUsers.remove(user)) {
             currentOnlineUsers--;
         }
+    }
+
+    public ArrayList<User> get10PercentOnlineUsers(){
+
+        ArrayList<User> tmpArray = new ArrayList<>();
+        for (int i = 0; i < currentOnlineUsers; i++) {
+            int rand = Utility.random(0,101);
+            if(rand < 10)
+                tmpArray.add(onlineUsers.get(i));
+        }
+        return tmpArray;
     }
 
 }
