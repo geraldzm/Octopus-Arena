@@ -2,10 +2,15 @@ package model;
 
 import Logic.GameSession;
 import Logic.TimerManager;
+import Util.KeyFactory;
+import Util.Utility;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.security.Key;
+import java.security.KeyPair;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,8 +32,9 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
 
     private GameSession gameSession;
 
-
     private static SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss.SSS");
+
+    private HashMap<Session, KeyPair> acceptedSessions;
 
     public Arena(int arenaNumber, int octopusAmount) {
 
@@ -42,6 +48,7 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
         this.octopusAmount = octopusAmount;
         gameSession = new GameSession(octopusAmount);
 
+        acceptedSessions = new HashMap<>();
     }
 
     private void setUpTimer() {
@@ -73,17 +80,31 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
 
     }
 
-    public synchronized Session registerUserToArina(UserPlayer userPlayer) {
+    public synchronized Session generateSession() {
 
         if(octopusAmount > gameSession.getAmountOfCurrentPlayers()) {
 
-            Session session = new Session(userPlayer.user, userPlayer.toBet, (int) userPlayer.health);
+            Session session = new Session();
+            KeyPair keyPair = KeyFactory.getRSAKeys();
+            session.setPublicKey(keyPair.getPublic());
+            acceptedSessions.put(session, keyPair);
+
             gameSession.registerSession(session);
 
             return session;
         }
 
         return null;
+    }
+
+    public synchronized void setUserData(Session session, UserPlayer userPlayer) {
+
+        KeyPair keyPair = acceptedSessions.get(session);
+        String bet = KeyFactory.do_RSADecryption(userPlayer.BetEncoded, keyPair.getPrivate());
+        String health = KeyFactory.do_RSADecryption(userPlayer.healthEncoded, keyPair.getPrivate());
+
+        session.initSession(session.getUser(), Double.parseDouble(bet), (int) Double.parseDouble(health));
+
     }
 
     @Override

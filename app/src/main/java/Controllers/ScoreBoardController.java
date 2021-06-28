@@ -40,8 +40,8 @@ public class ScoreBoardController {
         ContextNode contextNode = new ContextNode();
         contextNode.user = scoreBoard.getContextNode().user;
 
-     //   scoreBoard.dispose();
-        WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
+        scoreBoard.dispose();
+       // WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
     }
 
 

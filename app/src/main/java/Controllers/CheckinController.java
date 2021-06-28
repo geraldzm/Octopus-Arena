@@ -1,5 +1,6 @@
 package Controllers;
 
+import Util.KeyFactory;
 import model.*;
 import views.CheckIn;
 import views.WindowBuilder;
@@ -8,6 +9,8 @@ import views.WindowID;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
+import java.security.Key;
+import java.security.PublicKey;
 
 public class CheckinController extends WindowAdapter {
 
@@ -50,14 +53,23 @@ public class CheckinController extends WindowAdapter {
                 System.out.println("Available: ");
 
                 ContextNode cntx = checkin.getContextNode();
-                UserPlayer userPlayer = new UserPlayer();
-                userPlayer.setUser(cntx.user);
-                userPlayer.setHealth(checkin.sliderEnergy.getValue());
-                userPlayer.setToBet(Integer.parseInt(checkin.spinnerMoney.getValue().toString()));
 
-                session = arena.registerUserToArina(userPlayer);
+                Session session = arena.generateSession();
+
                 if(session != null) {
-                    finishCheckin();
+
+                    session.setUser(cntx.user);
+
+                    UserPlayer userPlayer = new UserPlayer();
+
+                    byte[] energy = KeyFactory.do_RSAEncryption(checkin.sliderEnergy.getValue()+"", session.getPublicKey());
+                    byte[] money = KeyFactory.do_RSAEncryption(checkin.spinnerMoney.getValue().toString(), session.getPublicKey());
+
+                    userPlayer.setHealthEncoded(energy);
+                    userPlayer.setBetEncoded(money);
+
+                    arena.setUserData(session, userPlayer);finishCheckin();
+
                     isRegistered = true;
                 } else {
                     JOptionPane.showMessageDialog(checkin, "Arena no available", "Error", JOptionPane.ERROR_MESSAGE);

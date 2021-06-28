@@ -15,6 +15,7 @@ public class KeyFactory {
             SecureRandom secureRandom = new SecureRandom();
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA);
             keyPairGenerator.initialize(1024, secureRandom);
+
             return keyPairGenerator.generateKeyPair();
         } catch (Exception e){
             return null;
