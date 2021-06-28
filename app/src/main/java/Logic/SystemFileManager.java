@@ -2,19 +2,22 @@ package Logic;
 
 import Util.FileManager;
 import Util.FilePointer;
+import lombok.Getter;
+import model.Arena;
 import model.BTree;
 import model.User;
 
-import static Util.Utility.random;
+import java.util.ArrayList;
 
 public class SystemFileManager {
 
     private static SystemFileManager systemFileManager;
+    @Getter
     private BTree<Integer, FilePointer> tree;
 
 
     private SystemFileManager() {
-        tree =  FileManager.getInstance().readSerializableTree("src/main/resources/data.tree");
+        tree =  FileManager.getInstance().readSerializableTree("app/src/main/resources/data.tree");
         if(tree == null)
             tree = new BTree<>();
     }
@@ -40,8 +43,12 @@ public class SystemFileManager {
             tree.put(user.getNickname().hashCode(), writtenFilePointer);
         }
 
-        FileManager.getInstance().storeSerializableObject(tree, "src/main/resources/data.tree");
+        FileManager.getInstance().storeSerializableObject(tree, "app/src/main/resources/data.tree");
 
+    }
+
+    public boolean nickNameExist(String nickname) {
+        return tree.get(nickname.hashCode()) != null;
     }
 
     public User getUser(String nickname) {
@@ -50,12 +57,15 @@ public class SystemFileManager {
 
         if(filePointer != null) {
             String json = FileManager.getInstance().readFile(filePointer);
-            if(json != null)
-                return new DataParser<>().getValueFrom(json, User.class);
+            if(json != null) {
+                User user = (new DataParser<>().getValueFrom(json, User.class));
+                user.setArenas(new ArrayList<Arena>());
+                return user;
+            }
         }
-
-        int i = random(0,1000);
-        return new User("gerald" + i, 1, 1000d); // temp
+        return null;
+//        int i = random(0,1000);
+      //  return new User("gerald" + i, 1, 1000d); // temp
     }
 
 }

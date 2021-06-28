@@ -2,10 +2,12 @@ package Logic;
 
 import Util.Utility;
 import model.*;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static Util.Utility.*;
+import static Util.Utility.clamp;
+import static Util.Utility.randomPoissonDistribution;
 
 /**
  * Probabilistic algorithm
@@ -13,7 +15,12 @@ import static Util.Utility.*;
 public class ArenaGenerator implements ArenaBuilder {
 
 
-    public static int count = 0;
+    private static int count = 0;
+    private ArenaManager arenaManager;
+
+    public ArenaGenerator() {
+        arenaManager = ArenaManager.getInstance();
+    }
 
     @Override
     public Arena arenaBuilder(User user) {
@@ -21,7 +28,8 @@ public class ArenaGenerator implements ArenaBuilder {
         ArenaTableComponent atc = generateUserComponent(user);
         ArenaTableComponent selectedComponent = probabilisticNextArenaConfig(atc);
 
-        ArrayList<Arena> arenaRow = ArenaManager.getInstance().getCurrentArenas().get(selectedComponent);
+        ArrayList<Arena> arenaRow = arenaManager.getCurrentArenas().get(selectedComponent);
+
         Optional<Arena> foundArena = user.getArenas()
                 .stream()
                 .filter(a -> !arenaRow.contains(a))
@@ -41,13 +49,15 @@ public class ArenaGenerator implements ArenaBuilder {
     private Arena generateNewArena(ArenaTableComponent selectedComponent) {
         double amountOctopi = randomPoissonDistribution(selectedComponent.getAmountOctopi());
         double preferredBet = randomPoissonDistribution(selectedComponent.getPreferredBetAmount());
-        double minimumBet = preferredBet - 100;
+        double minimumBet =  clamp(preferredBet - 100, 0 , Double.MAX_VALUE);
         double maximumBet = preferredBet + 100;
         double experienceArena = randomPoissonDistribution(selectedComponent.getExperience());
-        Integer timeZoneArena = (int)(TimeZones.values().length * randomPoissonDistribution(selectedComponent.getArenas()));
+        int timeZoneArena = (int) clamp(TimeZones.values().length * randomPoissonDistribution(selectedComponent.getArenas()), 0, TimeZones.values().length-1);
+
         double fee = Utility.random(1,16);
         fee = fee/100;
 
+        amountOctopi = Utility.clamp(amountOctopi, 2, 18);
         Arena arena = new Arena(count++, (int)amountOctopi);
         arena.setFee(fee);
         arena.setMinimumBet(minimumBet);
@@ -60,32 +70,38 @@ public class ArenaGenerator implements ArenaBuilder {
     }
 
     private ArenaTableComponent probabilisticNextArenaConfig(ArenaTableComponent userComponent) {
+
         ArrayList<Double> distribution = new ArrayList<>();
         double total = generateDistribution(userComponent, distribution);
 
         double rand = Utility.random(0, total);
 
-        for (int i = 0; i < ArenaTable.getInstance().getTableComponents().size(); i++) {
-            rand -= distribution.get(i);
+        int index = 0;
+        for (Double d: distribution) {
+
+            rand -= d;
             if(rand <= 0)
-                return ArenaTable.getInstance().getTableComponents().get(i);
+                return arenaManager.getArenaTable(userComponent).getRows().get(index);
+
+            index++;
         }
+
         return null;
     }
 
     private double generateDistribution(ArenaTableComponent userComponent, ArrayList<Double> distribution) {
         double total = 0;
 
-        userComponent.getValues();
-
         ClusterPoint userPoint = new ClusterPoint(userComponent.getValues());
 
-        for (ArenaTableComponent a: ArenaTable.getInstance().getTableComponents()) {
+        for (ArenaTableComponent a: arenaManager.getArenaTable(userComponent).getRows()) {
 
             double cosineVal = userPoint.calculateSimilarity(new ClusterPoint(a.getValues()));
             distribution.add(cosineVal);
             total += cosineVal;
+
         }
+
         return total;
     }
 

@@ -13,4 +13,7 @@ public class UserPlayer {
     double toBet;
     double health;
 
+    byte[] BetEncoded;
+    byte[] healthEncoded;
+
 }

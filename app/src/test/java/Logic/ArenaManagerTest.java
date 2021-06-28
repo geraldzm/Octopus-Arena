@@ -26,7 +26,7 @@ class ArenaManagerTest {
             tmpArray.add(user);
         }
 
-        ArenaManager.getInstance().createDistribution(tmpArray);
+       // ArenaManager.getInstance().createDistribution(tmpArray);
 
     }
 }

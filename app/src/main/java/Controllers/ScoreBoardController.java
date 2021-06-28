@@ -1,5 +1,6 @@
 package Controllers;
 
+import Logic.SystemFileManager;
 import game.model.UserFinalPosition;
 import model.ContextNode;
 import views.ScoreBoard;
@@ -26,11 +27,12 @@ public class ScoreBoardController {
             ranking[i] = String.format("%s  #%d", finalPositions.get(i).getUser().getNickname() , finalPositions.get(i).getPosition());
         }
 
+        SystemFileManager.getInstance().insertTree(scoreBoard.getContextNode().user);
+
         scoreBoard.positionRank.setListData(ranking);
         scoreBoard.moneyRank.setListData(rankingMoney);
 
         scoreBoard.ok.addActionListener(this::onOkButton);
-
 
     }
 
@@ -40,8 +42,8 @@ public class ScoreBoardController {
         ContextNode contextNode = new ContextNode();
         contextNode.user = scoreBoard.getContextNode().user;
 
-     //   scoreBoard.dispose();
-        WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
+        scoreBoard.dispose();
+       // WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
     }
 
 
