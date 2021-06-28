@@ -14,6 +14,8 @@ public class MoneyDistributor {
     private double totalPositionXMoneyPercentage;
     private int worstPosition;
 
+    // se tiene que llamar desde game session y la informacion se le pasa directa a ScoreBoard
+    // si
     public MoneyDistributor(ArrayList<UserFinalPosition> leaderboard, double fee) {
         this.leaderboard = leaderboard;
         this.fee = fee;

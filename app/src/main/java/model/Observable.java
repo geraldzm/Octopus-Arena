@@ -26,4 +26,8 @@ public class Observable <T> {
                 .forEach(consumer);
     }
 
+    public void cleanObservers() {
+        observers.clear();
+    }
+
 }

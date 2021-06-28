@@ -39,16 +39,20 @@ public class GAAlgorithm implements ActionGenerator {
     public Action getAction(Octopus octopus) {
 
         Octopus nearestEnemy = getNearest(octopus);
-        GAContext c = new GAContext();
+        if(nearestEnemy != null) {
+            GAContext c = new GAContext();
 
-        c.energy = octopus.getEnergy();
-        c.energyNE = nearestEnemy.getEnergy();
-        c.position = octopus.getPosition();
-        c.positionNE = nearestEnemy.getPosition();
+            c.energy = octopus.getEnergy();
+            c.energyNE = nearestEnemy.getEnergy();
+            c.position = octopus.getPosition();
+            c.positionNE = nearestEnemy.getPosition();
 
-        Chromosome mostFit = population.run(c);
+            Chromosome mostFit = population.run(c);
 
-        return chromosomeToAction(mostFit, nearestEnemy);
+            return chromosomeToAction(mostFit, nearestEnemy);
+        }
+
+        return new NoAction(); // Everyone is dead
     }
 
     private Action chromosomeToAction(Chromosome mostFit, Octopus nearestEnemy) {

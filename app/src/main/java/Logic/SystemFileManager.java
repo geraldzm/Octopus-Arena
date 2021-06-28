@@ -5,6 +5,8 @@ import Util.FilePointer;
 import model.BTree;
 import model.User;
 
+import static Util.Utility.random;
+
 public class SystemFileManager {
 
     private static SystemFileManager systemFileManager;
@@ -52,7 +54,8 @@ public class SystemFileManager {
                 return new DataParser<>().getValueFrom(json, User.class);
         }
 
-        return new User("gerald", 1, 1000d); // temp
+        int i = random(0,1000);
+        return new User("gerald" + i, 1, 1000d); // temp
     }
 
 }

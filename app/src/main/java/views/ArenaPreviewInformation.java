@@ -12,11 +12,15 @@ public class ArenaPreviewInformation extends JPanel implements Observer<ArenaInf
     JLabel fee;
     JLabel octopus;
     JLabel timer;
+    JLabel minBet;
+    JLabel maxBet;
 
     public ArenaPreviewInformation() {
         fee = new JLabel();
         octopus = new JLabel();
         timer = new JLabel();
+        minBet = new JLabel();
+        maxBet = new JLabel();
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         setLayout(boxLayout);
@@ -29,6 +33,8 @@ public class ArenaPreviewInformation extends JPanel implements Observer<ArenaInf
 
         fee = createJLabel(font);
         octopus = createJLabel(font);
+        minBet = createJLabel(font);
+        maxBet = createJLabel(font);
 
         timer = createJLabel(font);
         timer.setOpaque(true);
@@ -42,6 +48,8 @@ public class ArenaPreviewInformation extends JPanel implements Observer<ArenaInf
         add(fee);
         add(octopus);
         add(timer);
+        add(minBet);
+        add(maxBet);
     }
 
     private JLabel createJLabel(Font font) {
@@ -61,6 +69,8 @@ public class ArenaPreviewInformation extends JPanel implements Observer<ArenaInf
         fee.setText((arenaInformation.getFee() * 100) + "%");
         octopus.setText(arenaInformation.getOctopusAmount() + "#");
         timer.setText(arenaInformation.getStartTime());
+        minBet.setText("Min $"+arenaInformation.getMinBet());
+        maxBet.setText("Max $"+arenaInformation.getMaxBet());
 
         if(arenaInformation.getStartTime().equals("00:00:00"))
             timer.setBackground(Color.RED);

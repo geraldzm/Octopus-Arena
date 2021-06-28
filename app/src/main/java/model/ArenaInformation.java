@@ -14,4 +14,6 @@ public class ArenaInformation {
     private Integer octopusAmount;
     private String startTime;
     private Boolean isStarted;
+    private Double minBet;
+    private Double maxBet;
 }

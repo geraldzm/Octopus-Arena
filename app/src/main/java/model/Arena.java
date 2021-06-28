@@ -17,7 +17,7 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
     private Double fee;
     private Integer octopusAmount;
     private Timer timer;
-    private boolean isStarted, isFull;
+    private boolean isStarted, isFull, closed;
     private Chronometer chronometer;
 
     private TimeZones timeZone;
@@ -34,9 +34,11 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
 
         this.arenaNumber = arenaNumber;
         isStarted = false;
+        closed = false;
         timer = new Timer();
         setUpTimer();
 
+        System.out.println("Setting "  + octopusAmount);
         this.octopusAmount = octopusAmount;
         gameSession = new GameSession(octopusAmount);
 
@@ -58,7 +60,9 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
 
     private void startArena() {
 
-        if(gameSession.isReady()) {
+        closed = true;
+
+        if(isReady()) {
             System.out.println("arena started");
             gameSession.initGame();
         } else {
@@ -69,11 +73,17 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
 
     }
 
-    public boolean registerUserToArina(UserPlayer userPlayer) {
+    public synchronized Session registerUserToArina(UserPlayer userPlayer) {
 
-       // gameSession.registerSession();
+        if(octopusAmount > gameSession.getAmountOfCurrentPlayers()) {
 
-        return false;
+            Session session = new Session(userPlayer.user, userPlayer.toBet, (int) userPlayer.health);
+            gameSession.registerSession(session);
+
+            return session;
+        }
+
+        return null;
     }
 
     @Override
@@ -94,7 +104,14 @@ public class Arena extends Observable<Observer<ArenaInformation>> implements Chr
     }
 
     private void setMessage() {
-        Arena.super.notifyAll(o -> o.update(new ArenaInformation(arenaNumber, fee, octopusAmount, chronometer.getLastTime(), isStarted)));
+        Arena.super.notifyAll(o -> o.update(new ArenaInformation(arenaNumber, fee, octopusAmount, chronometer.getLastTime(), isStarted, minimumBet, maximumBet)));
     }
 
+    public void unRegisterUserToArina(Session session) {
+        gameSession.onSessionDisconnected(session);
+    }
+
+    public boolean isReady() {
+        return gameSession.isReady();
+    }
 }

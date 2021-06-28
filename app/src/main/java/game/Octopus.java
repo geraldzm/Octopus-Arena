@@ -18,6 +18,7 @@ public class Octopus extends GameObject {
     private ArrayList<Octopus> enemies;
     private double resistance;
     private BorderHandler borderHandler;
+    private int rankingPosition;
 
     public Octopus(ActionGenerator actionGenerator, BorderHandler borderHandler, double health, int x, int y) {
         super(99, 90);
@@ -29,6 +30,7 @@ public class Octopus extends GameObject {
         this.actionGenerator = actionGenerator;
         this.resistance = 1;
         this.borderHandler = borderHandler;
+        this.rankingPosition = 1;
     }
 
     @Override

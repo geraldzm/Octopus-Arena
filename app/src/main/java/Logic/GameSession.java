@@ -2,11 +2,17 @@ package Logic;
 
 import game.Game;
 import game.Octopus;
+import model.ContextNode;
 import model.Session;
+import model.User;
+import model.UserPlayer;
+import views.WindowBuilder;
+import views.WindowID;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static Util.Utility.random;
@@ -16,9 +22,12 @@ public class GameSession {
     private Game game;
     private ArrayList<Session> allSessions;
 
+    private ArrayList<Octopus> deadOrder;
+
     public GameSession(int maxPlayers) {
 
         allSessions = new ArrayList<>(maxPlayers);
+        deadOrder = new ArrayList<>(maxPlayers);
         game = new Game(this);
 
     }
@@ -39,6 +48,7 @@ public class GameSession {
     }
 
     public boolean isReady() {
+        System.out.println("Is ready: " + allSessions.size());
         return allSessions.size() >= 2;
     }
 
@@ -56,6 +66,8 @@ public class GameSession {
 
         LinkedHashMap<String, Color> nameTable = new LinkedHashMap<>(allSessions.size());
 
+        System.out.println( " heeeereeee\t" + allSessions.size());
+
         allSessions.forEach(s -> {
             s.initGame(octopusList);
 
@@ -71,14 +83,29 @@ public class GameSession {
 
     public void onGameFinished() {
 
-        // EL game me da el orden en el que murieron los pulpos
-        // ordeno sesiones por el orden en que murieron los pulpos
-        // para cada secion en allsesions creo una ventana con los rankings
-        // creo un objeto que reparta la plata y le paso las sesiones ne ese orden
-        // el va a repartir la plata
-        // la lista que le paso al ranking es una copia de allSession
-        // cierro todas las vetnanas de todas las sessiones
+        game.stop();
 
+        //
+        List<UserPlayer> userPlayers = allSessions.stream()
+                .map(s -> new UserPlayer(s.getUser(), s.getToBet(), 0))
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < allSessions.size(); i++) {
+            Session s = allSessions.get(i);
+            s.cleanObservers();
+
+            ContextNode node = new ContextNode();
+            node.user = s.getUser();
+            node.scoreUsers = new ArrayList<>(userPlayers);
+
+            s.getGameWindow().dispose();
+            WindowBuilder.buildWindowAndShow(node, WindowID.SCORE_BOARD);
+        }
+
+    }
+
+    public int getAmountOfCurrentPlayers () {
+        return allSessions.size();
     }
 
 }
