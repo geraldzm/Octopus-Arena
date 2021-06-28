@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class ScoreBoard extends AppWindow {
 
-    JList<String> positionRank, moneyRank;
-    JButton ok;
+    public JList<String> positionRank, moneyRank;
+    public JButton ok;
 
     public ScoreBoard(ContextNode contextNode) {
         super(contextNode, "Score Board", new Dimension(500, 550));

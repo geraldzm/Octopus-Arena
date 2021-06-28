@@ -68,7 +68,6 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
 
 
         WindowBuilder.buildWindowAndShow(context, WindowID.GAME);
-        System.out.println("Window started");
         try{
             Thread.sleep(100);
         } catch (Exception e){

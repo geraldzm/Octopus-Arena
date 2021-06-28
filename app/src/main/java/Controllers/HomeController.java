@@ -10,9 +10,6 @@ import views.WindowID;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class HomeController {
 
@@ -138,7 +135,6 @@ public class HomeController {
         home.arenaPreviewPane.left.setVisible(true);
 
         int i = user.getArenas().indexOf(currentArena);
-        System.out.println("right " + user.getArenas().size());
 
         if(i != -1 && 1+i != user.getArenas().size() && currentArena != null)
             setCurrentArena(user.getArenas().get(i+1));
