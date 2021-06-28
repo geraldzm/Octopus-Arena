@@ -60,7 +60,10 @@ public class MoneyDistributor {
         for (int i = 0; i < leaderboard.size(); i++) {
             UserFinalPosition ufp = leaderboard.get(i);
             ufp.setPercentageOfpositionXpercentageOfPrizePool(ufp.getPositionXpercentageOfPrizePool() / totalPositionXMoneyPercentage);
-            ufp.setMoneyWon(ufp.getPercentageOfpositionXpercentageOfPrizePool() * prizePool);
+            double money = ufp.getPercentageOfpositionXpercentageOfPrizePool() * prizePool;
+            ufp.setMoneyWon(money);
+            double moneyReturn = money - ufp.getMoneyBet();
+            ufp.getUser().setMoney(moneyReturn);
         }
     }
 }

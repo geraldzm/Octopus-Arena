@@ -1,5 +1,6 @@
 package game.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import model.User;
@@ -17,4 +18,10 @@ public class UserFinalPosition {
     private double positionXpercentageOfPrizePool;
     private double percentageOfpositionXpercentageOfPrizePool;
     private double moneyWon;
+
+    public UserFinalPosition(User user, double moneyBet, int position) {
+        this.user = user;
+        this.moneyBet = moneyBet;
+        this.position = position;
+    }
 }

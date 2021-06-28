@@ -66,8 +66,14 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
         ContextNode context = new ContextNode();
         context.session = this;
 
-        System.out.println("Staring windows");
+
         WindowBuilder.buildWindowAndShow(context, WindowID.GAME);
+        System.out.println("Window started");
+        try{
+            Thread.sleep(100);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
      //   this.gameWindow = gameWindow;
 
