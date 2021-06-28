@@ -1,31 +1,27 @@
 package Logic;
 
-import Util.Utility;
+import model.Arena;
+import model.ArenaBuilder;
+import model.TimeZones;
+import model.User;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 class ArenaGeneratorTest {
+
+
     @Test
-    void random() {
+    void initialUser() {
 
+        ArenaBuilder builder = new ArenaGenerator();
 
-        for (int i = 0; i < 100; i++) {
-//            double L = Math.exp(8*-1);
-//            int k = 0;
-//            double p = 1;
-//
-//            do {
-//                k = k + 1;
-//                double u = Utility.random(0.0,1.0);
-//                p = p * u;
-//            } while (p > L);
-//
-//            System.out.println("Result: " + (k-1));
-//            double fee = Utility.random(1,16);
-//            fee = fee/100;
-//            System.out.println(fee);
-        }
+        User user = new User("Gerald", 3, 1000.0, 100.0, 10, TimeZones.EST, "des", new ArrayList<>());
+
+        Arena arena = builder.arenaBuilder(user);
+
 
     }
+
+
 }

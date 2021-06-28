@@ -2,17 +2,17 @@ package Logic;
 
 import Util.FileManager;
 import Util.FilePointer;
+import lombok.Getter;
 import model.Arena;
 import model.BTree;
 import model.User;
 
 import java.util.ArrayList;
 
-import static Util.Utility.random;
-
 public class SystemFileManager {
 
     private static SystemFileManager systemFileManager;
+    @Getter
     private BTree<Integer, FilePointer> tree;
 
 

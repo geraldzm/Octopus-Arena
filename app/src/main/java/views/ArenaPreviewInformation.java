@@ -67,7 +67,7 @@ public class ArenaPreviewInformation extends JPanel implements Observer<ArenaInf
 
         arenaNumber.setText("Arena: " + arenaInformation.getArenaNumber());
         fee.setText((arenaInformation.getFee() * 100) + "%");
-        octopus.setText(arenaInformation.getOctopusAmount() + "#");
+        octopus.setText(String.format("# %d", arenaInformation.getOctopusAmount()));
         timer.setText(arenaInformation.getStartTime());
         minBet.setText(String.format("Min $%.2f", arenaInformation.getMinBet()));
         maxBet.setText(String.format("Max $%.2f", arenaInformation.getMaxBet()));

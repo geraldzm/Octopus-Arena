@@ -3,20 +3,31 @@ package Logic;
 import lombok.Getter;
 import model.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Getter
 public class ArenaManager {
 
-    private final HashMap<ArenaTableComponent, ArrayList<Arena>> currentArenas;
     private static ArenaManager arenaManager;
+
+    private final HashMap<ArenaTableComponent, ArrayList<Arena>> currentArenas;
+    private ArenaTable arenaTable;
 
     private ArenaManager() {
         currentArenas = new HashMap<>();
+        arenaTable = new ArenaTable();
+
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                createDistribution();
+            }
+        }, Constants.DAY, Constants.DAY);
+
     }
 
     public static ArenaManager getInstance() {
@@ -28,11 +39,9 @@ public class ArenaManager {
     }
 
     //per day
-    public void createDistribution(ArrayList<User> arrayUsers) {
+    public void createDistribution() {
 
-       ArenaTable table = ArenaTable.getInstance();
-       table.cleanTable();
-       currentArenas.clear();
+        arenaTable = new ArenaTable();
 
        ArrayList<User> sample = UserManager.getInstance().get10PercentOnlineUsers();
 
@@ -60,6 +69,18 @@ public class ArenaManager {
 
     }
 
+    public ArenaTable getArenaTable(ArenaTableComponent user) {
+//
+//        if(arenaTable.getRows().isEmpty()) {
+//            ArenaTableComponent component = new ArenaTableComponent();
+//            component.setValues(user.getValues());
+//            component.setArenas(1);
+//
+//            arenaTable.getRows().add(component);
+//            currentArenas.put(component, new ArrayList<>());
+//        }
 
+        return arenaTable;
+    }
 
 }

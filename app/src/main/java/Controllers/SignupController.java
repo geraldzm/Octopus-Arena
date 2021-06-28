@@ -40,7 +40,7 @@ public class SignupController {
             numbers.sort(Integer::compareTo);
 
             User newUSer = new User();
-            newUSer.setTimeZone(TimeZones.values()[(int) Utility.clamp(numbers.get(0), 0, TimeZones.values().length)]);
+            newUSer.setTimeZone(TimeZones.values()[(int) Utility.clamp(numbers.get(0), 0, TimeZones.values().length -1)]);
             newUSer.setMoney(1000.0);
             newUSer.setAmountOctopi((int) Utility.clamp(numbers.get(0), 0, TimeZones.values().length));
             newUSer.setPreferredBetAmount((double)numbers.get(2));

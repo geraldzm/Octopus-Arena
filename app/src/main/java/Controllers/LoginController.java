@@ -3,6 +3,7 @@ package Controllers;
 import Logic.AlternativeArenaGenerator;
 import Logic.ArenaGenerator;
 import Logic.SystemFileManager;
+import Logic.UserManager;
 import lombok.Getter;
 import model.ContextNode;
 import model.User;
@@ -36,7 +37,8 @@ public class LoginController {
                 contextNode.user = user;
                 contextNode.arenaIndex = 0;
 
-                contextNode.arenaBuilder = new ArenaGenerator();
+                contextNode.arenaBuilder = new AlternativeArenaGenerator();
+
 
                 WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
                 return;
