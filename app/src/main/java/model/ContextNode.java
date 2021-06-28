@@ -1,6 +1,7 @@
 package model;
 
 import Logic.GameSession;
+import game.model.UserFinalPosition;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,6 @@ public class ContextNode {
 
     public ArenaBuilder arenaBuilder;
 
-    public ArrayList<UserPlayer> scoreUsers; // in order
+    public ArrayList<UserFinalPosition> finalPositions; // in order
 
 }

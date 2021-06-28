@@ -1,7 +1,9 @@
 package Logic;
 
 import game.Game;
+import game.MoneyDistributor;
 import game.Octopus;
+import game.model.UserFinalPosition;
 import model.ContextNode;
 import model.Session;
 import model.User;
@@ -13,6 +15,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static Util.Utility.random;
@@ -66,8 +69,6 @@ public class GameSession {
 
         LinkedHashMap<String, Color> nameTable = new LinkedHashMap<>(allSessions.size());
 
-        System.out.println( " heeeereeee\t" + allSessions.size());
-
         allSessions.forEach(s -> {
             s.initGame(octopusList);
 
@@ -85,10 +86,13 @@ public class GameSession {
 
         game.stop();
 
-        //
-        List<UserPlayer> userPlayers = allSessions.stream()
-                .map(s -> new UserPlayer(s.getUser(), s.getToBet(), 0))
+        List<UserFinalPosition> finalPositions = allSessions.stream()
+                .map(s -> new UserFinalPosition(s.getUser(), s.getToBet(), s.getOctopus().getRankingPosition()))
                 .collect(Collectors.toList());
+
+        MoneyDistributor moneyMachine = new MoneyDistributor(new ArrayList<>(finalPositions), 0);
+        ArrayList<UserFinalPosition> arrayPositions = moneyMachine.distributeMoney();
+
 
         for (int i = 0; i < allSessions.size(); i++) {
             Session s = allSessions.get(i);
@@ -96,7 +100,7 @@ public class GameSession {
 
             ContextNode node = new ContextNode();
             node.user = s.getUser();
-            node.scoreUsers = new ArrayList<>(userPlayers);
+            node.finalPositions = new ArrayList<>(arrayPositions);
 
             s.getGameWindow().dispose();
             WindowBuilder.buildWindowAndShow(node, WindowID.SCORE_BOARD);
