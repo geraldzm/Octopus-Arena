@@ -63,7 +63,7 @@ public class MoneyDistributor {
             double money = ufp.getPercentageOfpositionXpercentageOfPrizePool() * prizePool;
             ufp.setMoneyWon(money);
             double moneyReturn = money - ufp.getMoneyBet();
-            ufp.getUser().setMoney(moneyReturn);
+            ufp.getUser().setMoney(ufp.getUser().getMoney() + moneyReturn);
         }
     }
 }

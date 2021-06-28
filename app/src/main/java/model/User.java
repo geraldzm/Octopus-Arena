@@ -16,6 +16,7 @@ public class User implements Serializable {
     private Double preferredBetAmount;
     private Integer amountOctopi;
     private TimeZones timeZone;
+    private String description;
 
     private transient ArrayList<Arena> arenas;
 
