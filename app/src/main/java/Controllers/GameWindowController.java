@@ -11,7 +11,6 @@ import java.awt.event.WindowEvent;
 public class GameWindowController extends WindowAdapter {
 
     public final GameWindow gameWindow;
-    private final GameSession gameSession;
     private final Session session;
 
     public GameWindowController(GameWindow gameWindow) {
@@ -20,12 +19,9 @@ public class GameWindowController extends WindowAdapter {
         this.gameWindow.addWindowListener(this);
 
         ContextNode ctx = gameWindow.getContextNode();
-        gameSession = ctx.gameSession;
         session = ctx.session;
 
         session.setGameWindow(gameWindow);
-
-        gameSession.registerSession(session);
 
     }
 

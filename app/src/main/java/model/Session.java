@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import views.GameWindow;
+import views.WindowBuilder;
+import views.WindowID;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -60,6 +62,13 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
 
         this.octopusEnemies.addAll(octopusArrayList);
         this.octopusEnemies.remove(this.octopus);
+
+        ContextNode context = new ContextNode();
+        context.session = this;
+
+        System.out.println("Staring windows");
+        WindowBuilder.buildWindowAndShow(context, WindowID.GAME);
+
      //   this.gameWindow = gameWindow;
 
     }

@@ -10,6 +10,9 @@ import views.WindowID;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomeController {
 
@@ -50,6 +53,13 @@ public class HomeController {
         user = context.user;
         arenaInformationObserver = arenaPreviewPane.arenaPreviewInformation;
         arenaInformationConsume = this::buttonUpdate;
+
+        List<Arena> collect = user.getArenas()
+                .stream()
+                .filter(a -> !a.isStarted())
+                .collect(Collectors.toList());
+        user.setArenas(new ArrayList<>(collect));
+
 
         if(user.getArenas().size() > 0) {
             setCurrentArena(user.getArenas().get(0));

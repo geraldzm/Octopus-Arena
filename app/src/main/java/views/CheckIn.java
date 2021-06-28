@@ -68,21 +68,21 @@ public class CheckIn extends AppWindow {
     private void initAndAddArenaPreview(){
         arenaPreviewInformation = new ArenaPreviewInformation();
         arenaPreviewInformation.setBackground(Color.WHITE);
-        arenaPreviewInformation.setBounds(30, 150, 200, 200);
+        arenaPreviewInformation.setBounds(15, 150, 300, 250);
         addComponent(arenaPreviewInformation, 0);
     }
 
     private void initAndAddReadyPlayers(){
         readyPlayers = new JList<>();
-        readyPlayers.setBounds(330, 150, 200, 200);
+        readyPlayers.setBounds(325, 150, 250, 250);
         addComponent(readyPlayers, 0);
     }
 
     private void initAndAddCheckinEnterButtons(){
         checkIn = new JButton("Check in");
-        checkIn.setBounds(100, 400, 100, 25);
+        checkIn.setBounds(100, 450, 100, 25);
         exit = new JButton("Exit");
-        exit.setBounds(300, 400, 100, 25);
+        exit.setBounds(300, 450, 100, 25);
         addComponent(checkIn, 0);
         addComponent(exit, 0);
     }

@@ -1,9 +1,10 @@
 package Controllers;
 
-import Logic.ArenaGenerator;
 import Logic.SystemFileManager;
 import lombok.Getter;
+import model.Arena;
 import model.ContextNode;
+import model.TimeZones;
 import model.User;
 import views.Login;
 import views.WindowBuilder;
@@ -11,6 +12,8 @@ import views.WindowID;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @Getter
 public class LoginController {
@@ -25,6 +28,10 @@ public class LoginController {
 
     }
 
+    //TEMP
+    public static int arenaNumber = 0;
+    public static ArrayList<Arena> allArenas = new ArrayList<>();
+
     public void onLoginButtonDo(ActionEvent event) {
 
         if(validateLoginButton()) {
@@ -33,7 +40,30 @@ public class LoginController {
             if(user != null) {
                 ContextNode contextNode = new ContextNode();
                 contextNode.user = user;
-                contextNode.arenaBuilder = new ArenaGenerator();
+
+                contextNode.arenaBuilder = u -> {
+
+                    Optional<Arena> any = allArenas.stream()
+                            .filter(a -> !a.isStarted())
+                            .filter(a -> !u.getArenas().contains(a))
+                            .findFirst();
+
+                    if(any.isPresent())
+                        return any.get();
+
+                    Arena arena = new Arena(arenaNumber++, 3);
+                    arena.setFee(0.1);
+                    arena.setMinimumBet(80.0);
+                    arena.setMaximumBet(150.0);
+                    arena.setTimeZone(TimeZones.EST);
+                    u.getArenas().add(arena);
+
+                    System.out.println("New arena");
+
+                    allArenas.add(arena);
+                    return arena;
+                };
+
                 WindowBuilder.buildWindowAndShow(contextNode, WindowID.HOME);
                 return;
             }

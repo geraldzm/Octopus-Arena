@@ -7,5 +7,6 @@ public class UserPlayer {
 
     User user;
     double toBet;
+    double health;
 
 }
