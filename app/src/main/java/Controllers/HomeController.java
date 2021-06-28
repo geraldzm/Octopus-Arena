@@ -54,11 +54,11 @@ public class HomeController {
         arenaInformationObserver = arenaPreviewPane.arenaPreviewInformation;
         arenaInformationConsume = this::buttonUpdate;
 
-        List<Arena> collect = user.getArenas()
-                .stream()
-                .filter(a -> !a.isStarted())
-                .collect(Collectors.toList());
-        user.setArenas(new ArrayList<>(collect));
+//        List<Arena> collect = user.getArenas()
+//                .stream()
+//                .filter(a -> !a.isStarted())
+//                .collect(Collectors.toList());
+//        user.setArenas(new ArrayList<>(collect));
 
 
         if(user.getArenas().size() > 0) {
@@ -138,6 +138,7 @@ public class HomeController {
         home.arenaPreviewPane.left.setVisible(true);
 
         int i = user.getArenas().indexOf(currentArena);
+        System.out.println("right " + user.getArenas().size());
 
         if(i != -1 && 1+i != user.getArenas().size() && currentArena != null)
             setCurrentArena(user.getArenas().get(i+1));

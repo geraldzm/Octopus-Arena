@@ -47,9 +47,10 @@ public class ArenaViewPanel extends JPanel {
 
     private void initArenaPreview() {
         arenaPreviewInformation = new ArenaPreviewInformation();
-        arenaPreviewInformation.setOpaque(true);
-        arenaPreviewInformation.setBackground(new Color(0,0,0,0));
-        arenaPreviewInformation.setBounds(250, 100, 300, 250);
+       // arenaPreviewInformation.setOpaque(true);
+       // arenaPreviewInformation.setBackground(new Color(0,0,0,0));
+        arenaPreviewInformation.setBackground(new Color(255, 225, 148,200));
+        arenaPreviewInformation.setBounds(280, 100, 270, 250);
         add(arenaPreviewInformation);
     }
 
