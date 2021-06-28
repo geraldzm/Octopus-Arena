@@ -59,22 +59,10 @@ public class ArenaGenerator implements ArenaBuilder {
         return arena;
     }
 
-        /*
-        crear componentes e insert al table (10% y agrupamiento)
-
-
-        get arenaTableComponent
-        crear arena con
-
-     */
-
-    private ArenaTableComponent generateUserComponent(User user) {
-        return new ArenaTableComponent(user.getPreferredBetAmount(), user.getAmountOctopi(), user.getExperience(), user.getTimeZone());
-    }
-
-    private ArenaTableComponent probabilisticNextArenaConfig(ArenaTableComponent userComponent){
+    private ArenaTableComponent probabilisticNextArenaConfig(ArenaTableComponent userComponent) {
         ArrayList<Double> distribution = new ArrayList<>();
         double total = generateDistribution(userComponent, distribution);
+
         double rand = Utility.random(0, total);
 
         for (int i = 0; i < ArenaTable.getInstance().getTableComponents().size(); i++) {
@@ -87,18 +75,22 @@ public class ArenaGenerator implements ArenaBuilder {
 
     private double generateDistribution(ArenaTableComponent userComponent, ArrayList<Double> distribution) {
         double total = 0;
-        for (int i = 0; i < ArenaTable.getInstance().getTableComponents().size() ; i++) {
-            double cosineVal = calculateCosineSimilarity(userComponent, ArenaTable.getInstance().getTableComponents().get(i));
-            total += cosineVal;
+
+        userComponent.getValues();
+
+        ClusterPoint userPoint = new ClusterPoint(userComponent.getValues());
+
+        for (ArenaTableComponent a: ArenaTable.getInstance().getTableComponents()) {
+
+            double cosineVal = userPoint.calculateSimilarity(new ClusterPoint(a.getValues()));
             distribution.add(cosineVal);
+            total += cosineVal;
         }
         return total;
     }
 
-    private double calculateCosineSimilarity(ArenaTableComponent userComponent, ArenaTableComponent tableComponent) {
-        double quotient = userComponent.calculateQuotient(tableComponent);
-        double rs = quotient / (userComponent.getNorm() * tableComponent.getNorm());
-        return Math.cos(rs);
+    private ArenaTableComponent generateUserComponent(User user) {
+        return new ArenaTableComponent(user.getAmountOctopi(), user.getPreferredBetAmount(), user.getExperience(), user.getTimeZone());
     }
 
 }
