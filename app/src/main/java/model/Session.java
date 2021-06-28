@@ -9,17 +9,20 @@ import game.model.BorderHandler;
 import game.model.PVector;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import views.GameWindow;
 import views.WindowBuilder;
 import views.WindowID;
 
 import java.awt.*;
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Session extends Observable<Observer<Session>> implements Updatable {
 
     private GameWindow gameWindow;
@@ -28,8 +31,13 @@ public class Session extends Observable<Observer<Session>> implements Updatable 
     private Integer health;
     private Octopus octopus;
     private ArrayList<Octopus> octopusEnemies;
+    private PublicKey publicKey;
 
     public Session(User user, Double toBet, Integer health) {
+        initSession(user, toBet, health);
+    }
+
+    public void initSession(User user, Double toBet, Integer health) {
         this.user = user;
         this.toBet = toBet;
         this.health = health;

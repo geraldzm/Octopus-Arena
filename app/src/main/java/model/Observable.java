@@ -22,7 +22,7 @@ public class Observable <T> {
 
     public synchronized void notifyAll(Consumer<T> consumer) {
         observers.stream()
-                .parallel()
+               // .parallel()
                 .forEach(consumer);
     }
 
