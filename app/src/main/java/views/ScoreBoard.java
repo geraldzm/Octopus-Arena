@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.ScoreBoardController;
 import model.ContextNode;
 
 import javax.swing.*;
@@ -20,6 +21,8 @@ public class ScoreBoard extends AppWindow {
         initAndAddPositionRank();
         initAndAddOkButton();
         setBackgroundColor(new Color(52,58,64));
+
+        new ScoreBoardController(this);
     }
 
     private void initAndAddPositionRank(){

@@ -2,6 +2,8 @@ package model;
 
 import Logic.GameSession;
 
+import java.util.ArrayList;
+
 public class ContextNode {
 
     public User user;
@@ -14,5 +16,7 @@ public class ContextNode {
     public Integer arenaIndex;
 
     public ArenaBuilder arenaBuilder;
+
+    public ArrayList<UserPlayer> scoreUsers; // in order
 
 }

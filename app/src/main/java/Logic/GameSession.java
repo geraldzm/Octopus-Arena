@@ -2,11 +2,17 @@ package Logic;
 
 import game.Game;
 import game.Octopus;
+import model.ContextNode;
 import model.Session;
+import model.User;
+import model.UserPlayer;
+import views.WindowBuilder;
+import views.WindowID;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static Util.Utility.random;
@@ -77,24 +83,24 @@ public class GameSession {
 
     public void onGameFinished() {
 
-        System.out.println("game finished");
-
         game.stop();
 
-        System.out.println("Dead order: ");
+        //
+        List<UserPlayer> userPlayers = allSessions.stream()
+                .map(s -> new UserPlayer(s.getUser(), s.getToBet(), 0))
+                .collect(Collectors.toList());
 
-        allSessions.forEach(s -> {
-            System.out.println(s.getOctopus().getRankingPosition() + " " + s.getUser().getNickname());
-        });
+        for (int i = 0; i < allSessions.size(); i++) {
+            Session s = allSessions.get(i);
+            s.cleanObservers();
 
+            ContextNode node = new ContextNode();
+            node.user = s.getUser();
+            node.scoreUsers = new ArrayList<>(userPlayers);
 
-        // EL game me da el orden en el que murieron los pulpos
-        // ordeno sesiones por el orden en que murieron los pulpos
-        // para cada secion en allsesions creo una ventana con los rankings
-        // creo un objeto que reparta la plata y le paso las sesiones ne ese orden
-        // el va a repartir la plata
-        // la lista que le paso al ranking es una copia de allSession
-        // cierro todas las vetnanas de todas las sessiones
+            s.getGameWindow().dispose();
+            WindowBuilder.buildWindowAndShow(node, WindowID.SCORE_BOARD);
+        }
 
     }
 
